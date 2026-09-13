@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   Check,
   ChevronDown,
-  Circle,
   CreditCard,
   Gift,
   IndianRupee,
