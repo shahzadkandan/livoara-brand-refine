@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import heroAsset from "@/assets/livoara-hero.png.asset.json";
+import pinkVanity from "@/assets/reference/livoara-product-pink-stacked.jpg";
+import whiteVanity from "@/assets/reference/livoara-product-white-sunlight.jpg";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/site-shell";
 
@@ -36,12 +38,57 @@ const benefits = [
   "Compact format designed to travel beautifully",
 ];
 
+const galleryImages = [
+  {
+    src: heroAsset.url,
+    alt: "LIVOARA Travel Vanity displayed beside beauty essentials",
+    className: "scale-[1.6] object-[68%_52%]",
+    thumbnailClassName: "scale-[2.2] object-[68%_52%]",
+  },
+  {
+    src: pinkVanity,
+    alt: "Pink LIVOARA Travel Vanity open with illuminated mirror and organized compartments",
+    className: "object-center",
+    thumbnailClassName: "object-center",
+  },
+  {
+    src: whiteVanity,
+    alt: "White LIVOARA Travel Vanity open in natural sunlight",
+    className: "object-center",
+    thumbnailClassName: "object-center",
+  },
+] as const;
+
+const sampleReviews = [
+  {
+    name: "Priya S.",
+    city: "Delhi",
+    rating: 5,
+    title: "Travel ke liye bahut convenient",
+    copy: "Mirror ki light kaafi useful hai aur makeup ka samaan ek hi jagah neatly organise ho jata hai. Weekend trips par carry karna bhi easy laga.",
+  },
+  {
+    name: "Neha R.",
+    city: "Mumbai",
+    rating: 5,
+    title: "Worth it for daily use",
+    copy: "Vanity looks elegant on my dresser and the compartments make my morning routine much easier. The illuminated mirror is my favourite part.",
+  },
+  {
+    name: "Ayesha K.",
+    city: "Lucknow",
+    rating: 4,
+    title: "Gift ke liye lovely choice",
+    copy: "Maine ise gifting ke liye choose kiya. Design premium lagta hai aur andar essentials rakhne ke liye achhi space hai.",
+  },
+] as const;
+
 function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
   const [showSticky, setShowSticky] = useState(false);
   const { add } = useCart();
-  const crops = ["object-[68%_52%]", "object-[85%_54%]", "object-[54%_52%]"];
+  const selectedImage = galleryImages[selected] ?? galleryImages[0];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,22 +110,22 @@ function ProductPage() {
         <div className="lg:sticky lg:top-24">
           <div className="aspect-square overflow-hidden bg-secondary">
             <img
-              src={heroAsset.url}
-              alt="LIVOARA Travel Vanity with illuminated mirror and organized case"
-              className={`h-full w-full scale-[1.6] object-cover transition-opacity duration-300 ${crops[selected]}`}
+              src={selectedImage.src}
+              alt={selectedImage.alt}
+              className={`h-full w-full object-cover transition-opacity duration-300 ${selectedImage.className}`}
             />
           </div>
           <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
-            {crops.map((crop, index) => (
+            {galleryImages.map((image, index) => (
               <Button
                 variant="ghost"
-                key={crop}
+                key={image.src}
                 onClick={() => setSelected(index)}
                 className={`aspect-[4/3] h-auto overflow-hidden border bg-secondary p-0 ${selected === index ? "border-foreground" : "border-border"}`}
                 aria-label={`View product image ${index + 1}`}
                 aria-pressed={selected === index}
               >
-                <img src={heroAsset.url} alt="" className={`h-full w-full scale-[2.5] object-cover ${crop}`} />
+                <img src={image.src} alt="" className={`h-full w-full object-cover ${image.thumbnailClassName}`} />
               </Button>
             ))}
           </div>
@@ -164,6 +211,35 @@ function ProductPage() {
           <InfoRow title="How does the light operate?"><p>[Add verified operating instructions.]</p></InfoRow>
           <InfoRow title="What fits inside?"><p>[Add verified capacity details.]</p></InfoRow>
           <InfoRow title="Customer Reviews"><p>Verified customer reviews will appear here once available.</p></InfoRow>
+        </div>
+      </section>
+
+      <section className="bg-primary text-primary-foreground">
+        <div className="mx-auto max-w-[1450px] px-6 py-16 sm:px-10 sm:py-20 lg:px-12">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-primary-foreground/65">Customer stories</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by customers across India</h2>
+            <p className="mt-4 text-sm leading-6 text-primary-foreground/70">Sample reviews for layout preview. Replace with verified customer feedback before publishing.</p>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {sampleReviews.map((review) => (
+              <article key={review.name} className="flex min-h-80 flex-col bg-background p-6 text-foreground sm:p-7">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-lg text-accent" aria-label={`${review.rating} out of 5 stars`}>{"★".repeat(review.rating)}<span className="text-border">{"★".repeat(5 - review.rating)}</span></span>
+                  <span className="text-4xl font-display text-muted-foreground" aria-hidden="true">“</span>
+                </div>
+                <h3 className="mt-5 font-display text-2xl leading-tight">{review.title}</h3>
+                <p className="mt-4 flex-1 text-sm leading-7 text-muted-foreground">{review.copy}</p>
+                <footer className="mt-6 border-t border-border pt-4">
+                  <p className="font-medium">{review.name}</p>
+                  <div className="mt-1 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                    <span>{review.city}, India</span>
+                    <span>Sample review</span>
+                  </div>
+                </footer>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
