@@ -2,7 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   Check,
   ChevronDown,
+  CreditCard,
   Gift,
+  IndianRupee,
   LockKeyhole,
   Minus,
   PackageCheck,
@@ -62,9 +64,11 @@ const featuredComments = [
 function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
+  const [selectedOffer, setSelectedOffer] = useState<"regular" | "launch">("launch");
   const [showSticky, setShowSticky] = useState(false);
   const { add } = useCart();
   const selectedImage = galleryImages[selected] ?? galleryImages[0];
+  const selectedPrice = selectedOffer === "launch" ? "₹2,999" : "₹4,999";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,14 +117,47 @@ function ProductPage() {
             <QuickFact icon={<Truck />} label="Travel-ready" />
           </div>
 
-          <div className="mt-6 border border-border bg-muted/40 p-5 sm:p-6">
-            <p className="text-sm text-muted-foreground line-through">MRP: ₹4,999</p>
-            <div className="mt-1 flex flex-wrap items-end gap-x-4 gap-y-1">
-              <strong className="font-display text-4xl font-medium sm:text-5xl">₹2,999</strong>
-              <span className="pb-1 text-sm font-semibold uppercase tracking-[0.12em] text-accent">40% off</span>
+          <div className="mt-6">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <p className="text-[11px] font-medium uppercase tracking-[0.16em]">Choose your offer</p>
+              <span className="bg-secondary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">Limited launch offer</span>
             </div>
-            <p className="mt-2 flex items-center gap-2 text-sm font-medium"><span className="size-2 bg-accent" aria-hidden="true" />You save ₹2,000 · Inclusive of all taxes</p>
-            <p className="mt-3 text-xs leading-5 text-muted-foreground">Suggested India launch pricing—update before publishing if your final price differs.</p>
+            <div className="grid gap-3" role="group" aria-label="Choose product offer">
+              <Button
+                type="button"
+                variant="ghost"
+                aria-pressed={selectedOffer === "regular"}
+                onClick={() => setSelectedOffer("regular")}
+                className={`h-auto min-h-20 w-full justify-between border px-4 py-4 text-left sm:px-5 ${selectedOffer === "regular" ? "border-accent bg-secondary/70 ring-1 ring-accent" : "border-border bg-background hover:bg-muted/45"}`}
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${selectedOffer === "regular" ? "border-accent" : "border-border"}`} aria-hidden="true">
+                    {selectedOffer === "regular" && <span className="size-2.5 rounded-full bg-accent" />}
+                  </span>
+                  <span><strong className="block text-base">Buy 1</strong><span className="mt-1 block text-xs font-normal text-muted-foreground">Regular price</span></span>
+                </span>
+                <strong className="shrink-0 font-display text-2xl">₹4,999</strong>
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                aria-pressed={selectedOffer === "launch"}
+                onClick={() => setSelectedOffer("launch")}
+                className={`relative h-auto min-h-24 w-full justify-between overflow-visible border px-4 py-4 text-left sm:px-5 ${selectedOffer === "launch" ? "border-accent bg-secondary/70 ring-1 ring-accent" : "border-border bg-background hover:bg-muted/45"}`}
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${selectedOffer === "launch" ? "border-accent" : "border-border"}`} aria-hidden="true">
+                    {selectedOffer === "launch" && <span className="size-2.5 rounded-full bg-accent" />}
+                  </span>
+                  <span><span className="flex flex-wrap items-center gap-2"><strong className="text-base">Buy 1</strong><span className="bg-accent px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-accent-foreground">Save 40%</span></span><span className="mt-1 block text-xs font-normal text-muted-foreground">Launch price · Free shipping</span></span>
+                </span>
+                <span className="shrink-0 text-right"><strong className="block font-display text-2xl">₹2,999</strong><span className="text-xs font-normal text-muted-foreground line-through">₹4,999</span></span>
+              </Button>
+            </div>
+            <div className="mt-3 flex items-center gap-2 bg-muted/45 px-4 py-3 text-xs">
+              <IndianRupee className="size-4 shrink-0 text-accent" />
+              <span><strong>You save ₹2,000</strong> on the launch offer · Inclusive of all taxes</span>
+            </div>
           </div>
 
           <ul className="mt-6 grid gap-3">
@@ -135,13 +172,30 @@ function ProductPage() {
               <Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus className="size-4" /></Button>
             </div>
           </div>
-          <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(quantity)}>Add to Cart · ₹2,999</Button>
+          <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(quantity)}>Add to Cart · {selectedPrice}</Button>
           <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(quantity)}>Buy Now</Button>
 
-          <div className="mt-5 grid grid-cols-3 border-y border-border py-4 text-center text-[11px] leading-4">
+          <div className="relative mt-6 grid grid-cols-3 border-y border-border py-5 text-center text-[11px] leading-4">
+            <span className="absolute left-[16.67%] right-[16.67%] top-9 h-px bg-border" aria-hidden="true" />
             <Status icon={<PackageCheck />} label="Order placed" value="Today" />
-            <Status icon={<Truck />} label="Dispatched" value="[Timing]" />
-            <Status icon={<Gift />} label="Delivered" value="[Timing]" />
+            <Status icon={<Truck />} label="Dispatched" value="Date at checkout" />
+            <Status icon={<Gift />} label="Delivered" value="Date at checkout" />
+          </div>
+
+          <div className="mt-4 border border-border bg-muted/35 p-4 sm:p-5">
+            <div className="flex items-start gap-3">
+              <span className="grid size-9 shrink-0 place-items-center bg-secondary text-accent"><CreditCard className="size-4" /></span>
+              <div>
+                <h2 className="font-medium">Pay securely your way</h2>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">Popular payment options for customers across India.</p>
+              </div>
+            </div>
+            <div className="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-8" aria-label="Accepted payment methods">
+              {['UPI', 'RuPay', 'Visa', 'Mastercard', 'G Pay', 'PhonePe', 'Paytm', 'COD'].map((method) => (
+                <span key={method} className="grid min-h-10 place-items-center border border-border bg-background px-2 text-center text-[10px] font-semibold">{method}</span>
+              ))}
+            </div>
+            <p className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground"><LockKeyhole className="size-3.5 text-accent" />Secure payment · Availability confirmed at checkout</p>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-px border border-border bg-border text-xs">
             <Trust icon={<ShieldCheck />} text="[Verified guarantee]" />
@@ -256,7 +310,7 @@ function ProductPage() {
       </section>
 
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(quantity)}>Add to Cart · ₹2,999</Button>
+        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(quantity)}>Add to Cart · {selectedPrice}</Button>
       </div>
     </div>
   );
@@ -270,7 +324,7 @@ function Spec({ term, value }: { term: string; value: string }) { return <div><d
 
 function QuickFact({ icon, label }: { icon: ReactNode; label: string }) { return <div className="px-2"><span className="mx-auto mb-2 grid size-8 place-items-center text-accent [&>svg]:size-4">{icon}</span><span>{label}</span></div>; }
 
-function Status({ icon, label, value }: { icon: ReactNode; label: string; value: string }) { return <div className="px-2"><span className="mx-auto grid size-8 place-items-center border border-border text-accent [&>svg]:size-4">{icon}</span><strong className="mt-2 block font-medium">{value}</strong><span className="text-muted-foreground">{label}</span></div>; }
+function Status({ icon, label, value }: { icon: ReactNode; label: string; value: string }) { return <div className="relative z-10 px-1"><span className="mx-auto grid size-8 place-items-center rounded-full border border-accent bg-background text-accent [&>svg]:size-4">{icon}</span><strong className="mt-2 block font-medium">{value}</strong><span className="mt-1 block text-muted-foreground">{label}</span></div>; }
 
 function Trust({ icon, text }: { icon: ReactNode; text: string }) { return <div className="flex min-h-12 items-center gap-2 bg-muted/55 px-3"><span className="text-accent [&>svg]:size-4">{icon}</span><span>{text}</span></div>; }
 
