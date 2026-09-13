@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Check, Gift, Lightbulb, PackageCheck, Plane, Sparkles } from "lucide-react";
+import type { ReactNode } from "react";
 import heroAsset from "@/assets/livoara-hero.png.asset.json";
 import { Button } from "@/components/ui/button";
 
@@ -52,9 +53,9 @@ function ProductCrop({ positionClass, label }: { positionClass: string; label: s
   return <div className="min-h-[440px] overflow-hidden bg-secondary"><img src={heroAsset.url} alt={label} className={`h-full min-h-[440px] w-full scale-[1.55] object-cover ${positionClass}`} loading="lazy" /></div>;
 }
 
-function Promise({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) { return <div className="flex items-start gap-4 bg-muted px-7 py-8">{<span className="mt-0.5 text-accent [&>svg]:size-5 [&>svg]:stroke-[1.4]">{icon}</span>}<div><h3 className="font-display text-xl">{title}</h3><p className="mt-1 text-sm text-muted-foreground">{text}</p></div></div>; }
+function Promise({ icon, title, text }: { icon: ReactNode; title: string; text: string }) { return <div className="flex items-start gap-4 bg-muted px-7 py-8"><span className="mt-0.5 text-accent [&>svg]:size-5 [&>svg]:stroke-[1.4]">{icon}</span><div><h3 className="font-display text-xl">{title}</h3><p className="mt-1 text-sm text-muted-foreground">{text}</p></div></div>; }
 function Feature({ crop, title, text }: { crop: string; title: string; text: string }) { return <article><div className="aspect-[4/3] overflow-hidden bg-secondary"><img src={heroAsset.url} alt={title} className={`h-full w-full scale-[1.65] object-cover ${crop}`} loading="lazy" /></div><h3 className="mt-5 font-display text-2xl">{title}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{text}</p></article>; }
-function Moment({ crop, title, icon }: { crop: string; title: string; icon: React.ReactNode }) { return <article><div className="aspect-[4/3] overflow-hidden bg-muted"><img src={heroAsset.url} alt={`LIVOARA vanity for ${title.toLowerCase()}`} className={`h-full w-full scale-[1.8] object-cover ${crop}`} loading="lazy" /></div><div className="mt-5 flex items-center gap-3 text-accent [&>svg]:size-4"><span>{icon}</span><h3 className="font-display text-2xl text-foreground">{title}</h3></div></article>; }
+function Moment({ crop, title, icon }: { crop: string; title: string; icon: ReactNode }) { return <article><div className="aspect-[4/3] overflow-hidden bg-muted"><img src={heroAsset.url} alt={`LIVOARA vanity for ${title.toLowerCase()}`} className={`h-full w-full scale-[1.8] object-cover ${crop}`} loading="lazy" /></div><div className="mt-5 flex items-center gap-3 text-accent [&>svg]:size-4"><span>{icon}</span><h3 className="font-display text-2xl text-foreground">{title}</h3></div></article>; }
 function Faq({ question, answer }: { question: string; answer: string }) { return <details className="group border-b border-border py-5"><summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-medium"><span>{question}</span><span className="text-xl text-accent transition-transform group-open:rotate-45">+</span></summary><p className="pt-4 text-sm leading-7 text-muted-foreground">{answer}</p></details>; }
 
 function Testimonial({ quote, name }: { quote: string; name: string }) { return <blockquote className="bg-background p-8 sm:p-10"><div className="text-accent" aria-label="Rating placeholder">☆ ☆ ☆ ☆ ☆</div><p className="mt-7 font-display text-2xl leading-relaxed">“{quote}”</p><footer className="mt-7 text-xs uppercase tracking-[0.16em] text-muted-foreground">{name} · Verified review placeholder</footer></blockquote>; }
