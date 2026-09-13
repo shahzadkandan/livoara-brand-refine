@@ -20,7 +20,7 @@
 
 @theme inline {
   --font-sans: "DM Sans", sans-serif;
-  --font-display: "Italiana", serif;
+  --font-display: "Playfair Display", Georgia, ui-serif, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
