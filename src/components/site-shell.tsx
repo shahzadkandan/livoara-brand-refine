@@ -14,6 +14,13 @@ const mainLinks = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const announcements = [
+  "30-day easy returns",
+  "Organise · Simplify · Elevate",
+  "Free shipping on prepaid orders",
+  "30-day easy returns",
+] as const;
+
 export function SiteShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -28,8 +35,18 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <CartContext.Provider value={{ quantity, add, open: () => setCartOpen(true) }}>
       <div className="min-h-screen bg-background text-foreground">
-        <div className="bg-primary px-4 py-2 text-center text-[11px] uppercase tracking-[0.18em] text-primary-foreground">
-          Designed for moments near and far
+        <div className="announcement-bar overflow-hidden bg-primary py-2 text-[11px] uppercase tracking-[0.18em] text-primary-foreground" aria-label="Store announcements">
+          <div className="announcement-track flex w-max items-center">
+            {[false, true].map((duplicate) => (
+              <div key={String(duplicate)} className="flex shrink-0 items-center" aria-hidden={duplicate || undefined}>
+                {announcements.map((message, index) => (
+                  <span key={`${message}-${index}`} className="flex items-center whitespace-nowrap px-8 sm:px-12">
+                    {message}<span className="ml-12 text-accent" aria-hidden="true">★</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
         <header className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur">
           <div className="mx-auto grid h-18 max-w-[1450px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 sm:px-7 lg:px-12">

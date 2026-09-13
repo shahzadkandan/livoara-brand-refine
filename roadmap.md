@@ -8,3 +8,4 @@
 - [x] Refine homepage sections and make the product page more prominent from references
 - [x] Match the live reference homepage structure beneath the supplied hero
 - [x] Refresh the product page using the Celoriva reference structure while preserving LIVOARA identity
+- [x] Apply supplied brand copy to content pages and add a continuous announcement strip
