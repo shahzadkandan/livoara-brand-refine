@@ -88,7 +88,7 @@ function ProductPage() {
   const [selected, setSelected] = useState(0);
   const [showSticky, setShowSticky] = useState(false);
   const { add } = useCart();
-  const selectedImage = galleryImages[selected];
+  const selectedImage = galleryImages[selected] ?? galleryImages[0];
 
   useEffect(() => {
     const handleScroll = () => {
