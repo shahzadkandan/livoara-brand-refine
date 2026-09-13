@@ -52,7 +52,15 @@ function HomePage() {
 
     <section className="border-y border-border px-6 py-24 sm:px-10 lg:py-28"><div className="mx-auto max-w-2xl"><h2 className="text-center font-display text-4xl sm:text-5xl">Questions, answered.</h2><div className="mt-12"><Faq question="What can I store in the LED makeup box?" answer="It is designed for everyday makeup, brushes, skincare, jewellery and other beauty essentials." open /><Faq question="Does the LED mirror need to be plugged in?" answer="[Add verified operating instructions.]" /><Faq question="How long does delivery take?" answer="[Add verified delivery details.]" /><Faq question="What if I’m not satisfied?" answer="[Add verified returns policy.]" /></div></div></section>
 
-    <section className="bg-primary px-6 py-24 text-primary-foreground sm:px-10 lg:py-28"><div className="mx-auto max-w-[1120px]"><h2 className="max-w-xl font-display text-4xl sm:text-5xl">Give your beauty routine<br />the light it deserves.</h2><Button asChild variant="soft" className="mt-8"><Link to="/product">Shop Now</Link></Button><div className="mt-16 grid gap-5 text-xs text-primary-foreground/70 sm:grid-cols-4"><span>✓ &nbsp; Secure Checkout</span><span>✓ &nbsp; Easy 30-Day Returns</span><span>✓ &nbsp; COD Available</span><span>✓ &nbsp; Beauty, simplified</span></div></div></section>
+    <section className="relative overflow-hidden bg-primary px-6 py-24 text-primary-foreground sm:px-10 lg:py-28">
+      <img src={whiteSunlight} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25" aria-hidden="true" />
+      <div className="absolute inset-0 bg-primary/85" aria-hidden="true" />
+      <div className="relative z-10 mx-auto max-w-[1120px]">
+        <h2 className="max-w-xl font-display text-4xl sm:text-5xl">Give your beauty routine<br />the light it deserves.</h2>
+        <Button asChild variant="soft" className="mt-8"><Link to="/product">Shop Now</Link></Button>
+        <div className="mt-16 grid gap-5 text-xs text-primary-foreground/70 sm:grid-cols-4"><span>✓ &nbsp; Secure Checkout</span><span>✓ &nbsp; Easy 30-Day Returns</span><span>✓ &nbsp; COD Available</span><span>✓ &nbsp; Beauty, simplified</span></div>
+      </div>
+    </section>
 
     <section className="px-6 py-16 text-center sm:px-10"><p className="text-[10px] uppercase tracking-[0.22em] text-accent">Apps &amp; embeds</p><div className="mx-auto mt-5 max-w-3xl border border-dashed border-border px-6 py-8 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Apps / embed section — add custom HTML, reviews, upsells or widgets here</div></section>
   </div>;
