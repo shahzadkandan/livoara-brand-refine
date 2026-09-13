@@ -8,7 +8,7 @@ const CartContext = createContext<CartContextValue>({ quantity: 0, add: () => un
 export const useCart = () => useContext(CartContext);
 
 const mainLinks = [
-  { to: "/product", label: "The Vanity" },
+  { to: "/product", label: "Shop" },
   { to: "/about", label: "Our Story" },
   { to: "/shipping-returns", label: "Shipping & Returns" },
   { to: "/contact", label: "Contact" },
@@ -98,7 +98,7 @@ function Footer() {
     <footer className="border-t border-border bg-primary text-primary-foreground">
       <div className="mx-auto grid max-w-[1450px] gap-12 px-6 py-16 md:grid-cols-[1.4fr_1fr_1fr] lg:px-12">
         <div><Link to="/" className="font-display text-3xl tracking-[0.2em]">LIVOARA</Link><p className="mt-5 max-w-sm text-sm leading-7 text-primary-foreground/70">A thoughtful vanity made to hold the little things that make every moment yours.</p></div>
-        <div><h2 className="text-xs uppercase tracking-[0.18em]">Explore</h2><div className="mt-5 flex flex-col gap-3 text-sm text-primary-foreground/70"><Link to="/product">The Vanity</Link><Link to="/about">Our Story</Link><Link to="/contact">Contact Us</Link></div></div>
+        <div><h2 className="text-xs uppercase tracking-[0.18em]">Explore</h2><div className="mt-5 flex flex-col gap-3 text-sm text-primary-foreground/70"><Link to="/product">Shop the Vanity</Link><Link to="/about">Our Story</Link><Link to="/contact">Contact Us</Link></div></div>
         <div><h2 className="text-xs uppercase tracking-[0.18em]">Information</h2><div className="mt-5 flex flex-col gap-3 text-sm text-primary-foreground/70"><Link to="/shipping-returns">Shipping & Returns</Link><Link to="/privacy">Privacy Policy</Link><Link to="/terms">Terms & Conditions</Link></div></div>
       </div>
       <div className="border-t border-primary-foreground/15 px-6 py-5 text-center text-[11px] uppercase tracking-[0.16em] text-primary-foreground/55">© 2026 LIVOARA · All rights reserved</div>

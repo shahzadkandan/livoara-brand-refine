@@ -5,3 +5,4 @@
 - [x] Build single-product page and cart interaction
 - [x] Build About, Contact, Privacy, Terms, and Shipping pages
 - [x] Add route-specific metadata and verify desktop/mobile
+- [x] Refine homepage sections and make the product page more prominent from references
