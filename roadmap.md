@@ -9,6 +9,7 @@
 - [x] Match the live reference homepage structure beneath the supplied hero
 - [x] Refresh the product page using the Celoriva reference structure while preserving LIVOARA identity
 - [x] Apply supplied brand copy to content pages and add a continuous announcement strip
+- [x] Refine the product purchase panel with offer choices, delivery timeline, and India payment methods
 - [x] Add distinct product gallery photos and India-focused bilingual sample reviews
 - [x] Upgrade the product page with premium pricing, customer media, proof, comparison, and review sections
 - [x] Add the supplied vanity image, India pricing, and replace video previews with customer comments
