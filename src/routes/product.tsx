@@ -274,4 +274,7 @@ function Proof({ number, title, children }: { number: string; title: string; chi
 
 function CompareRow({ feature, livoara, other }: { feature: string; livoara: string; other: string }) { return <tr><th scope="row" className="p-5 text-left font-medium">{feature}</th><td className="bg-secondary/60 p-5 text-center"><Check className="mx-auto mb-2 size-4 text-accent" />{livoara}</td><td className="p-5 text-center text-muted-foreground">{other}</td></tr>; }
 
-function RatingBar({ rating }: { rating: number }) { return <div className="grid grid-cols-[2rem_1fr_2.5rem] items-center gap-3 text-xs"><span>{rating}★</span><span className="h-1.5 bg-border"><span className="block h-full bg-accent" style={{ width: rating === 5 ? "72%" : rating === 4 ? "20%" : rating === 3 ? "6%" : "1%" }} /></span><span className="text-right text-muted-foreground">[—]</span></div>; }
+function RatingBar({ rating }: { rating: number }) {
+  const widthClass = rating === 5 ? "w-[72%]" : rating === 4 ? "w-1/5" : rating === 3 ? "w-[6%]" : "w-[1%]";
+  return <div className="grid grid-cols-[2rem_1fr_2.5rem] items-center gap-3 text-xs"><span>{rating}★</span><span className="h-1.5 bg-border"><span className={`block h-full bg-accent ${widthClass}`} /></span><span className="text-right text-muted-foreground">[—]</span></div>;
+}
