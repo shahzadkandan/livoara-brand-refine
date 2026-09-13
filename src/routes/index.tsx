@@ -18,6 +18,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return <div className="page-reveal overflow-hidden">
     <section aria-label="Made for every moment" className="relative bg-secondary">
+      <h1 className="sr-only">LIVOARA — Made for every moment.</h1>
       <Link to="/product" className="block" aria-label="Shop the LIVOARA Travel Vanity">
         <picture><img src={heroAsset.url} alt="LIVOARA illuminated travel vanity with mirror, beauty products and jewellery" className="h-[66vh] min-h-[430px] w-full object-cover object-[66%_center] sm:h-auto sm:min-h-0" /></picture>
       </Link>
