@@ -6,7 +6,6 @@ import {
   LockKeyhole,
   Minus,
   PackageCheck,
-  Play,
   Plus,
   ShieldCheck,
   Sparkles,
@@ -15,6 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import heroAsset from "@/assets/livoara-hero.png.asset.json";
+import referenceVanity from "@/assets/reference/livoara-reference-vanity.jpg.asset.json";
 import pinkVanity from "@/assets/reference/livoara-product-pink-stacked.jpg";
 import whiteVanity from "@/assets/reference/livoara-product-white-sunlight.jpg";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,7 @@ export const Route = createFileRoute("/product")({
 });
 
 const galleryImages = [
+  { src: referenceVanity.url, alt: "Pink illuminated travel vanity open with makeup essentials", className: "object-center", thumb: "object-center" },
   { src: heroAsset.url, alt: "LIVOARA Travel Vanity displayed beside beauty essentials", className: "scale-[1.6] object-[68%_52%]", thumb: "scale-[2.2] object-[68%_52%]" },
   { src: pinkVanity, alt: "Pink LIVOARA Travel Vanity open with illuminated mirror and organized compartments", className: "object-center", thumb: "object-center" },
   { src: whiteVanity, alt: "White LIVOARA Travel Vanity open in natural sunlight", className: "object-center", thumb: "object-center" },
@@ -52,10 +53,10 @@ const sampleReviews = [
   { name: "Ayesha K.", city: "Lucknow", rating: 4, title: "Gift ke liye lovely choice", copy: "Maine ise gifting ke liye choose kiya. Design premium lagta hai aur andar essentials rakhne ke liye achhi space hai." },
 ] as const;
 
-const mediaCards = [
-  { src: pinkVanity, title: "Unboxing & first look", caption: "Customer video placeholder" },
-  { src: whiteVanity, title: "Getting ready in natural light", caption: "Routine video placeholder" },
-  { src: heroAsset.url, title: "Packed for the journey", caption: "Travel video placeholder" },
+const featuredComments = [
+  { initials: "RM", name: "Riya M.", city: "Pune", title: "Dressing table ab organised rehti hai", copy: "Vanity ka size daily makeup ke liye kaafi practical laga. Mirror light se ready hona easy ho jata hai aur pink finish bahut elegant dikhti hai." },
+  { initials: "AS", name: "Ananya S.", city: "Bengaluru", title: "Compact and genuinely useful", copy: "Weekend travel mein products alag pouch mein rakhne ki zarurat nahi padi. Compartments neat hain aur vanity carry karna convenient laga." },
+  { initials: "NK", name: "Nisha K.", city: "Jaipur", title: "Gift karke bahut achha response mila", copy: "Packaging aur product dono premium feel dete hain. Light wala mirror sabse zyada pasand aaya—daily routine ke liye lovely choice hai." },
 ] as const;
 
 function ProductPage() {
@@ -87,7 +88,7 @@ function ProductPage() {
             <img src={selectedImage.src} alt={selectedImage.alt} className={`h-full w-full object-cover transition-opacity duration-300 ${selectedImage.className}`} />
             <span className="absolute left-4 top-4 bg-background/90 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.16em] backdrop-blur">Gallery {selected + 1} / {galleryImages.length}</span>
           </div>
-          <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">
             {galleryImages.map((image, index) => (
               <Button variant="ghost" key={image.src} onClick={() => setSelected(index)} className={`aspect-[4/3] h-auto overflow-hidden border bg-secondary p-0 ${selected === index ? "border-accent ring-1 ring-accent" : "border-border opacity-70 hover:opacity-100"}`} aria-label={`View product image ${index + 1}`} aria-pressed={selected === index}>
                 <img src={image.src} alt="" className={`h-full w-full object-cover ${image.thumb}`} />
@@ -113,13 +114,13 @@ function ProductPage() {
           </div>
 
           <div className="mt-6 border border-border bg-muted/40 p-5 sm:p-6">
-            <p className="text-sm text-muted-foreground line-through">MRP: [Original price]</p>
+            <p className="text-sm text-muted-foreground line-through">MRP: ₹4,999</p>
             <div className="mt-1 flex flex-wrap items-end gap-x-4 gap-y-1">
-              <strong className="font-display text-4xl font-medium sm:text-5xl">[Selling price]</strong>
-              <span className="pb-1 text-sm font-semibold uppercase tracking-[0.12em] text-accent">[Discount %]</span>
+              <strong className="font-display text-4xl font-medium sm:text-5xl">₹2,999</strong>
+              <span className="pb-1 text-sm font-semibold uppercase tracking-[0.12em] text-accent">40% off</span>
             </div>
-            <p className="mt-2 flex items-center gap-2 text-sm font-medium"><span className="size-2 bg-accent" aria-hidden="true" />You save [Savings amount] · Taxes [status]</p>
-            <p className="mt-3 text-xs leading-5 text-muted-foreground">Price and offer details are editable placeholders until confirmed.</p>
+            <p className="mt-2 flex items-center gap-2 text-sm font-medium"><span className="size-2 bg-accent" aria-hidden="true" />You save ₹2,000 · Inclusive of all taxes</p>
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">Suggested India launch pricing—update before publishing if your final price differs.</p>
           </div>
 
           <ul className="mt-6 grid gap-3">
@@ -134,7 +135,7 @@ function ProductPage() {
               <Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus className="size-4" /></Button>
             </div>
           </div>
-          <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(quantity)}>Add to Cart · [Selling price]</Button>
+          <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(quantity)}>Add to Cart · ₹2,999</Button>
           <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(quantity)}>Buy Now</Button>
 
           <div className="mt-5 grid grid-cols-3 border-y border-border py-4 text-center text-[11px] leading-4">
@@ -161,20 +162,23 @@ function ProductPage() {
       <section className="bg-primary text-primary-foreground">
         <div className="mx-auto max-w-[1450px] px-6 py-16 sm:px-10 sm:py-20 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary-foreground/65">From real routines</p>
-            <h2 className="mt-4 font-display text-4xl sm:text-5xl">See LIVOARA in action</h2>
-            <p className="mt-4 text-sm leading-6 text-primary-foreground/70">Preview layout for customer videos. Replace these images with genuine customer clips before publishing.</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-primary-foreground/65">Customer comments</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
+            <p className="mt-4 text-sm leading-6 text-primary-foreground/70">Sample comments for layout preview. Replace with verified customer feedback before publishing.</p>
           </div>
           <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {mediaCards.map((media) => (
-              <article key={media.title} className="group relative aspect-[4/5] overflow-hidden bg-muted">
-                <img src={media.src} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]" />
-                <div className="absolute inset-0 bg-primary/35" />
-                <span className="absolute left-1/2 top-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center border border-primary-foreground/50 bg-primary/45" aria-hidden="true"><Play className="ml-1 size-6" /></span>
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <p className="font-display text-2xl">{media.title}</p>
-                  <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-primary-foreground/70">{media.caption}</p>
+            {featuredComments.map((comment) => (
+              <article key={comment.name} className="flex min-h-72 flex-col border border-primary-foreground/20 p-6 sm:p-7">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="grid size-11 place-items-center bg-primary-foreground font-medium text-primary">{comment.initials}</span>
+                  <span className="text-accent" aria-label="5 out of 5 sample stars">★ ★ ★ ★ ★</span>
                 </div>
+                <h3 className="mt-6 font-display text-2xl leading-tight">{comment.title}</h3>
+                <p className="mt-4 flex-1 text-sm leading-7 text-primary-foreground/75">“{comment.copy}”</p>
+                <footer className="mt-6 border-t border-primary-foreground/20 pt-4 text-xs">
+                  <p className="font-medium">{comment.name} · {comment.city}, India</p>
+                  <p className="mt-1 uppercase tracking-[0.14em] text-primary-foreground/55">Sample review</p>
+                </footer>
               </article>
             ))}
           </div>
@@ -252,7 +256,7 @@ function ProductPage() {
       </section>
 
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(quantity)}>Add to Cart · [Selling price]</Button>
+        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(quantity)}>Add to Cart · ₹2,999</Button>
       </div>
     </div>
   );
