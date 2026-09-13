@@ -32,11 +32,11 @@ function HomePage() {
         <p className="mt-6 max-w-md leading-8 text-muted-foreground">A compact home for the pieces you reach for most, with light and organization built into one elegant companion.</p>
         <Button asChild variant="outline" className="mt-9 w-fit"><Link to="/product">Discover the vanity <ArrowRight className="size-4" /></Link></Button>
       </div>
-      <ProductCrop position="72% center" label="The LIVOARA vanity open with illuminated mirror" />
+      <ProductCrop positionClass="object-[72%_center]" label="The LIVOARA vanity open with illuminated mirror" />
     </section>
 
     <section className="grid bg-primary text-primary-foreground lg:grid-cols-2">
-      <ProductCrop position="88% 30%" label="LIVOARA vanity styled beside a wrapped gift" />
+      <ProductCrop positionClass="object-[88%_30%]" label="LIVOARA vanity styled beside a wrapped gift" />
       <div className="flex min-h-[480px] flex-col justify-center px-7 py-20 sm:px-12 lg:px-[10vw]">
         <Gift className="size-5 text-accent" strokeWidth={1.4} />
         <p className="mt-8 text-xs uppercase tracking-[0.2em] text-primary-foreground/60">A thoughtful gift</p>
@@ -59,8 +59,8 @@ function HomePage() {
   </div>;
 }
 
-function ProductCrop({ position, label }: { position: string; label: string }) {
-  return <div className="min-h-[440px] overflow-hidden bg-secondary"><img src={heroAsset.url} alt={label} className="h-full min-h-[440px] w-full scale-[1.55] object-cover" style={{ objectPosition: position }} loading="lazy" /></div>;
+function ProductCrop({ positionClass, label }: { positionClass: string; label: string }) {
+  return <div className="min-h-[440px] overflow-hidden bg-secondary"><img src={heroAsset.url} alt={label} className={`h-full min-h-[440px] w-full scale-[1.55] object-cover ${positionClass}`} loading="lazy" /></div>;
 }
 
 function Testimonial({ quote, name }: { quote: string; name: string }) { return <blockquote className="bg-background p-8 sm:p-10"><div className="text-accent" aria-label="Rating placeholder">☆ ☆ ☆ ☆ ☆</div><p className="mt-7 font-display text-2xl leading-relaxed">“{quote}”</p><footer className="mt-7 text-xs uppercase tracking-[0.16em] text-muted-foreground">{name} · Verified review placeholder</footer></blockquote>; }
