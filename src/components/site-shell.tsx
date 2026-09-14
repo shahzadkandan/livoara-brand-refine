@@ -15,10 +15,10 @@ const mainLinks = [
 ] as const;
 
 const announcements = [
-  "30-day easy returns",
+  "7-day return request window",
   "Organise · Simplify · Elevate",
   "Free shipping on prepaid orders",
-  "30-day easy returns",
+  "Customer care · hello@livoara.in",
 ] as const;
 
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -97,7 +97,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               </div>
               <div className="flex flex-1 flex-col justify-center text-center">
                 {quantity ? (
-                  <><p className="font-display text-2xl">LIVOARA Travel Vanity</p><p className="mt-2 text-sm text-muted-foreground">Quantity: {quantity}</p><p className="mt-5 border-y border-border py-4 text-sm text-muted-foreground">Price and checkout connection pending.</p></>
+                  <><p className="font-display text-2xl">LIVOARA Travel Vanity</p><p className="mt-2 text-sm text-muted-foreground">Quantity: {quantity}</p><p className="mt-5 border-y border-border py-4 text-sm text-muted-foreground">Your selected items are ready in the bag.</p></>
                 ) : <><ShoppingBag className="mx-auto size-8 text-muted-foreground" /><p className="mt-4 font-display text-2xl">Your bag is waiting</p></>}
               </div>
               {quantity > 0 && <Button disabled>Checkout — coming soon</Button>}
