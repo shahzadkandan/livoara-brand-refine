@@ -15,3 +15,4 @@
 - [x] Add the supplied vanity image, India pricing, and replace video previews with customer comments
 - [x] Update bundle pricing and add a branded offer timer to the purchase area
 - [x] Fill Privacy, Terms, Shipping, Returns, and business details from the supplied policy documents
+- [x] Complete About Us and remove unfinished customer-facing content across the website

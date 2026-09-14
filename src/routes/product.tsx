@@ -127,8 +127,8 @@ function ProductPage() {
 
         <div>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-            <span className="text-accent" aria-hidden="true">★ ★ ★ ★ ★</span>
-            <a href="#reviews" className="font-medium underline decoration-border underline-offset-4">[Rating] · [Verified review count]</a>
+            <span className="text-accent" aria-hidden="true">✦</span>
+            <a href="#reviews" className="font-medium underline decoration-border underline-offset-4">See illustrative customer stories</a>
           </div>
           <p className="mt-5 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">LIVOARA signature beauty companion</p>
           <h1 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">The LIVOARA Travel Vanity</h1>
@@ -226,17 +226,17 @@ function ProductPage() {
             <p className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground"><LockKeyhole className="size-3.5 text-accent" />Secure payment · Availability confirmed at checkout</p>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-px border border-border bg-border text-xs">
-            <Trust icon={<ShieldCheck />} text="[Verified guarantee]" />
+            <Trust icon={<ShieldCheck />} text="Eligibility reviewed fairly" />
             <Trust icon={<LockKeyhole />} text="Secure checkout" />
-            <Trust icon={<Truck />} text="[Shipping policy]" />
-            <Trust icon={<PackageCheck />} text="[Returns policy]" />
+            <Trust icon={<Truck />} text="Tracking where available" />
+            <Trust icon={<PackageCheck />} text="7-day request window" />
           </div>
 
           <div className="mt-6 divide-y divide-border border-y border-border">
-            <InfoRow title="Product Details" open><p>The LIVOARA Travel Vanity combines an illuminated mirror with organized storage in a compact, elegant case. [Add verified materials and feature details.]</p></InfoRow>
-            <InfoRow title="Specifications"><dl className="grid gap-4 sm:grid-cols-2"><Spec term="Dimensions" value="[Add dimensions]" /><Spec term="Weight" value="[Add weight]" /><Spec term="Materials" value="[Add materials]" /><Spec term="Power" value="[Add power details]" /></dl></InfoRow>
-            <InfoRow title="Shipping & Returns"><p>[Add verified delivery windows, regions, costs, and return eligibility.]</p></InfoRow>
-            <InfoRow title="What's Included"><p>[Add verified box contents.]</p></InfoRow>
+            <InfoRow title="Product Details" open><p>The LIVOARA Travel Vanity combines an illuminated mirror with organised compartments in a compact case designed to keep everyday beauty essentials together at home or while travelling. Product colour and finish may vary slightly because of screen settings, photography, manufacturing tolerances, or production batches.</p></InfoRow>
+            <InfoRow title="Specifications"><dl className="grid gap-4 sm:grid-cols-2"><Spec term="Format" value="Portable vanity case" /><Spec term="Storage" value="Organised interior compartments" /><Spec term="Mirror" value="Integrated illuminated mirror" /><Spec term="Care & operation" value="Follow the label and guide supplied with the product" /></dl></InfoRow>
+            <InfoRow title="Shipping & Returns"><p>Delivery estimates, serviceability, and any shipping charge are shown at checkout. Eligible return, refund, or exchange requests must be emailed to hello@livoara.in within 7 calendar days of delivery. A clear, continuous unboxing video is mandatory.</p></InfoRow>
+            <InfoRow title="What's Included"><p>The package contains the LIVOARA vanity and the components supplied for its included features. Please check the product, accessories, and enclosed instructions during your continuous unboxing recording.</p></InfoRow>
           </div>
         </div>
       </section>
@@ -284,15 +284,15 @@ function ProductPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
-        <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Comparison fields remain editable until product specifications are confirmed.</p></div>
+        <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
         <div className="mt-10 overflow-x-auto border border-border">
           <table className="w-full min-w-[620px] border-collapse text-sm">
             <thead><tr className="bg-muted/60"><th className="p-5 text-left font-medium">Feature</th><th className="bg-secondary p-5 text-center font-display text-xl">LIVOARA</th><th className="p-5 text-center font-medium">Typical alternative</th></tr></thead>
             <tbody className="divide-y divide-border">
-              <CompareRow feature="Mirror lighting" livoara="Illuminated mirror" other="[Add comparison]" />
-              <CompareRow feature="Organization" livoara="Dedicated compartments" other="[Add comparison]" />
-              <CompareRow feature="Travel format" livoara="Compact vanity case" other="[Add comparison]" />
-              <CompareRow feature="Materials & power" livoara="[Add verified details]" other="[Add comparison]" />
+              <CompareRow feature="Mirror lighting" livoara="Illuminated mirror integrated into the case" other="Often requires a separate mirror" />
+              <CompareRow feature="Organisation" livoara="Dedicated interior compartments" other="Usually general-purpose storage" />
+              <CompareRow feature="Travel format" livoara="Compact vanity case" other="Format and portability vary" />
+              <CompareRow feature="Everyday routine" livoara="Mirror and essentials kept together" other="Items may be stored separately" />
             </tbody>
           </table>
         </div>
@@ -304,12 +304,10 @@ function ProductPage() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Customer stories</p>
               <h2 className="mt-4 font-display text-4xl sm:text-5xl">Loved across India</h2>
-              <p className="mt-4 text-sm leading-6 text-muted-foreground">Sample review layout only. Replace with verified customer feedback and ratings before publishing.</p>
+              <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative stories showing how different customers may use the vanity. These are not verified reviews or product ratings.</p>
               <div className="mt-8 border-y border-border py-6">
-                <div className="flex items-end gap-3"><span className="font-display text-5xl">[4.8]</span><span className="pb-1 text-sm text-muted-foreground">out of 5</span></div>
-                <div className="mt-2 text-accent" aria-label="Sample rating">★ ★ ★ ★ ★</div>
-                <p className="mt-2 text-xs text-muted-foreground">Based on [verified review count]</p>
-                <div className="mt-6 grid gap-2">{[5, 4, 3, 2, 1].map((rating) => <RatingBar key={rating} rating={rating} />)}</div>
+                <p className="font-display text-3xl">Real reviews will appear here</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">We will publish ratings only after they come from confirmed customer feedback.</p>
               </div>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
@@ -330,10 +328,10 @@ function ProductPage() {
         <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">Questions, answered</p>
         <h2 className="mt-4 text-center font-display text-4xl">Product guidance</h2>
         <div className="mt-8 divide-y divide-border border-y border-border">
-          <InfoRow title="How does the light operate?"><p>[Add verified operating and charging instructions.]</p></InfoRow>
-          <InfoRow title="What fits inside?"><p>[Add verified capacity details.]</p></InfoRow>
-          <InfoRow title="Is it suitable for travel?"><p>[Add verified dimensions, weight, battery, and airline guidance.]</p></InfoRow>
-          <InfoRow title="What happens if it arrives damaged?"><p>[Add verified replacement or returns policy.]</p></InfoRow>
+          <InfoRow title="How does the light operate?"><p>Use the controls and power instructions supplied with your vanity. Read the product label and enclosed guide before first use, and use only the recommended power method.</p></InfoRow>
+          <InfoRow title="What fits inside?"><p>The organised interior is intended for everyday makeup, brushes, skincare, jewellery, and other small beauty essentials. Capacity depends on the individual size and shape of each item.</p></InfoRow>
+          <InfoRow title="Is it suitable for travel?"><p>The compact case is designed to keep beauty essentials together while travelling. Before flying, check the product label for its power source and follow your airline’s current cabin and checked-baggage rules.</p></InfoRow>
+          <InfoRow title="What happens if it arrives damaged?"><p>Email hello@livoara.in within 7 calendar days of delivery with your order details and a clear, continuous unboxing video. Our team will assess the request under the Shipping & Returns Policy.</p></InfoRow>
         </div>
       </section>
 
@@ -361,8 +359,3 @@ function Trust({ icon, text }: { icon: ReactNode; text: string }) { return <div 
 function Proof({ number, title, children }: { number: string; title: string; children: ReactNode }) { return <div className="grid grid-cols-[2.5rem_1fr] gap-4"><span className="font-display text-2xl text-accent">{number}</span><div><h3 className="font-medium">{title}</h3><p className="mt-1 text-sm leading-6 text-muted-foreground">{children}</p></div></div>; }
 
 function CompareRow({ feature, livoara, other }: { feature: string; livoara: string; other: string }) { return <tr><th scope="row" className="p-5 text-left font-medium">{feature}</th><td className="bg-secondary/60 p-5 text-center"><Check className="mx-auto mb-2 size-4 text-accent" />{livoara}</td><td className="p-5 text-center text-muted-foreground">{other}</td></tr>; }
-
-function RatingBar({ rating }: { rating: number }) {
-  const widthClass = rating === 5 ? "w-[72%]" : rating === 4 ? "w-1/5" : rating === 3 ? "w-[6%]" : "w-[1%]";
-  return <div className="grid grid-cols-[2rem_1fr_2.5rem] items-center gap-3 text-xs"><span>{rating}★</span><span className="h-1.5 bg-border"><span className={`block h-full bg-accent ${widthClass}`} /></span><span className="text-right text-muted-foreground">[—]</span></div>;
-}
