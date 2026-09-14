@@ -50,14 +50,23 @@ const benefits = [
 
 const featuredComments = [
   { initials: "RM", name: "Riya M.", city: "Pune", copy: "Vanity ka size daily makeup ke liye practical lagta hai. Mirror aur compartments ek saath hone se dressing table organised reh sakti hai." },
-  { initials: "AS", name: "Ananya S.", city: "Bengaluru", copy: "Compact design weekend travel ke liye useful lagta hai. Essentials ko alag-alag pouches mein rakhne ki zarurat kam ho sakti hai." },
-  { initials: "NK", name: "Nisha K.", city: "Jaipur", copy: "Pink finish gifting ke liye elegant choice lagti hai. Illuminated mirror is design ka sabse thoughtful feature hai." },
-  { initials: "PS", name: "Priya S.", city: "Delhi", copy: "I like how the mirror and storage are combined in one case. It looks useful for a simple everyday getting-ready routine." },
+  { initials: "AS", name: "Ananya S.", city: "Bengaluru", copy: "Compact design weekend travel ke liye useful lagta hai. Essentials ek hi case mein rakhne ka idea convenient hai." },
+  { initials: "NK", name: "Nisha K.", city: "Jaipur", copy: "Pink finish gifting ke liye elegant choice lagti hai. Illuminated mirror design ka thoughtful feature hai." },
+  { initials: "PS", name: "Priya S.", city: "Delhi", copy: "I like how the mirror and storage are combined in one case. It looks useful for an everyday getting-ready routine." },
   { initials: "AK", name: "Ayesha K.", city: "Lucknow", copy: "Makeup, brushes aur small accessories ko ek jagah organise karne ka idea kaafi convenient hai." },
-  { initials: "MT", name: "Meera T.", city: "Chennai", copy: "The structured case looks neat on a dresser and seems easier to carry than several loose organisers." },
-  { initials: "SG", name: "Simran G.", city: "Chandigarh", copy: "Mirror light ke saath ready hona aur products ko saamne organised rakhna daily routine ko simpler bana sakta hai." },
-  { initials: "RV", name: "Radhika V.", city: "Hyderabad", copy: "The compact format and dedicated compartments make this feel like a considered option for home as well as travel." },
-  { initials: "KB", name: "Kavya B.", city: "Kolkata", copy: "Ek hi case mein vanity setup milna practical lagta hai, especially jab dressing space limited ho." },
+  { initials: "MT", name: "Meera T.", city: "Chennai", copy: "The structured case looks neat on a dresser and easier to carry than several loose organisers." },
+  { initials: "SG", name: "Simran G.", city: "Chandigarh", copy: "Mirror light aur organised storage daily routine ko simpler bana sakte hain." },
+  { initials: "RV", name: "Radhika V.", city: "Hyderabad", copy: "The compact format feels like a considered option for home as well as travel." },
+  { initials: "KB", name: "Kavya B.", city: "Kolkata", copy: "Ek hi case mein vanity setup practical lagta hai, especially jab dressing space limited ho." },
+  { initials: "JP", name: "Jhanvi P.", city: "Ahmedabad", copy: "The separate spaces for beauty essentials make the inside look easy to arrange and scan." },
+  { initials: "FS", name: "Farah S.", city: "Mumbai", copy: "Ready hote waqt mirror aur products ek jagah milna genuinely useful concept lagta hai." },
+  { initials: "TD", name: "Tanvi D.", city: "Nagpur", copy: "The case has a clean, presentable look that could work well on a compact dressing table." },
+  { initials: "PP", name: "Pooja P.", city: "Indore", copy: "Travel ke waqt makeup ko organised rakhne ke liye ye format kaafi sensible lagta hai." },
+  { initials: "SR", name: "Sneha R.", city: "Kochi", copy: "I would choose this for the combination of a mirror, light and storage rather than carrying them separately." },
+  { initials: "HM", name: "Harleen M.", city: "Amritsar", copy: "Soft pink colour aur compact shape gifting ke liye achhe lagte hain." },
+  { initials: "NB", name: "Neha B.", city: "Bhopal", copy: "Brushes, palettes aur small items ke liye dedicated space hona daily clutter ko manage kar sakta hai." },
+  { initials: "DR", name: "Divya R.", city: "Surat", copy: "The full-open format makes the mirror and compartments visible together, which feels practical." },
+  { initials: "IC", name: "Ishita C.", city: "Gurugram", copy: "A thoughtful all-in-one design for anyone who prefers a tidy getting-ready space." },
 ] as const;
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
@@ -113,7 +122,7 @@ function ProductPage() {
   }, []);
 
   return (
-    <div className="page-reveal pb-20 lg:pb-0">
+    <div className="page-reveal max-w-full overflow-x-clip pb-20 lg:pb-0">
       <div className="border-b border-border bg-muted/45 px-5 py-3 text-center text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:text-xs">
         Home / The LIVOARA Travel Vanity
       </div>
@@ -281,19 +290,16 @@ function ProductPage() {
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative sample comments for layout preview. Verified customer feedback will replace these after collection.</p>
           </div>
-          <div className="mt-12 columns-1 gap-6 md:columns-2 lg:columns-3">
+          <div className="mx-auto mt-12 max-w-6xl columns-1 gap-5 md:columns-2 lg:columns-3">
             {featuredComments.map((comment) => (
-              <article key={comment.name} className="mb-6 inline-flex w-full break-inside-avoid gap-3 align-top">
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent/20 text-xs font-semibold text-foreground" aria-hidden="true">{comment.initials}</span>
+              <article key={comment.name} className="mb-5 inline-flex w-full break-inside-avoid gap-3 align-top">
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/20 text-[11px] font-semibold text-foreground" aria-hidden="true">{comment.initials}</span>
                 <div className="min-w-0 flex-1">
-                  <div className="border border-border bg-background px-4 py-3 shadow-sm transition-transform duration-200 hover:-translate-y-0.5">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                      <h3 className="text-sm font-semibold">{comment.name}</h3>
-                      <span className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{comment.city}, India</span>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{comment.copy}</p>
+                  <div className="rounded-lg bg-background px-4 py-3 shadow-sm ring-1 ring-border transition-transform duration-200 hover:-translate-y-0.5">
+                    <h3 className="text-[13px] font-semibold">{comment.name}</h3>
+                    <p className="mt-1 text-[13px] leading-5 text-muted-foreground">{comment.copy}</p>
                   </div>
-                  <p className="mt-2 px-2 text-[10px] font-medium uppercase tracking-[0.12em] text-accent">Sample comment</p>
+                  <p className="mt-1.5 px-2 text-[10px] font-medium text-muted-foreground"><span className="text-accent">Sample feedback</span><span aria-hidden="true"> · </span>{comment.city}, India</p>
                 </div>
               </article>
             ))}
@@ -319,7 +325,13 @@ function ProductPage() {
 
       <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
-        <div className="mt-10 overflow-x-auto border border-border">
+        <div className="mt-10 grid gap-3 md:hidden">
+          <MobileCompare feature="Mirror lighting" livoara="Illuminated mirror integrated into the case" other="Often requires a separate mirror" />
+          <MobileCompare feature="Organisation" livoara="Dedicated interior compartments" other="Usually general-purpose storage" />
+          <MobileCompare feature="Travel format" livoara="Compact vanity case" other="Format and portability vary" />
+          <MobileCompare feature="Everyday routine" livoara="Mirror and essentials kept together" other="Items may be stored separately" />
+        </div>
+        <div className="mt-10 hidden overflow-x-auto border border-border md:block">
           <table className="w-full min-w-[620px] border-collapse text-sm">
             <thead><tr className="bg-muted/60"><th className="p-5 text-left font-medium">Feature</th><th className="bg-secondary p-5 text-center font-display text-xl">LIVOARA</th><th className="p-5 text-center font-medium">Typical alternative</th></tr></thead>
             <tbody className="divide-y divide-border">
@@ -357,6 +369,8 @@ function InfoRow({ title, children, open = false }: { title: string; children: R
 function Spec({ term, value }: { term: string; value: string }) { return <div><dt className="font-medium text-foreground">{term}</dt><dd>{value}</dd></div>; }
 
 function QuickFact({ icon, label }: { icon: ReactNode; label: string }) { return <div className="px-2"><span className="mx-auto mb-2 grid size-8 place-items-center text-accent [&>svg]:size-4">{icon}</span><span>{label}</span></div>; }
+
+function MobileCompare({ feature, livoara, other }: { feature: string; livoara: string; other: string }) { return <article className="border border-border bg-background"><h3 className="border-b border-border bg-muted/55 px-4 py-3 text-sm font-medium">{feature}</h3><dl className="grid grid-cols-2 divide-x divide-border"><div className="bg-secondary/55 p-4"><dt className="font-display text-lg">LIVOARA</dt><dd className="mt-2 text-xs leading-5 text-muted-foreground">{livoara}</dd></div><div className="p-4"><dt className="text-xs font-medium">Typical alternative</dt><dd className="mt-2 text-xs leading-5 text-muted-foreground">{other}</dd></div></dl></article>; }
 
 function TimeUnit({ value, label }: { value: number; label: string }) { return <span><strong className="block font-display text-3xl sm:text-4xl">{String(value).padStart(2, "0")}</strong><span className="mt-1 block text-[9px] uppercase tracking-[0.14em] text-muted-foreground">{label}</span></span>; }
 
