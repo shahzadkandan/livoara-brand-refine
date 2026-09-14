@@ -306,7 +306,7 @@ function ProductPage() {
                     <p className="mt-1 text-[13px] leading-5 text-foreground/85">{comment.copy}</p>
                   </div>
                   <p className="mt-1.5 flex flex-wrap items-center gap-x-2 px-3 text-[10px] font-semibold text-muted-foreground"><span>Like</span><span>Reply</span><span className="font-normal">{comment.city}, India</span><span className="text-accent">Sample feedback</span></p>
-                  {comment.reply && (
+                  {"reply" in comment && comment.reply && (
                     <div className="mt-3 grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2 pl-3 sm:pl-7">
                       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground" aria-hidden="true">L</span>
                       <div className="min-w-0">
