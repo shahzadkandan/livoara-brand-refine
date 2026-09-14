@@ -19,3 +19,4 @@
 - [x] Refine product comments with a lighter layout and show the full product image
 - [x] Keep the page width stable while restoring the intended mobile card slider
 - [x] Rebuild product feedback as a dense social-style thread with brand replies
+- [x] Restore swipeable mobile comparison tables and phone-style comment columns

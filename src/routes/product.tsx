@@ -75,6 +75,10 @@ const featuredComments = [
   { initials: "RN", name: "Reema N.", city: "Nashik", copy: "A simple idea, but combining the mirror and organised interior could make daily routines much easier." },
 ] as const;
 
+const commentThreads = Array.from({ length: 3 }, (_, columnIndex) =>
+  featuredComments.filter((_, commentIndex) => commentIndex % 3 === columnIndex),
+);
+
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
 const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
@@ -296,27 +300,35 @@ function ProductPage() {
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative sample comments for layout preview. Verified customer feedback will replace these after collection.</p>
           </div>
-          <div className="mx-auto mt-12 max-w-3xl space-y-5" role="feed" aria-label="Illustrative customer discussion">
-            {featuredComments.map((comment) => (
-              <article key={comment.name} className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-start gap-3">
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent/25 text-[11px] font-bold text-foreground" aria-hidden="true">{comment.initials}</span>
-                <div className="min-w-0">
-                  <div className="rounded-2xl rounded-tl-sm bg-background px-4 py-3 shadow-sm ring-1 ring-border/80">
-                    <h3 className="text-[13px] font-bold">{comment.name}</h3>
-                    <p className="mt-1 text-[13px] leading-5 text-foreground/85">{comment.copy}</p>
-                  </div>
-                  <p className="mt-1.5 flex flex-wrap items-center gap-x-2 px-3 text-[10px] font-semibold text-muted-foreground"><span>Like</span><span>Reply</span><span className="font-normal">{comment.city}, India</span><span className="text-accent">Sample feedback</span></p>
-                  {"reply" in comment && comment.reply && (
-                    <div className="mt-3 grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2 pl-3 sm:pl-7">
-                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground" aria-hidden="true">L</span>
+          <div className="-mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-5 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0" role="feed" aria-label="Illustrative customer discussion">
+            {commentThreads.map((thread, threadIndex) => (
+              <div key={threadIndex} className="w-[86vw] max-w-[22rem] shrink-0 snap-start border border-border bg-background px-3 py-4 sm:w-[22rem] lg:w-auto lg:max-w-none" aria-label={`Comment thread ${threadIndex + 1}`}>
+                <div className="mb-4 flex items-center justify-between border-b border-border pb-3"><span className="text-xs font-bold">Comments</span><span className="text-[10px] text-muted-foreground">Thread {threadIndex + 1}</span></div>
+                <div className="space-y-4">
+                  {thread.map((comment) => (
+                    <article key={comment.name} className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2">
+                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-accent/25 text-[9px] font-bold text-foreground" aria-hidden="true">{comment.initials}</span>
                       <div className="min-w-0">
-                        <div className="rounded-2xl rounded-tl-sm bg-muted px-4 py-3 ring-1 ring-border/70"><h4 className="text-[12px] font-bold">LIVOARA</h4><p className="mt-1 text-[12px] leading-5 text-muted-foreground">{comment.reply}</p></div>
-                        <p className="mt-1 px-3 text-[10px] font-semibold text-muted-foreground">Reply <span aria-hidden="true">·</span> Brand response</p>
+                        <div className="rounded-xl rounded-tl-sm bg-muted/75 px-3 py-2.5">
+                          <h3 className="text-[11px] font-bold">{comment.name}</h3>
+                          <p className="mt-0.5 text-[11px] leading-4 text-foreground/85">{comment.copy}</p>
+                        </div>
+                        <p className="mt-1 flex flex-wrap items-center gap-x-2 px-2 text-[9px] font-semibold text-muted-foreground"><span>{comment.city}</span><span className="text-accent">Like</span><span>Reply</span><span>Sample</span></p>
+                        {"reply" in comment && comment.reply && (
+                          <div className="mt-2.5 grid grid-cols-[1.75rem_minmax(0,1fr)] items-start gap-2 pl-1">
+                            <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-[8px] font-bold text-primary-foreground" aria-hidden="true">L</span>
+                            <div className="min-w-0">
+                              <div className="rounded-xl rounded-tl-sm bg-secondary/70 px-3 py-2.5"><h4 className="text-[10px] font-bold">LIVOARA <span className="font-normal text-accent">Author</span></h4><p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">{comment.reply}</p></div>
+                              <p className="mt-1 px-2 text-[9px] font-semibold text-muted-foreground">Like <span aria-hidden="true">·</span> Reply</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  )}
+                    </article>
+                  ))}
                 </div>
-              </article>
+                <div className="mt-4 rounded-full border border-border px-3 py-2 text-[10px] text-muted-foreground">Write a comment…</div>
+              </div>
             ))}
           </div>
         </div>
@@ -340,13 +352,7 @@ function ProductPage() {
 
       <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
-        <div className="mt-10 grid gap-3 md:hidden">
-          <MobileCompare feature="Mirror lighting" livoara="Illuminated mirror integrated into the case" other="Often requires a separate mirror" />
-          <MobileCompare feature="Organisation" livoara="Dedicated interior compartments" other="Usually general-purpose storage" />
-          <MobileCompare feature="Travel format" livoara="Compact vanity case" other="Format and portability vary" />
-          <MobileCompare feature="Everyday routine" livoara="Mirror and essentials kept together" other="Items may be stored separately" />
-        </div>
-        <div className="mt-10 hidden overflow-x-auto border border-border md:block">
+        <div className="-mx-6 mt-10 overflow-x-auto px-6 pb-3 sm:mx-0 sm:px-0">
           <table className="w-full min-w-[620px] border-collapse text-sm">
             <thead><tr className="bg-muted/60"><th className="p-5 text-left font-medium">Feature</th><th className="bg-secondary p-5 text-center font-display text-xl">LIVOARA</th><th className="p-5 text-center font-medium">Typical alternative</th></tr></thead>
             <tbody className="divide-y divide-border">
@@ -385,7 +391,6 @@ function Spec({ term, value }: { term: string; value: string }) { return <div><d
 
 function QuickFact({ icon, label }: { icon: ReactNode; label: string }) { return <div className="px-2"><span className="mx-auto mb-2 grid size-8 place-items-center text-accent [&>svg]:size-4">{icon}</span><span>{label}</span></div>; }
 
-function MobileCompare({ feature, livoara, other }: { feature: string; livoara: string; other: string }) { return <article className="border border-border bg-background"><h3 className="border-b border-border bg-muted/55 px-4 py-3 text-sm font-medium">{feature}</h3><dl className="grid grid-cols-2 divide-x divide-border"><div className="bg-secondary/55 p-4"><dt className="font-display text-lg">LIVOARA</dt><dd className="mt-2 text-xs leading-5 text-muted-foreground">{livoara}</dd></div><div className="p-4"><dt className="text-xs font-medium">Typical alternative</dt><dd className="mt-2 text-xs leading-5 text-muted-foreground">{other}</dd></div></dl></article>; }
 
 function TimeUnit({ value, label }: { value: number; label: string }) { return <span><strong className="block font-display text-3xl sm:text-4xl">{String(value).padStart(2, "0")}</strong><span className="mt-1 block text-[9px] uppercase tracking-[0.14em] text-muted-foreground">{label}</span></span>; }
 
