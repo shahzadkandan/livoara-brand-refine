@@ -49,24 +49,30 @@ const benefits = [
 ] as const;
 
 const featuredComments = [
-  { initials: "RM", name: "Riya M.", city: "Pune", copy: "Vanity ka size daily makeup ke liye practical lagta hai. Mirror aur compartments ek saath hone se dressing table organised reh sakti hai." },
+  { initials: "RM", name: "Riya M.", city: "Pune", copy: "Vanity ka size daily makeup ke liye practical lagta hai. Mirror aur compartments ek saath hone se dressing table organised reh sakti hai.", reply: "Thank you, Riya. The all-in-one format is designed around exactly that kind of everyday routine." },
   { initials: "AS", name: "Ananya S.", city: "Bengaluru", copy: "Compact design weekend travel ke liye useful lagta hai. Essentials ek hi case mein rakhne ka idea convenient hai." },
-  { initials: "NK", name: "Nisha K.", city: "Jaipur", copy: "Pink finish gifting ke liye elegant choice lagti hai. Illuminated mirror design ka thoughtful feature hai." },
+  { initials: "NK", name: "Nisha K.", city: "Jaipur", copy: "Pink finish gifting ke liye elegant choice lagti hai. Illuminated mirror design ka thoughtful feature hai.", reply: "Thank you for noticing the details, Nisha. We wanted the case to feel useful and gift-worthy." },
   { initials: "PS", name: "Priya S.", city: "Delhi", copy: "I like how the mirror and storage are combined in one case. It looks useful for an everyday getting-ready routine." },
-  { initials: "AK", name: "Ayesha K.", city: "Lucknow", copy: "Makeup, brushes aur small accessories ko ek jagah organise karne ka idea kaafi convenient hai." },
+  { initials: "AK", name: "Ayesha K.", city: "Lucknow", copy: "Makeup, brushes aur small accessories ko ek jagah organise karne ka idea kaafi convenient hai.", reply: "Bilkul, Ayesha. Different item sizes ka fit individual products par depend karega." },
   { initials: "MT", name: "Meera T.", city: "Chennai", copy: "The structured case looks neat on a dresser and easier to carry than several loose organisers." },
   { initials: "SG", name: "Simran G.", city: "Chandigarh", copy: "Mirror light aur organised storage daily routine ko simpler bana sakte hain." },
-  { initials: "RV", name: "Radhika V.", city: "Hyderabad", copy: "The compact format feels like a considered option for home as well as travel." },
+  { initials: "RV", name: "Radhika V.", city: "Hyderabad", copy: "The compact format feels like a considered option for home as well as travel.", reply: "Thank you, Radhika. Please follow the supplied product guide and current airline rules when travelling." },
   { initials: "KB", name: "Kavya B.", city: "Kolkata", copy: "Ek hi case mein vanity setup practical lagta hai, especially jab dressing space limited ho." },
   { initials: "JP", name: "Jhanvi P.", city: "Ahmedabad", copy: "The separate spaces for beauty essentials make the inside look easy to arrange and scan." },
-  { initials: "FS", name: "Farah S.", city: "Mumbai", copy: "Ready hote waqt mirror aur products ek jagah milna genuinely useful concept lagta hai." },
+  { initials: "FS", name: "Farah S.", city: "Mumbai", copy: "Ready hote waqt mirror aur products ek jagah milna genuinely useful concept lagta hai.", reply: "Thank you, Farah. Light and storage together are central to the LIVOARA design." },
   { initials: "TD", name: "Tanvi D.", city: "Nagpur", copy: "The case has a clean, presentable look that could work well on a compact dressing table." },
   { initials: "PP", name: "Pooja P.", city: "Indore", copy: "Travel ke waqt makeup ko organised rakhne ke liye ye format kaafi sensible lagta hai." },
-  { initials: "SR", name: "Sneha R.", city: "Kochi", copy: "I would choose this for the combination of a mirror, light and storage rather than carrying them separately." },
+  { initials: "SR", name: "Sneha R.", city: "Kochi", copy: "I would choose this for the combination of a mirror, light and storage rather than carrying them separately.", reply: "That thoughtful combination is what we set out to create. Thank you, Sneha." },
   { initials: "HM", name: "Harleen M.", city: "Amritsar", copy: "Soft pink colour aur compact shape gifting ke liye achhe lagte hain." },
   { initials: "NB", name: "Neha B.", city: "Bhopal", copy: "Brushes, palettes aur small items ke liye dedicated space hona daily clutter ko manage kar sakta hai." },
-  { initials: "DR", name: "Divya R.", city: "Surat", copy: "The full-open format makes the mirror and compartments visible together, which feels practical." },
+  { initials: "DR", name: "Divya R.", city: "Surat", copy: "The full-open format makes the mirror and compartments visible together, which feels practical.", reply: "Thank you, Divya. The open view is intended to keep everyday essentials easier to see." },
   { initials: "IC", name: "Ishita C.", city: "Gurugram", copy: "A thoughtful all-in-one design for anyone who prefers a tidy getting-ready space." },
+  { initials: "AP", name: "Aditi P.", city: "Noida", copy: "Mirror ke saamne products search na karne padein, ye organised setup kaafi helpful lagta hai." },
+  { initials: "ZS", name: "Zoya S.", city: "Srinagar", copy: "The shape and finish make it feel more polished than carrying several separate pouches.", reply: "Thank you, Zoya. We appreciate your eye for the finish and form." },
+  { initials: "MG", name: "Mansi G.", city: "Vadodara", copy: "Everyday makeup aur jewellery ko ek neat case mein rakhne ka concept achha hai." },
+  { initials: "KL", name: "Keerthi L.", city: "Mysuru", copy: "The illuminated mirror looks like a useful addition when the room light is not ideal." },
+  { initials: "SC", name: "Sakshi C.", city: "Patna", copy: "Dresser par bhi neat lagega aur zarurat par saath carry bhi kiya ja sakta hai.", reply: "Thank you, Sakshi. Home-to-travel versatility is an important part of the design." },
+  { initials: "RN", name: "Reema N.", city: "Nashik", copy: "A simple idea, but combining the mirror and organised interior could make daily routines much easier." },
 ] as const;
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
@@ -290,16 +296,25 @@ function ProductPage() {
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative sample comments for layout preview. Verified customer feedback will replace these after collection.</p>
           </div>
-          <div className="mx-auto mt-12 max-w-6xl columns-1 gap-5 md:columns-2 lg:columns-3">
+          <div className="mx-auto mt-12 max-w-3xl space-y-5" role="feed" aria-label="Illustrative customer discussion">
             {featuredComments.map((comment) => (
-              <article key={comment.name} className="mb-5 inline-flex w-full break-inside-avoid gap-3 align-top">
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-accent/20 text-[11px] font-semibold text-foreground" aria-hidden="true">{comment.initials}</span>
-                <div className="min-w-0 flex-1">
-                  <div className="rounded-lg bg-background px-4 py-3 shadow-sm ring-1 ring-border transition-transform duration-200 hover:-translate-y-0.5">
-                    <h3 className="text-[13px] font-semibold">{comment.name}</h3>
-                    <p className="mt-1 text-[13px] leading-5 text-muted-foreground">{comment.copy}</p>
+              <article key={comment.name} className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-start gap-3">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent/25 text-[11px] font-bold text-foreground" aria-hidden="true">{comment.initials}</span>
+                <div className="min-w-0">
+                  <div className="rounded-2xl rounded-tl-sm bg-background px-4 py-3 shadow-sm ring-1 ring-border/80">
+                    <h3 className="text-[13px] font-bold">{comment.name}</h3>
+                    <p className="mt-1 text-[13px] leading-5 text-foreground/85">{comment.copy}</p>
                   </div>
-                  <p className="mt-1.5 px-2 text-[10px] font-medium text-muted-foreground"><span className="text-accent">Sample feedback</span><span aria-hidden="true"> · </span>{comment.city}, India</p>
+                  <p className="mt-1.5 flex flex-wrap items-center gap-x-2 px-3 text-[10px] font-semibold text-muted-foreground"><span>Like</span><span>Reply</span><span className="font-normal">{comment.city}, India</span><span className="text-accent">Sample feedback</span></p>
+                  {comment.reply && (
+                    <div className="mt-3 grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2 pl-3 sm:pl-7">
+                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground" aria-hidden="true">L</span>
+                      <div className="min-w-0">
+                        <div className="rounded-2xl rounded-tl-sm bg-muted px-4 py-3 ring-1 ring-border/70"><h4 className="text-[12px] font-bold">LIVOARA</h4><p className="mt-1 text-[12px] leading-5 text-muted-foreground">{comment.reply}</p></div>
+                        <p className="mt-1 px-3 text-[10px] font-semibold text-muted-foreground">Reply <span aria-hidden="true">·</span> Brand response</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </article>
             ))}

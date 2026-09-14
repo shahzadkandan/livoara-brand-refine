@@ -17,4 +17,5 @@
 - [x] Fill Privacy, Terms, Shipping, Returns, and business details from the supplied policy documents
 - [x] Complete About Us and remove unfinished customer-facing content across the website
 - [x] Refine product comments with a lighter layout and show the full product image
-- [x] Remove mobile side-scrolling, expand social-style comments, and lighten the home call-to-action
+- [x] Keep the page width stable while restoring the intended mobile card slider
+- [x] Rebuild product feedback as a dense social-style thread with brand replies
