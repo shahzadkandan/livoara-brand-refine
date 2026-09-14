@@ -121,27 +121,29 @@ function ProductPage() {
 
       <section className="mx-auto grid max-w-[1450px] gap-9 px-4 py-7 sm:px-7 lg:grid-cols-[1.08fr_.92fr] lg:items-start lg:gap-14 lg:px-12 lg:py-14">
         <div className="lg:sticky lg:top-24">
-          <div
-            className="group relative aspect-square cursor-crosshair overflow-hidden border border-border bg-secondary"
-            onPointerEnter={handleImagePointerMove}
-            onPointerMove={handleImagePointerMove}
-            onPointerLeave={() => setZoomPoint(null)}
-          >
-            <img src={selectedImage.src} alt={selectedImage.alt} className={`h-full w-full object-cover transition-opacity duration-300 ${selectedImage.className}`} />
-            <span className="absolute left-4 top-4 bg-background/90 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.16em] backdrop-blur">Gallery {selected + 1} / {galleryImages.length}</span>
-            {zoomPoint && (
-              <span
-                className="pointer-events-none absolute hidden size-32 -translate-x-1/2 -translate-y-1/2 border border-primary/50 bg-background/20 backdrop-brightness-110 lg:block"
-                style={{ left: `${zoomPoint.x}%`, top: `${zoomPoint.y}%` }}
-                aria-hidden="true"
-              />
-            )}
+          <div className="relative">
+            <div
+              className="group relative aspect-square cursor-crosshair overflow-hidden border border-border bg-secondary"
+              onPointerEnter={handleImagePointerMove}
+              onPointerMove={handleImagePointerMove}
+              onPointerLeave={() => setZoomPoint(null)}
+            >
+              <img src={selectedImage.src} alt={selectedImage.alt} className={`h-full w-full object-cover transition-opacity duration-300 ${selectedImage.className}`} />
+              <span className="absolute left-4 top-4 bg-background/90 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.16em] backdrop-blur">Gallery {selected + 1} / {galleryImages.length}</span>
+              {zoomPoint && (
+                <span
+                  className="pointer-events-none absolute hidden size-32 -translate-x-1/2 -translate-y-1/2 border border-primary/50 bg-background/20 backdrop-brightness-110 lg:block"
+                  style={{ left: `${zoomPoint.x}%`, top: `${zoomPoint.y}%` }}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
             {zoomPoint && (
               <div className="pointer-events-none absolute left-[calc(100%+1rem)] top-0 z-40 hidden aspect-square w-[min(42rem,48vw)] overflow-hidden border border-border bg-background shadow-2xl lg:block" aria-hidden="true">
                 <img
                   src={selectedImage.src}
                   alt=""
-                  className={`h-full w-full scale-[2.35] object-cover ${selectedImage.className}`}
+                  className="h-full w-full scale-[2.35] object-cover object-center"
                   style={{ transformOrigin: `${zoomPoint.x}% ${zoomPoint.y}%` }}
                 />
               </div>
