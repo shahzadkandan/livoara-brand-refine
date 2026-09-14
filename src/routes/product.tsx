@@ -14,7 +14,7 @@ import {
   Star,
   Truck,
 } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import heroAsset from "@/assets/livoara-hero.png.asset.json";
 import referenceVanity from "@/assets/reference/livoara-reference-vanity.jpg.asset.json";
 import pinkVanity from "@/assets/reference/livoara-product-pink-stacked.jpg";
@@ -74,6 +74,7 @@ type BundleOfferId = (typeof bundleOffers)[number]["id"];
 function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
+  const [zoomPoint, setZoomPoint] = useState<{ x: number; y: number } | null>(null);
   const [selectedOffer, setSelectedOffer] = useState<BundleOfferId>("single");
   const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
@@ -85,6 +86,15 @@ function ProductPage() {
   const timerHours = Math.floor(offerSeconds / 3600);
   const timerMinutes = Math.floor((offerSeconds % 3600) / 60);
   const timerSeconds = offerSeconds % 60;
+
+  const handleImagePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    setZoomPoint({
+      x: Math.min(100, Math.max(0, ((event.clientX - bounds.left) / bounds.width) * 100)),
+      y: Math.min(100, Math.max(0, ((event.clientY - bounds.top) / bounds.height) * 100)),
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,18 +121,40 @@ function ProductPage() {
 
       <section className="mx-auto grid max-w-[1450px] gap-9 px-4 py-7 sm:px-7 lg:grid-cols-[1.08fr_.92fr] lg:items-start lg:gap-14 lg:px-12 lg:py-14">
         <div className="lg:sticky lg:top-24">
-          <div className="relative aspect-square overflow-hidden border border-border bg-secondary">
+          <div
+            className="group relative aspect-square cursor-crosshair overflow-hidden border border-border bg-secondary"
+            onPointerEnter={handleImagePointerMove}
+            onPointerMove={handleImagePointerMove}
+            onPointerLeave={() => setZoomPoint(null)}
+          >
             <img src={selectedImage.src} alt={selectedImage.alt} className={`h-full w-full object-cover transition-opacity duration-300 ${selectedImage.className}`} />
             <span className="absolute left-4 top-4 bg-background/90 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.16em] backdrop-blur">Gallery {selected + 1} / {galleryImages.length}</span>
+            {zoomPoint && (
+              <span
+                className="pointer-events-none absolute hidden size-32 -translate-x-1/2 -translate-y-1/2 border border-primary/50 bg-background/20 backdrop-brightness-110 lg:block"
+                style={{ left: `${zoomPoint.x}%`, top: `${zoomPoint.y}%` }}
+                aria-hidden="true"
+              />
+            )}
+            {zoomPoint && (
+              <div className="pointer-events-none absolute left-[calc(100%+1rem)] top-0 z-40 hidden aspect-square w-[min(42rem,48vw)] overflow-hidden border border-border bg-background shadow-2xl lg:block" aria-hidden="true">
+                <img
+                  src={selectedImage.src}
+                  alt=""
+                  className={`h-full w-full scale-[2.35] object-cover ${selectedImage.className}`}
+                  style={{ transformOrigin: `${zoomPoint.x}% ${zoomPoint.y}%` }}
+                />
+              </div>
+            )}
           </div>
           <div className="mt-3 grid grid-cols-4 gap-2 sm:gap-3">
             {galleryImages.map((image, index) => (
-              <Button variant="ghost" key={image.src} onClick={() => setSelected(index)} className={`aspect-[4/3] h-auto overflow-hidden border bg-secondary p-0 ${selected === index ? "border-accent ring-1 ring-accent" : "border-border opacity-70 hover:opacity-100"}`} aria-label={`View product image ${index + 1}`} aria-pressed={selected === index}>
+              <Button variant="ghost" key={image.src} onPointerEnter={(event) => { if (event.pointerType === "mouse") setSelected(index); }} onFocus={() => setSelected(index)} onClick={() => setSelected(index)} className={`aspect-[4/3] h-auto overflow-hidden border bg-secondary p-0 ${selected === index ? "border-accent ring-1 ring-accent" : "border-border opacity-70 hover:opacity-100"}`} aria-label={`View product image ${index + 1}`} aria-pressed={selected === index}>
                 <img src={image.src} alt="" className={`h-full w-full object-cover ${image.thumb}`} />
               </Button>
             ))}
           </div>
-          <p className="mt-3 text-center text-xs text-muted-foreground">Select an image to inspect the vanity from a different setting.</p>
+          <p className="mt-3 text-center text-xs text-muted-foreground"><span className="hidden lg:inline">Hover over a thumbnail to preview it. Move over the main image to zoom.</span><span className="lg:hidden">Tap a thumbnail to view another setting.</span></p>
         </div>
 
         <div>
