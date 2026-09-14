@@ -13,3 +13,4 @@
 - [x] Add distinct product gallery photos and India-focused bilingual sample reviews
 - [x] Upgrade the product page with premium pricing, customer media, proof, comparison, and review sections
 - [x] Add the supplied vanity image, India pricing, and replace video previews with customer comments
+- [x] Update bundle pricing and add a branded offer timer to the purchase area
