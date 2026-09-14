@@ -61,7 +61,7 @@ const featuredComments = [
   { initials: "NK", name: "Nisha K.", city: "Jaipur", title: "Gift karke bahut achha response mila", copy: "Packaging aur product dono premium feel dete hain. Light wala mirror sabse zyada pasand aaya—daily routine ke liye lovely choice hai." },
 ] as const;
 
-const bundleOffers = [
+const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
   { id: "single", label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 },
   { id: "double", label: "2 pieces", detail: "Save ₹299", price: "₹2,699", pieces: 2, badge: "Popular" },
   { id: "triple", label: "3 pieces", detail: "Save ₹698", price: "₹3,799", pieces: 3, badge: "Best value" },
