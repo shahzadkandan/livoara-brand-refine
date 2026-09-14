@@ -11,7 +11,6 @@ import {
   Plus,
   ShieldCheck,
   Sparkles,
-  Star,
   Truck,
 } from "lucide-react";
 import { useEffect, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
@@ -49,16 +48,16 @@ const benefits = [
   "Compact format designed for travel",
 ] as const;
 
-const sampleReviews = [
-  { name: "Priya S.", city: "Delhi", rating: 5, title: "Travel ke liye bahut convenient", copy: "Mirror ki light useful hai aur makeup ka samaan ek hi jagah neatly organise ho jata hai. Weekend trips par carry karna bhi easy laga." },
-  { name: "Neha R.", city: "Mumbai", rating: 5, title: "Worth it for daily use", copy: "Vanity looks elegant on my dresser and the compartments make my morning routine easier. The illuminated mirror is my favourite part." },
-  { name: "Ayesha K.", city: "Lucknow", rating: 4, title: "Gift ke liye lovely choice", copy: "Maine ise gifting ke liye choose kiya. Design premium lagta hai aur andar essentials rakhne ke liye achhi space hai." },
-] as const;
-
 const featuredComments = [
-  { initials: "RM", name: "Riya M.", city: "Pune", title: "Dressing table ab organised rehti hai", copy: "Vanity ka size daily makeup ke liye kaafi practical laga. Mirror light se ready hona easy ho jata hai aur pink finish bahut elegant dikhti hai." },
-  { initials: "AS", name: "Ananya S.", city: "Bengaluru", title: "Compact and genuinely useful", copy: "Weekend travel mein products alag pouch mein rakhne ki zarurat nahi padi. Compartments neat hain aur vanity carry karna convenient laga." },
-  { initials: "NK", name: "Nisha K.", city: "Jaipur", title: "Gift karke bahut achha response mila", copy: "Packaging aur product dono premium feel dete hain. Light wala mirror sabse zyada pasand aaya—daily routine ke liye lovely choice hai." },
+  { initials: "RM", name: "Riya M.", city: "Pune", copy: "Vanity ka size daily makeup ke liye practical lagta hai. Mirror aur compartments ek saath hone se dressing table organised reh sakti hai." },
+  { initials: "AS", name: "Ananya S.", city: "Bengaluru", copy: "Compact design weekend travel ke liye useful lagta hai. Essentials ko alag-alag pouches mein rakhne ki zarurat kam ho sakti hai." },
+  { initials: "NK", name: "Nisha K.", city: "Jaipur", copy: "Pink finish gifting ke liye elegant choice lagti hai. Illuminated mirror is design ka sabse thoughtful feature hai." },
+  { initials: "PS", name: "Priya S.", city: "Delhi", copy: "I like how the mirror and storage are combined in one case. It looks useful for a simple everyday getting-ready routine." },
+  { initials: "AK", name: "Ayesha K.", city: "Lucknow", copy: "Makeup, brushes aur small accessories ko ek jagah organise karne ka idea kaafi convenient hai." },
+  { initials: "MT", name: "Meera T.", city: "Chennai", copy: "The structured case looks neat on a dresser and seems easier to carry than several loose organisers." },
+  { initials: "SG", name: "Simran G.", city: "Chandigarh", copy: "Mirror light ke saath ready hona aur products ko saamne organised rakhna daily routine ko simpler bana sakta hai." },
+  { initials: "RV", name: "Radhika V.", city: "Hyderabad", copy: "The compact format and dedicated compartments make this feel like a considered option for home as well as travel." },
+  { initials: "KB", name: "Kavya B.", city: "Kolkata", copy: "Ek hi case mein vanity setup milna practical lagta hai, especially jab dressing space limited ho." },
 ] as const;
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
@@ -275,26 +274,27 @@ function ProductPage() {
         </div>
       </section>
 
-      <section className="bg-primary text-primary-foreground">
+      <section id="reviews" className="border-y border-border bg-secondary/55">
         <div className="mx-auto max-w-[1450px] px-6 py-16 sm:px-10 sm:py-20 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary-foreground/65">Customer comments</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-accent">Customer comments</p>
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
-            <p className="mt-4 text-sm leading-6 text-primary-foreground/70">Sample comments for layout preview. Replace with verified customer feedback before publishing.</p>
+            <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative sample comments for layout preview. Verified customer feedback will replace these after collection.</p>
           </div>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
+          <div className="mt-12 columns-1 gap-6 md:columns-2 lg:columns-3">
             {featuredComments.map((comment) => (
-              <article key={comment.name} className="flex min-h-72 flex-col border border-primary-foreground/20 p-6 sm:p-7">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="grid size-11 place-items-center bg-primary-foreground font-medium text-primary">{comment.initials}</span>
-                  <span className="text-accent" aria-label="5 out of 5 sample stars">★ ★ ★ ★ ★</span>
+              <article key={comment.name} className="mb-6 inline-flex w-full break-inside-avoid gap-3 align-top">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent/20 text-xs font-semibold text-foreground" aria-hidden="true">{comment.initials}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="border border-border bg-background px-4 py-3 shadow-sm transition-transform duration-200 hover:-translate-y-0.5">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                      <h3 className="text-sm font-semibold">{comment.name}</h3>
+                      <span className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{comment.city}, India</span>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{comment.copy}</p>
+                  </div>
+                  <p className="mt-2 px-2 text-[10px] font-medium uppercase tracking-[0.12em] text-accent">Sample comment</p>
                 </div>
-                <h3 className="mt-6 font-display text-2xl leading-tight">{comment.title}</h3>
-                <p className="mt-4 flex-1 text-sm leading-7 text-primary-foreground/75">“{comment.copy}”</p>
-                <footer className="mt-6 border-t border-primary-foreground/20 pt-4 text-xs">
-                  <p className="font-medium">{comment.name} · {comment.city}, India</p>
-                  <p className="mt-1 uppercase tracking-[0.14em] text-primary-foreground/55">Sample review</p>
-                </footer>
               </article>
             ))}
           </div>
@@ -313,7 +313,7 @@ function ProductPage() {
               <Proof number="03" title="Ready to move">A compact case brings your routine into one travel-friendly form.</Proof>
             </div>
           </div>
-          <div className="aspect-[4/5] overflow-hidden bg-secondary"><img src={pinkVanity} alt="Open pink LIVOARA vanity showing mirror and organized compartments" className="h-full w-full object-cover" /></div>
+          <div className="flex aspect-[4/5] items-center justify-center overflow-hidden bg-secondary p-5 sm:p-8"><img src={pinkVanity} alt="Complete open pink LIVOARA vanity showing mirror and organized compartments" className="h-full w-full object-contain" loading="lazy" /></div>
         </div>
       </section>
 
@@ -329,32 +329,6 @@ function ProductPage() {
               <CompareRow feature="Everyday routine" livoara="Mirror and essentials kept together" other="Items may be stored separately" />
             </tbody>
           </table>
-        </div>
-      </section>
-
-      <section id="reviews" className="border-y border-border bg-muted/45">
-        <div className="mx-auto max-w-[1250px] px-6 py-16 sm:py-24">
-          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Customer stories</p>
-              <h2 className="mt-4 font-display text-4xl sm:text-5xl">Loved across India</h2>
-              <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative stories showing how different customers may use the vanity. These are not verified reviews or product ratings.</p>
-              <div className="mt-8 border-y border-border py-6">
-                <p className="font-display text-3xl">Real reviews will appear here</p>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">We will publish ratings only after they come from confirmed customer feedback.</p>
-              </div>
-            </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {sampleReviews.map((review) => (
-                <article key={review.name} className="flex min-h-80 flex-col border border-border bg-background p-6">
-                  <div className="flex items-center justify-between gap-4"><span className="text-accent" aria-label={`${review.rating} out of 5 sample stars`}>{"★".repeat(review.rating)}<span className="text-border">{"★".repeat(5 - review.rating)}</span></span><Star className="size-4 text-muted-foreground" /></div>
-                  <h3 className="mt-5 font-display text-2xl leading-tight">{review.title}</h3>
-                  <p className="mt-4 flex-1 text-sm leading-7 text-muted-foreground">{review.copy}</p>
-                  <footer className="mt-6 border-t border-border pt-4"><p className="font-medium">{review.name}</p><div className="mt-1 flex items-center justify-between gap-3 text-xs text-muted-foreground"><span>{review.city}, India</span><span>Sample review</span></div></footer>
-                </article>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
