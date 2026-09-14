@@ -17,7 +17,7 @@ const mainLinks = [
 const announcements = [
   "7-day return request window",
   "Organise · Simplify · Elevate",
-  "Free shipping on prepaid orders",
+  "Thoughtful products for everyday living",
   "Customer care · hello@livoara.in",
 ] as const;
 
