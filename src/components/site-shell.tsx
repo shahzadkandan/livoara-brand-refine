@@ -118,7 +118,7 @@ function Footer() {
         <div><h2 className="text-xs uppercase tracking-[0.18em]">Explore</h2><div className="mt-5 flex flex-col gap-3 text-sm text-primary-foreground/70"><Link to="/product">Shop the Vanity</Link><Link to="/about">Our Story</Link><Link to="/contact">Contact Us</Link></div></div>
         <div><h2 className="text-xs uppercase tracking-[0.18em]">Information</h2><div className="mt-5 flex flex-col gap-3 text-sm text-primary-foreground/70"><Link to="/shipping-returns">Shipping & Returns</Link><Link to="/privacy">Privacy Policy</Link><Link to="/terms">Terms & Conditions</Link></div></div>
       </div>
-      <div className="border-t border-primary-foreground/15 px-6 py-5 text-center text-[11px] uppercase tracking-[0.16em] text-primary-foreground/55">© 2026 LIVOARA · All rights reserved</div>
+      <div className="border-t border-primary-foreground/15 px-6 py-5 text-center text-[11px] uppercase tracking-[0.16em] text-primary-foreground/55">© 2026 LIVOARA · A brand of Arinjoy Ventures · All rights reserved</div>
     </footer>
   );
 }
