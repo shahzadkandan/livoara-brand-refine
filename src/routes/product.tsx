@@ -61,14 +61,30 @@ const featuredComments = [
   { initials: "NK", name: "Nisha K.", city: "Jaipur", title: "Gift karke bahut achha response mila", copy: "Packaging aur product dono premium feel dete hain. Light wala mirror sabse zyada pasand aaya—daily routine ke liye lovely choice hai." },
 ] as const;
 
+const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
+
+const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
+  singleOffer,
+  { id: "double", label: "2 pieces", detail: "Save ₹299", price: "₹2,699", pieces: 2, badge: "Popular" },
+  { id: "triple", label: "3 pieces", detail: "Save ₹698", price: "₹3,799", pieces: 3, badge: "Best value" },
+] as const;
+
+type BundleOfferId = (typeof bundleOffers)[number]["id"];
+
 function ProductPage() {
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
-  const [selectedOffer, setSelectedOffer] = useState<"regular" | "launch">("launch");
+  const [selectedOffer, setSelectedOffer] = useState<BundleOfferId>("single");
+  const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
   const { add } = useCart();
   const selectedImage = galleryImages[selected] ?? galleryImages[0];
-  const selectedPrice = selectedOffer === "launch" ? "₹2,999" : "₹4,999";
+  const activeOffer = bundleOffers.find((offer) => offer.id === selectedOffer) ?? singleOffer;
+  const selectedPrice = activeOffer.price;
+  const cartQuantity = activeOffer.pieces * quantity;
+  const timerHours = Math.floor(offerSeconds / 3600);
+  const timerMinutes = Math.floor((offerSeconds % 3600) / 60);
+  const timerSeconds = offerSeconds % 60;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +94,13 @@ function ProductPage() {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setOfferSeconds((seconds) => seconds > 0 ? seconds - 1 : 0);
+    }, 1000);
+    return () => window.clearInterval(timer);
   }, []);
 
   return (
@@ -120,43 +143,37 @@ function ProductPage() {
           <div className="mt-6">
             <div className="mb-3 flex items-center justify-between gap-3">
               <p className="text-[11px] font-medium uppercase tracking-[0.16em]">Choose your offer</p>
-              <span className="bg-secondary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">Limited launch offer</span>
+              <span className="bg-secondary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">Bundle pricing</span>
             </div>
             <div className="grid gap-3" role="group" aria-label="Choose product offer">
-              <Button
-                type="button"
-                variant="ghost"
-                aria-pressed={selectedOffer === "regular"}
-                onClick={() => setSelectedOffer("regular")}
-                className={`h-auto min-h-20 w-full justify-between border px-4 py-4 text-left sm:px-5 ${selectedOffer === "regular" ? "border-accent bg-secondary/70 ring-1 ring-accent" : "border-border bg-background hover:bg-muted/45"}`}
-              >
-                <span className="flex min-w-0 items-center gap-3">
-                  <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${selectedOffer === "regular" ? "border-accent" : "border-border"}`} aria-hidden="true">
-                    {selectedOffer === "regular" && <span className="size-2.5 rounded-full bg-accent" />}
-                  </span>
-                  <span><strong className="block text-base">Buy 1</strong><span className="mt-1 block text-xs font-normal text-muted-foreground">Regular price</span></span>
-                </span>
-                <strong className="shrink-0 font-display text-2xl">₹4,999</strong>
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                aria-pressed={selectedOffer === "launch"}
-                onClick={() => setSelectedOffer("launch")}
-                className={`relative h-auto min-h-24 w-full justify-between overflow-visible border px-4 py-4 text-left sm:px-5 ${selectedOffer === "launch" ? "border-accent bg-secondary/70 ring-1 ring-accent" : "border-border bg-background hover:bg-muted/45"}`}
-              >
-                <span className="flex min-w-0 items-center gap-3">
-                  <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${selectedOffer === "launch" ? "border-accent" : "border-border"}`} aria-hidden="true">
-                    {selectedOffer === "launch" && <span className="size-2.5 rounded-full bg-accent" />}
-                  </span>
-                  <span><span className="flex flex-wrap items-center gap-2"><strong className="text-base">Buy 1</strong><span className="bg-accent px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-accent-foreground">Save 40%</span></span><span className="mt-1 block text-xs font-normal text-muted-foreground">Launch price · Free shipping</span></span>
-                </span>
-                <span className="shrink-0 text-right"><strong className="block font-display text-2xl">₹2,999</strong><span className="text-xs font-normal text-muted-foreground line-through">₹4,999</span></span>
-              </Button>
+              {bundleOffers.map((offer) => {
+                const isSelected = selectedOffer === offer.id;
+                return (
+                  <Button
+                    key={offer.id}
+                    type="button"
+                    variant="ghost"
+                    aria-pressed={isSelected}
+                    onClick={() => setSelectedOffer(offer.id)}
+                    className={`h-auto min-h-20 w-full justify-between border px-4 py-4 text-left sm:px-5 ${isSelected ? "border-accent bg-secondary/70 ring-1 ring-accent" : "border-border bg-background hover:bg-muted/45"}`}
+                  >
+                    <span className="flex min-w-0 items-center gap-3">
+                      <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${isSelected ? "border-accent" : "border-border"}`} aria-hidden="true">
+                        {isSelected && <span className="size-2.5 rounded-full bg-accent" />}
+                      </span>
+                      <span>
+                        <span className="flex flex-wrap items-center gap-2"><strong className="text-base">{offer.label}</strong>{offer.badge && <span className="bg-accent px-2 py-1 text-[10px] font-bold uppercase tracking-[0.1em] text-accent-foreground">{offer.badge}</span>}</span>
+                        <span className="mt-1 block text-xs font-normal text-muted-foreground">{offer.detail}</span>
+                      </span>
+                    </span>
+                    <strong className="shrink-0 font-display text-2xl">{offer.price}</strong>
+                  </Button>
+                );
+              })}
             </div>
             <div className="mt-3 flex items-center gap-2 bg-muted/45 px-4 py-3 text-xs">
               <IndianRupee className="size-4 shrink-0 text-accent" />
-              <span><strong>You save ₹2,000</strong> on the launch offer · Inclusive of all taxes</span>
+              <span>Selected: <strong>{activeOffer.label} for {selectedPrice}</strong> · Inclusive of all taxes</span>
             </div>
           </div>
 
@@ -172,8 +189,19 @@ function ProductPage() {
               <Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus className="size-4" /></Button>
             </div>
           </div>
-          <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(quantity)}>Add to Cart · {selectedPrice}</Button>
-          <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(quantity)}>Buy Now</Button>
+          <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(cartQuantity)}>Add to Cart · {selectedPrice}</Button>
+          <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(cartQuantity)}>Buy Now</Button>
+
+          <div className="mt-5 border-y border-border py-4 text-center" role="timer" aria-live="off" aria-label={`${timerHours} hours, ${timerMinutes} minutes, ${timerSeconds} seconds remaining`}>
+            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Offer timer</p>
+            <div className="mx-auto mt-3 grid max-w-sm grid-cols-[1fr_auto_1fr_auto_1fr] items-start gap-3 tabular-nums">
+              <TimeUnit value={timerHours} label="Hours" />
+              <span className="pt-1 font-display text-3xl text-accent">:</span>
+              <TimeUnit value={timerMinutes} label="Minutes" />
+              <span className="pt-1 font-display text-3xl text-accent">:</span>
+              <TimeUnit value={timerSeconds} label="Seconds" />
+            </div>
+          </div>
 
           <div className="relative mt-6 grid grid-cols-3 border-y border-border py-5 text-center text-[11px] leading-4">
             <span className="absolute left-[16.67%] right-[16.67%] top-9 h-px bg-border" aria-hidden="true" />
@@ -310,7 +338,7 @@ function ProductPage() {
       </section>
 
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(quantity)}>Add to Cart · {selectedPrice}</Button>
+        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(cartQuantity)}>Add to Cart · {selectedPrice}</Button>
       </div>
     </div>
   );
@@ -323,6 +351,8 @@ function InfoRow({ title, children, open = false }: { title: string; children: R
 function Spec({ term, value }: { term: string; value: string }) { return <div><dt className="font-medium text-foreground">{term}</dt><dd>{value}</dd></div>; }
 
 function QuickFact({ icon, label }: { icon: ReactNode; label: string }) { return <div className="px-2"><span className="mx-auto mb-2 grid size-8 place-items-center text-accent [&>svg]:size-4">{icon}</span><span>{label}</span></div>; }
+
+function TimeUnit({ value, label }: { value: number; label: string }) { return <span><strong className="block font-display text-3xl sm:text-4xl">{String(value).padStart(2, "0")}</strong><span className="mt-1 block text-[9px] uppercase tracking-[0.14em] text-muted-foreground">{label}</span></span>; }
 
 function Status({ icon, label, value }: { icon: ReactNode; label: string; value: string }) { return <div className="relative z-10 px-1"><span className="mx-auto grid size-8 place-items-center rounded-full border border-accent bg-background text-accent [&>svg]:size-4">{icon}</span><strong className="mt-2 block font-medium">{value}</strong><span className="mt-1 block text-muted-foreground">{label}</span></div>; }
 
