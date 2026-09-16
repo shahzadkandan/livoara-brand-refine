@@ -21,3 +21,4 @@
 - [x] Rebuild product feedback as a dense social-style thread with brand replies
 - [x] Restore swipeable mobile comparison tables and phone-style comment columns
 - [x] Refine homepage spacing, banner, offer visibility, product videos, daily problems, trust signals, and comparisons without redesigning LIVOARA
+- [x] Restructure homepage below the unchanged hero with compact features, visual problems, editorial banner, photo feedback, and trust icons
