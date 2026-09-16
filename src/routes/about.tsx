@@ -32,5 +32,4 @@ function AboutPage() {
 }
 
 function StoryBlock({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) { return <article className="border-t border-border pt-7"><p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{eyebrow}</p><h2 className="mt-5 max-w-lg font-display text-3xl leading-tight sm:text-4xl">{title}</h2><p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">{copy}</p></article>; }
-function Principle({ title, copy }: { title: string; copy: string }) { return <article className="border-t border-primary-foreground/25 pt-6"><h3 className="font-display text-3xl">{title}</h3><p className="mt-4 text-sm leading-7 text-primary-foreground/70">{copy}</p></article>; }
 function Value({ n, title, copy }: { n: string; title: string; copy: string }) { return <article className="border-t border-border pt-6"><span className="text-xs text-muted-foreground">{n}</span><h3 className="mt-5 font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{copy}</p></article>; }
