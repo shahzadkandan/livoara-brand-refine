@@ -22,4 +22,4 @@
 - [x] Restore swipeable mobile comparison tables and phone-style comment columns
 - [x] Refine homepage spacing, banner, offer visibility, product videos, daily problems, trust signals, and comparisons without redesigning LIVOARA
 - [x] Fix Our Story hero height/placement, remove dark philosophy band, and show banner cleanly on mobile
-- [ ] Redesign homepage using the new PDF reference: new hero, problem/solution, category grid, lifestyle banner, reviews, trust badges, comparison table, community section
+- [x] Redesign homepage using the new PDF reference: new hero, problem/solution, category grid, lifestyle banner, reviews, trust badges, comparison table, community section
