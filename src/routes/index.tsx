@@ -55,7 +55,7 @@ function Hero() {
         <p className="mt-5 max-w-md text-sm leading-7 text-muted-foreground">A compact LED makeup case with mirror, light and organised storage designed to simplify your daily ritual.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild><Link to="/product">Shop Now</Link></Button>
-          <Button asChild variant="outline"><Link to="#videos">Watch Video</Link></Button>
+          <Button asChild variant="outline"><a href="#videos">Watch Video</a></Button>
         </div>
       </div>
       <div className="order-1 h-[55vh] min-h-[320px] max-h-[520px] overflow-hidden bg-secondary lg:order-2 lg:h-auto lg:max-h-none lg:min-h-[560px]">
