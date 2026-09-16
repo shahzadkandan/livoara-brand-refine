@@ -215,10 +215,10 @@ function ComparisonSection() {
           <thead><tr className="border-b border-border text-[9px] uppercase tracking-[0.17em]"><th className="px-4 py-5 font-medium"></th><th className="px-4 py-5 text-center font-medium">Traditional setup</th><th className="bg-secondary px-4 py-5 text-center font-medium text-accent">LIVOARA</th></tr></thead>
           <tbody>
             <CompareTwoRow label="Organised storage" other="Scattered pouches and boxes" livoara="Dedicated compartments" />
-            <CompareTwoRow label="Mirror lighting'" other="Separate mirror or room light" livoara="Built-in illuminated mirror" />
+            <CompareTwoRow label="Mirror lighting" other="Separate mirror or room light" livoara="Built-in illuminated mirror" />
             <CompareTwoRow label="Travel format" other="Multiple organisers" livoara="One compact vanity case" />
-            <CompareTwoRow label="All-in-one format'" other="Items bought separately" livoara="Mirror, light and storage together" />
-            <CompareTwoRow label="Modern style'" other="Basic organisers" livoara="Designed to look elegant on a dresser" />
+            <CompareTwoRow label="All-in-one format" other="Items bought separately" livoara="Mirror, light and storage together" />
+            <CompareTwoRow label="Modern style" other="Basic organisers" livoara="Designed to look elegant on a dresser" />
           </tbody>
         </table>
       </div>
