@@ -24,3 +24,4 @@
 - [x] Restructure homepage below the unchanged hero with compact features, visual problems, editorial banner, photo feedback, and trust icons
 - [x] Refine homepage with two problem and two solution scenes, woman-led videos, product-box categories, a reference-style banner, and eight portrait reviews
 - [x] Correct homepage media to consistently show the single approved LIVOARA vanity, restore seven category photos, and compact reviewer portraits
+- [x] Make the product page compact and video-led using approved LIVOARA media and reference-inspired shopping patterns
