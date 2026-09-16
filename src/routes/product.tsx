@@ -6,9 +6,11 @@ import {
   Gift,
   IndianRupee,
   LockKeyhole,
+  MessageCircleMore,
   Minus,
   PackageCheck,
   Plus,
+  RotateCcw,
   ShieldCheck,
   Sparkles,
   Truck,
@@ -178,24 +180,30 @@ function ProductPage() {
         </div>
 
         <div>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-            <span className="text-accent" aria-hidden="true">✦</span>
-            <a href="#reviews" className="font-medium underline decoration-border underline-offset-4">See illustrative customer stories</a>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-border pb-4 text-xs">
+            <MessageCircleMore className="size-4 text-accent" aria-hidden="true" />
+            <a href="#reviews" className="font-semibold underline decoration-border underline-offset-4">24 illustrative customer conversations</a>
+            <span className="text-muted-foreground">Sample feedback · verified reviews added after collection</span>
           </div>
           <p className="mt-5 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">LIVOARA signature beauty companion</p>
           <h1 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">The LIVOARA Travel Vanity</h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base">A luminous vanity, thoughtful organizer, and travel companion—beautifully designed as one.</p>
 
-          <div className="mt-6 grid grid-cols-3 border-y border-border py-4 text-center text-[11px] leading-4">
-            <QuickFact icon={<Sparkles />} label="Illuminated mirror" />
-            <QuickFact icon={<PackageCheck />} label="Organized storage" />
-            <QuickFact icon={<Truck />} label="Travel-ready" />
+          <div className="mt-6 grid grid-cols-2 border border-border bg-border text-center text-[11px] leading-4 sm:grid-cols-4">
+            <TrustPoint icon={<Truck />} title="Fast Shipping" detail="Timeline at checkout" />
+            <TrustPoint icon={<RotateCcw />} title="Easy Returns" detail="7-day request window" />
+            <TrustPoint icon={<Sparkles />} title="Features" detail="Light + organisation" />
+            <TrustPoint icon={<ShieldCheck />} title="Durability" detail="Structured case format" />
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 border border-accent bg-secondary/45 p-4 sm:p-5">
+            <div className="mb-4 flex items-start justify-between gap-4 border-b border-accent/35 pb-4">
+              <div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">Current bundle offer</p><p className="mt-1 font-display text-2xl">Save more when you bundle.</p></div>
+              <span className="shrink-0 bg-accent px-3 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-accent-foreground">Save up to ₹698</span>
+            </div>
             <div className="mb-3 flex items-center justify-between gap-3">
               <p className="text-[11px] font-medium uppercase tracking-[0.16em]">Choose your offer</p>
-              <span className="bg-secondary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">Bundle pricing</span>
+              <span className="bg-background px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-accent">Bundle pricing</span>
             </div>
             <div className="grid gap-3" role="group" aria-label="Choose product offer">
               {bundleOffers.map((offer) => {
@@ -207,7 +215,7 @@ function ProductPage() {
                     variant="ghost"
                     aria-pressed={isSelected}
                     onClick={() => setSelectedOffer(offer.id)}
-                    className={`h-auto min-h-20 w-full justify-between border px-4 py-4 text-left sm:px-5 ${isSelected ? "border-accent bg-secondary/70 ring-1 ring-accent" : "border-border bg-background hover:bg-muted/45"}`}
+                     className={`h-auto min-h-20 w-full justify-between border px-4 py-4 text-left sm:px-5 ${isSelected ? "border-accent bg-background ring-1 ring-accent" : "border-border bg-background/75 hover:bg-background"}`}
                   >
                     <span className="flex min-w-0 items-center gap-3">
                       <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${isSelected ? "border-accent" : "border-border"}`} aria-hidden="true">
@@ -244,8 +252,8 @@ function ProductPage() {
           <Button id="main-add-to-cart" className="mt-4 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(cartQuantity)}>Add to Cart · {selectedPrice}</Button>
           <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(cartQuantity)}>Buy Now</Button>
 
-          <div className="mt-5 border-y border-border py-4 text-center" role="timer" aria-live="off" aria-label={`${timerHours} hours, ${timerMinutes} minutes, ${timerSeconds} seconds remaining`}>
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Offer timer</p>
+          <div className="mt-5 border border-primary bg-primary px-4 py-5 text-center text-primary-foreground" role="timer" aria-live="off" aria-label={`${timerHours} hours, ${timerMinutes} minutes, ${timerSeconds} seconds remaining`}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground/70">Current offer ends in</p>
             <div className="mx-auto mt-3 grid max-w-sm grid-cols-[1fr_auto_1fr_auto_1fr] items-start gap-3 tabular-nums">
               <TimeUnit value={timerHours} label="Hours" />
               <span className="pt-1 font-display text-3xl text-accent">:</span>
@@ -278,7 +286,7 @@ function ProductPage() {
             <p className="mt-3 flex items-center gap-2 text-[11px] text-muted-foreground"><LockKeyhole className="size-3.5 text-accent" />Secure payment · Availability confirmed at checkout</p>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-px border border-border bg-border text-xs">
-            <Trust icon={<ShieldCheck />} text="Eligibility reviewed fairly" />
+            <Trust icon={<RotateCcw />} text="Easy return requests" />
             <Trust icon={<LockKeyhole />} text="Secure checkout" />
             <Trust icon={<Truck />} text="Tracking where available" />
             <Trust icon={<PackageCheck />} text="7-day request window" />
@@ -389,10 +397,10 @@ function InfoRow({ title, children, open = false }: { title: string; children: R
 
 function Spec({ term, value }: { term: string; value: string }) { return <div><dt className="font-medium text-foreground">{term}</dt><dd>{value}</dd></div>; }
 
-function QuickFact({ icon, label }: { icon: ReactNode; label: string }) { return <div className="px-2"><span className="mx-auto mb-2 grid size-8 place-items-center text-accent [&>svg]:size-4">{icon}</span><span>{label}</span></div>; }
+function TrustPoint({ icon, title, detail }: { icon: ReactNode; title: string; detail: string }) { return <div className="min-h-24 bg-background px-2 py-4"><span className="mx-auto mb-2 grid size-8 place-items-center text-accent [&>svg]:size-4">{icon}</span><strong className="block text-[11px]">{title}</strong><span className="mt-1 block text-[9px] text-muted-foreground">{detail}</span></div>; }
 
 
-function TimeUnit({ value, label }: { value: number; label: string }) { return <span><strong className="block font-display text-3xl sm:text-4xl">{String(value).padStart(2, "0")}</strong><span className="mt-1 block text-[9px] uppercase tracking-[0.14em] text-muted-foreground">{label}</span></span>; }
+function TimeUnit({ value, label }: { value: number; label: string }) { return <span><strong className="block font-display text-3xl sm:text-4xl">{String(value).padStart(2, "0")}</strong><span className="mt-1 block text-[9px] uppercase tracking-[0.14em] text-primary-foreground/65">{label}</span></span>; }
 
 function Status({ icon, label, value }: { icon: ReactNode; label: string; value: string }) { return <div className="relative z-10 px-1"><span className="mx-auto grid size-8 place-items-center rounded-full border border-accent bg-background text-accent [&>svg]:size-4">{icon}</span><strong className="mt-2 block font-medium">{value}</strong><span className="mt-1 block text-muted-foreground">{label}</span></div>; }
 
