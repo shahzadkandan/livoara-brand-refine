@@ -157,9 +157,9 @@ function CategoryGrid() {
 function LifestyleBanner() {
   return <section className="relative overflow-hidden" aria-label="Lifestyle">
     <div className="h-[46vh] min-h-[280px] max-h-[460px] w-full sm:h-[38vh] lg:h-[46vh] lg:max-h-[520px]">
-      <img src={heroAsset.url} alt="LIVOARA vanities arranged in an elegant lifestyle setting" className="h-full w-full object-cover object-[68%_center] sm:object-contain sm:object-top lg:object-cover lg:object-[70%_center]" />
+      <img src={categoryLifestyle} alt="LIVOARA vanities arranged in an elegant lifestyle setting" className="h-full w-full object-cover object-[62%_center]" />
     </div>
-    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent lg:bg-gradient-to-r lg:from-background/60 lg:via-background/20 lg:to-transparent" aria-hidden="true" />
+    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/30 to-transparent lg:bg-gradient-to-r lg:from-background/70 lg:via-background/30 lg:to-transparent" aria-hidden="true" />
     <div className="absolute inset-0 flex items-end px-6 pb-10 sm:px-10 lg:items-center lg:pb-0 lg:pl-[6vw]">
       <div className="max-w-md">
         <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Designed for your everyday</p>
