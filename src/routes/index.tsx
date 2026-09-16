@@ -34,7 +34,7 @@ function HomePage() {
     <section aria-label="Made for every moment" className="relative bg-secondary">
       <h1 className="sr-only">LIVOARA — Made for every moment.</h1>
       <Link to="/product" className="block" aria-label="Shop the LIVOARA Travel Vanity">
-        <picture><img src={heroAsset.url} alt="LIVOARA illuminated travel vanity with mirror, beauty products and jewellery" className="h-[52dvh] min-h-[350px] max-h-[520px] w-full object-cover object-[68%_center] sm:h-[clamp(420px,46vw,620px)] sm:max-h-[620px] sm:object-center" /></picture>
+        <picture><img src={heroAsset.url} alt="LIVOARA illuminated travel vanity with mirror, beauty products and jewellery" className="h-[52dvh] min-h-[350px] max-h-[520px] w-full object-cover object-[68%_center] sm:h-auto sm:min-h-0 sm:max-h-none sm:object-contain" /></picture>
       </Link>
       <div className="bg-secondary px-5 py-5 sm:hidden"><Button asChild className="w-full"><Link to="/product">Shop Now <ArrowRight className="size-4" /></Link></Button></div>
     </section>
