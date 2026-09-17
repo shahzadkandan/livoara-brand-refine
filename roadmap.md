@@ -26,3 +26,4 @@
 - [x] Correct homepage media to consistently show the single approved LIVOARA vanity, restore seven category photos, and compact reviewer portraits
 - [x] Make the product page compact and video-led using approved LIVOARA media and reference-inspired shopping patterns
 - [x] Fix comment thread empty space, rebuild "Why choose LIVOARA?" as three-column visual comparison, and stack the editorial banner safely on mobile
+- [x] Balance comment threads to 8 messages each and improve comment typography
