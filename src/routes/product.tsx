@@ -260,7 +260,6 @@ function ProductPage() {
           </div>
         </div>
       </section>
-</antml :parameter>
 
       <section className="border-b border-border">
         <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
