@@ -151,6 +151,16 @@ const routineSteps = [
   { icon: <Luggage />, stage: "On the go", title: "Pack one beautiful case", copy: "When you travel, the mirror and essentials stay together in a single compact case instead of several pouches." },
 ] as const;
 
+const customerFaqs = [
+  { q: "What makes the LIVOARA Travel Vanity different?", a: "It combines an illuminated mirror with organised storage in one compact case, so your everyday essentials stay together at home or while travelling." },
+  { q: "Is the mirror light rechargeable?", a: "Please check the product label and the guide supplied in the box for power details and charging instructions." },
+  { q: "Can it hold a full makeup collection?", a: "The interior is designed for everyday beauty essentials. How much it holds depends on the size and shape of each item." },
+  { q: "Is this suitable for travel?", a: "The compact case format is designed to be travel-friendly. Always check the product label and current airline rules before flying." },
+  { q: "What is your return policy?", a: "Eligible return or exchange requests must be emailed to hello@livoara.in within 7 calendar days of delivery, with a clear continuous unboxing video." },
+  { q: "When will my order arrive?", a: "Delivery timelines and serviceability are shown at checkout once you enter your address." },
+] as const;
+
+
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
 const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
@@ -402,7 +412,25 @@ function ProductPage() {
         </div>
       </section>
 
+      <section id="customer-faqs" className="border-b border-border bg-background">
+        <div className="mx-auto max-w-3xl px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Common questions</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">What Customers Ask Most</h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-muted-foreground">Quick, honest answers about the LIVOARA Travel Vanity.</p>
+          </div>
+          <div className="mt-9 divide-y divide-border border-y border-border">
+            {customerFaqs.map((faq) => (
+              <InfoRow key={faq.q} title={faq.q}>
+                <p>{faq.a}</p>
+              </InfoRow>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
+
         <div className="flex items-center gap-3">
           <div className="min-w-0"><p className="truncate text-xs font-semibold">The LIVOARA Travel Vanity</p><p className="text-[11px] text-muted-foreground">{activeOffer.label} · {selectedPrice}</p></div>
           <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" onClick={() => add(cartQuantity)}>Add to Cart</Button>
