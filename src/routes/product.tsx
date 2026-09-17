@@ -278,19 +278,19 @@ function ProductPage() {
           <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-muted/40 transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
             <div className="p-2.5 text-center sm:p-4"><div className="mx-auto aspect-square w-14 overflow-hidden rounded-xl border border-border sm:w-24"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2 text-[11px] font-medium sm:text-sm">Loose on a vanity</p></div>
             {comparisonRows.map((row) => (
-              <div key={row.loose} className="flex flex-1 items-start gap-2 border-t border-border p-2.5 text-[10px] leading-4 text-muted-foreground sm:items-center sm:p-3.5 sm:text-xs sm:leading-5"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground sm:size-7 [&>svg]:size-3 sm:[&>svg]:size-3.5">{row.icon}</span>{row.loose}</div>
+              <div key={row.loose} className="flex flex-1 items-start gap-2 border-t border-border p-2.5 text-[10px] leading-4 text-muted-foreground sm:items-center sm:p-3.5 sm:text-xs sm:leading-5"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground sm:size-7 [&>svg]:size-3 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0">{row.loose}</span></div>
             ))}
           </div>
           <div className="z-10 -my-2 flex flex-col overflow-hidden rounded-2xl border-2 border-accent bg-secondary shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
             <div className="p-2.5 text-center sm:p-4"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-xl border border-accent/50 bg-background sm:w-28"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2 font-display text-base sm:text-2xl">LIVOARA</p></div>
             {comparisonRows.map((row) => (
-              <div key={row.livoara} className="flex flex-1 items-start gap-2 border-t border-accent/30 bg-secondary/70 p-2.5 text-[10px] font-medium leading-4 sm:items-center sm:p-3.5 sm:text-xs sm:leading-5"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground sm:size-7 [&>svg]:size-3 sm:[&>svg]:size-3.5"><Check /></span>{row.livoara}</div>
+              <div key={row.livoara} className="flex flex-1 items-start gap-2 border-t border-accent/30 bg-secondary/70 p-2.5 text-[10px] font-medium leading-4 sm:items-center sm:p-3.5 sm:text-xs sm:leading-5"><span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground sm:size-7 [&>svg]:size-3 sm:[&>svg]:size-3.5"><Check /></span><span className="min-w-0">{row.livoara}</span></div>
             ))}
           </div>
           <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-muted/40 transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
             <div className="p-2.5 text-center sm:p-4"><div className="mx-auto aspect-square w-14 overflow-hidden rounded-xl border border-border sm:w-24"><img src={problemPouches} alt="Multiple separate travel pouches for beauty essentials" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2 text-[11px] font-medium sm:text-sm">Separate pouches</p></div>
             {comparisonRows.map((row) => (
-              <div key={row.pouches} className="flex flex-1 items-start gap-2 border-t border-border p-2.5 text-[10px] leading-4 text-muted-foreground sm:items-center sm:p-3.5 sm:text-xs sm:leading-5"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground sm:size-7 [&>svg]:size-3 sm:[&>svg]:size-3.5">{row.icon}</span>{row.pouches}</div>
+              <div key={row.pouches} className="flex flex-1 items-start gap-2 border-t border-border p-2.5 text-[10px] leading-4 text-muted-foreground sm:items-center sm:p-3.5 sm:text-xs sm:leading-5"><span className="grid size-6 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground sm:size-7 [&>svg]:size-3 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0">{row.pouches}</span></div>
             ))}
           </div>
         </div>
