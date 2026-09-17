@@ -28,3 +28,4 @@
 - [x] Fix comment thread empty space, rebuild "Why choose LIVOARA?" as three-column visual comparison, and stack the editorial banner safely on mobile
 - [x] Balance comment threads to 8 messages each and improve comment typography
 - [x] Rebuild "Why choose LIVOARA?" to match the 3-column reference: 8 rows, rounded corners, centered images, hover on all columns
+- [x] Balance comment threads by weight (snake draft, 8 each) so no empty gap remains; clean comparison row text wrapping on mobile
