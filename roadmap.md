@@ -27,3 +27,4 @@
 - [x] Make the product page compact and video-led using approved LIVOARA media and reference-inspired shopping patterns
 - [x] Fix comment thread empty space, rebuild "Why choose LIVOARA?" as three-column visual comparison, and stack the editorial banner safely on mobile
 - [x] Balance comment threads to 8 messages each and improve comment typography
+- [x] Rebuild "Why choose LIVOARA?" to match the 3-column reference: 8 rows, rounded corners, centered images, hover on all columns
