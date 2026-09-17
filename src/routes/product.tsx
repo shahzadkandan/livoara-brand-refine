@@ -106,7 +106,8 @@ const commentThreads: FeaturedComment[][] = [[], [], []];
 [...featuredComments]
   .sort((a, b) => commentWeight(b) - commentWeight(a))
   .forEach((comment, index) => {
-    commentThreads[[0, 1, 2, 2, 1, 0][index % 6]].push(comment);
+    const threadIndex = [0, 1, 2, 2, 1, 0][index % 6] ?? 0;
+    commentThreads[threadIndex]?.push(comment);
   });
 
 const comparisonRows = [
