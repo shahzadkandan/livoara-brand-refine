@@ -34,6 +34,15 @@ import problemPouches from "@/assets/livoara-problem-pouches.jpg";
 import organiseVideo from "@/assets/livoara-correct-organise-v2.mp4.asset.json";
 import routineVideo from "@/assets/livoara-correct-routine-v2.mp4.asset.json";
 import travelVideo from "@/assets/livoara-correct-travel-v2.mp4.asset.json";
+import reviewerAnanya from "@/assets/reviewer-ananya.jpg";
+import reviewerIsha from "@/assets/reviewer-isha.jpg";
+import reviewerKavya from "@/assets/reviewer-kavya.jpg";
+import reviewerMeher from "@/assets/reviewer-meher.jpg";
+import reviewerNeha from "@/assets/reviewer-neha.jpg";
+import reviewerRiya from "@/assets/reviewer-riya.jpg";
+import reviewerSana from "@/assets/reviewer-sana.jpg";
+import reviewerAashi from "@/assets/reviewer-aashi.jpg";
+
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/site-shell";
 
