@@ -7,6 +7,7 @@ import {
   House,
   IndianRupee,
   LayoutGrid,
+  Lightbulb,
   LockKeyhole,
   Luggage,
   MessageCircleMore,
@@ -14,6 +15,8 @@ import {
   PackageCheck,
   Plus,
   RotateCcw,
+  Search,
+  Sparkles,
   SunMedium,
   Truck,
 } from "lucide-react";
@@ -97,10 +100,14 @@ const commentThreads = Array.from({ length: 3 }, (_, threadIndex) =>
 );
 
 const comparisonRows = [
-  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror integrated in the case", pouches: "No built-in light at all" },
+  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror built into the case", pouches: "No built-in light at all" },
   { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated interior compartments", pouches: "Items jumbled in one pouch" },
-  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case", pouches: "Hard to find things while travelling" },
+  { icon: <Search />, loose: "Items move around and get misplaced", livoara: "Each essential has its own place", pouches: "Digging through a single compartment" },
   { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials kept together", pouches: "No mirror, no organisation" },
+  { icon: <Lightbulb />, loose: "Routine depends on the room's light", livoara: "Consistent light for your routine", pouches: "Storage only, nothing more" },
+  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case", pouches: "Hard to find things while travelling" },
+  { icon: <PackageCheck />, loose: "Products, mirror, and pouches carried separately", livoara: "Carried as a single compact case", pouches: "Several pouches to keep track of" },
+  { icon: <Sparkles />, loose: "A surface that needs resetting after use", livoara: "Everything closes back into one case", pouches: "Pouches to gather and repack each time" },
 ];
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
