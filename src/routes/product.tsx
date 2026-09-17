@@ -92,22 +92,9 @@ const featuredComments = [
   { initials: "RN", name: "Reema N.", city: "Nashik", copy: "A simple idea, but combining the mirror and organised interior could make daily routines much easier." },
 ] as const;
 
-const commentWeight = (comment: (typeof featuredComments)[number]) =>
-  comment.copy.length + ("reply" in comment ? 130 : 0);
-
-const commentThreads = (() => {
-  const threads: { comments: Array<(typeof featuredComments)[number]>; weight: number }[] = [
-    { comments: [], weight: 0 },
-    { comments: [], weight: 0 },
-    { comments: [], weight: 0 },
-  ];
-  for (const comment of [...featuredComments].sort((a, b) => commentWeight(b) - commentWeight(a))) {
-    const lightest = threads.reduce((a, b) => (b.weight < a.weight ? b : a));
-    lightest.comments.push(comment);
-    lightest.weight += commentWeight(comment);
-  }
-  return threads.map((thread) => thread.comments);
-})();
+const commentThreads = Array.from({ length: 3 }, (_, threadIndex) =>
+  featuredComments.filter((_, commentIndex) => commentIndex % 3 === threadIndex),
+);
 
 const comparisonRows = [
   { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror integrated in the case", pouches: "No built-in light at all" },
@@ -242,16 +229,16 @@ function ProductPage() {
                       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-accent/25 text-[9px] font-bold text-foreground" aria-hidden="true">{comment.initials}</span>
                       <div className="min-w-0">
                         <div className="rounded-xl rounded-tl-sm bg-muted/75 px-3 py-2.5">
-                          <h3 className="text-[11px] font-bold">{comment.name}</h3>
-                          <p className="mt-0.5 text-[11px] leading-4 text-foreground/85">{comment.copy}</p>
+                          <h3 className="text-xs font-bold">{comment.name}</h3>
+                          <p className="mt-1 text-xs leading-5 text-foreground/85">{comment.copy}</p>
                         </div>
-                        <p className="mt-1 flex flex-wrap items-center gap-x-2 px-2 text-[9px] font-semibold text-muted-foreground"><span>{comment.city}</span><span className="text-accent">Like</span><span>Reply</span><span>Sample</span></p>
+                        <p className="mt-1 flex flex-wrap items-center gap-x-2 px-2 text-[10px] font-semibold text-muted-foreground"><span>{comment.city}</span><span className="text-accent">Like</span><span>Reply</span><span>Sample</span></p>
                         {"reply" in comment && comment.reply && (
                           <div className="mt-2.5 grid grid-cols-[1.75rem_minmax(0,1fr)] items-start gap-2 pl-1">
                             <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-[8px] font-bold text-primary-foreground" aria-hidden="true">L</span>
                             <div className="min-w-0">
-                              <div className="rounded-xl rounded-tl-sm bg-secondary/70 px-3 py-2.5"><h4 className="text-[10px] font-bold">LIVOARA <span className="font-normal text-accent">Author</span></h4><p className="mt-0.5 text-[10px] leading-4 text-muted-foreground">{comment.reply}</p></div>
-                              <p className="mt-1 px-2 text-[9px] font-semibold text-muted-foreground">Like <span aria-hidden="true">·</span> Reply</p>
+                              <div className="rounded-xl rounded-tl-sm bg-secondary/70 px-3 py-2.5"><h4 className="text-[11px] font-bold">LIVOARA <span className="font-normal text-accent">Author</span></h4><p className="mt-1 text-[11px] leading-4 text-muted-foreground">{comment.reply}</p></div>
+                              <p className="mt-1 px-2 text-[10px] font-semibold text-muted-foreground">Like <span aria-hidden="true">·</span> Reply</p>
                             </div>
                           </div>
                         )}
