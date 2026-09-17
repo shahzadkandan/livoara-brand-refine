@@ -95,19 +95,30 @@ const featuredComments = [
   { initials: "RN", name: "Reema N.", city: "Nashik", copy: "A simple idea, but combining the mirror and organised interior could make daily routines much easier." },
 ] as const;
 
-const commentThreads = Array.from({ length: 3 }, (_, threadIndex) =>
-  featuredComments.filter((_, commentIndex) => commentIndex % 3 === threadIndex),
-);
+type FeaturedComment = (typeof featuredComments)[number];
+
+const commentWeight = (comment: FeaturedComment) =>
+  comment.copy.length + ("reply" in comment && comment.reply ? comment.reply.length + 80 : 0);
+
+// Snake-draft by weight keeps exactly 8 comments per thread with balanced heights,
+// so no thread card leaves a large empty gap inside the swipe area.
+const commentThreads: FeaturedComment[][] = [[], [], []];
+[...featuredComments]
+  .sort((a, b) => commentWeight(b) - commentWeight(a))
+  .forEach((comment, index) => {
+    const threadIndex = [0, 1, 2, 2, 1, 0][index % 6] ?? 0;
+    commentThreads[threadIndex]?.push(comment);
+  });
 
 const comparisonRows = [
-  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror built into the case", pouches: "No built-in light at all" },
-  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated interior compartments", pouches: "Items jumbled in one pouch" },
-  { icon: <Search />, loose: "Items move around and get misplaced", livoara: "Each essential has its own place", pouches: "Digging through a single compartment" },
-  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials kept together", pouches: "No mirror, no organisation" },
-  { icon: <Lightbulb />, loose: "Routine depends on the room's light", livoara: "Consistent light for your routine", pouches: "Storage only, nothing more" },
-  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case", pouches: "Hard to find things while travelling" },
-  { icon: <PackageCheck />, loose: "Products, mirror, and pouches carried separately", livoara: "Carried as a single compact case", pouches: "Several pouches to keep track of" },
-  { icon: <Sparkles />, loose: "A surface that needs resetting after use", livoara: "Everything closes back into one case", pouches: "Pouches to gather and repack each time" },
+  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Built-in illuminated mirror", pouches: "No built-in light at all" },
+  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated inner sections", pouches: "Items jumbled in one pouch" },
+  { icon: <Search />, loose: "Items move around and get misplaced", livoara: "A place for every essential", pouches: "Digging through one pouch" },
+  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials together", pouches: "No mirror, no organisation" },
+  { icon: <Lightbulb />, loose: "Routine depends on room light", livoara: "Consistent light for routines", pouches: "Storage only, nothing more" },
+  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case", pouches: "Hard to find things in transit" },
+  { icon: <PackageCheck />, loose: "Many pieces carried separately", livoara: "Carried as a single case", pouches: "Several pouches to track" },
+  { icon: <Sparkles />, loose: "Surface needs resetting after use", livoara: "Closes back into one case", pouches: "Gather and repack each time" },
 ];
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
@@ -272,19 +283,19 @@ function ProductPage() {
           <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
             <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-2xl border border-border bg-muted/50 sm:w-28"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-[11px] font-semibold leading-4 sm:text-sm">Loose on a vanity</p></div>
             {comparisonRows.map((row) => (
-              <div key={row.loose} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 break-words">{row.loose}</span></div>
+              <div key={row.loose} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 hyphens-auto break-words">{row.loose}</span></div>
             ))}
           </div>
           <div className="z-10 -my-2 flex flex-col overflow-hidden rounded-2xl border-2 border-accent bg-secondary shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
             <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-20 overflow-hidden rounded-2xl border border-accent/50 bg-background sm:w-32"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 font-display text-base sm:text-2xl">LIVOARA</p></div>
             {comparisonRows.map((row) => (
-              <div key={row.livoara} className="flex flex-1 items-center gap-1.5 border-t border-accent/30 bg-secondary/70 px-2 py-2.5 text-[10px] font-medium leading-4 sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5"><Check /></span><span className="min-w-0 break-words">{row.livoara}</span></div>
+              <div key={row.livoara} className="flex flex-1 items-center gap-1.5 border-t border-accent/30 bg-secondary/70 px-2 py-2.5 text-[10px] font-medium leading-4 sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5"><Check /></span><span className="min-w-0 hyphens-auto break-words">{row.livoara}</span></div>
             ))}
           </div>
           <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
             <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-2xl border border-border bg-muted/50 sm:w-28"><img src={problemPouches} alt="Multiple separate travel pouches for beauty essentials" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-[11px] font-semibold leading-4 sm:text-sm">Separate pouches</p></div>
             {comparisonRows.map((row) => (
-              <div key={row.pouches} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 break-words">{row.pouches}</span></div>
+              <div key={row.pouches} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 hyphens-auto break-words">{row.pouches}</span></div>
             ))}
           </div>
         </div>
