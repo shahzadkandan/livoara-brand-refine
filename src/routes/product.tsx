@@ -113,8 +113,13 @@ const comparisonRows = [
   { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror integrated in the case" },
   { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated interior compartments" },
   { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case" },
-  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials kept together" },
-] as const;
+  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials kept together", pouches: "No mirror, no organisation" },
+];
+
+// backfill the pouches column for the three earlier rows
+comparisonRows[0] = { ...comparisonRows[0], pouches: "No built-in light at all" };
+comparisonRows[1] = { ...comparisonRows[1], pouches: "Items jumbled in one pouch" };
+comparisonRows[2] = { ...comparisonRows[2], pouches: "Hard to find things while travelling" };
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
