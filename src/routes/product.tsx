@@ -124,6 +124,12 @@ const comparisonRows = [
   { icon: <Sparkles />, loose: "Surface needs resetting after use", livoara: "Closes back into one case", pouches: "Gather and repack each time" },
 ];
 
+const routineSteps = [
+  { icon: <PackageCheck />, stage: "Day one", title: "Unbox and arrange", copy: "Open the case, place your everyday essentials into the organised sections, and set the mirror where you get ready." },
+  { icon: <SunMedium />, stage: "Every day", title: "Light where you need it", copy: "Use the illuminated mirror for your daily routine at your dresser, in a hostel room, or wherever the day starts." },
+  { icon: <Luggage />, stage: "On the go", title: "Pack one beautiful case", copy: "When you travel, the mirror and essentials stay together in a single compact case instead of several pouches." },
+] as const;
+
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
 const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
@@ -254,46 +260,7 @@ function ProductPage() {
           </div>
         </div>
       </section>
-      <section id="reviews" className="border-y border-border bg-secondary/55">
-        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-accent">Customer comments</p>
-            <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative sample comments for layout preview. Verified customer feedback will replace these after collection.</p>
-          </div>
-          <div className="-mx-6 mt-7 flex snap-x snap-mandatory items-start gap-4 overflow-x-auto px-6 pb-5 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0" role="feed" aria-label="Illustrative customer discussion">
-            {commentThreads.map((thread, threadIndex) => (
-              <div key={threadIndex} className="w-[86vw] max-w-[22rem] shrink-0 snap-start border border-border bg-background px-3 py-4 sm:w-[22rem] lg:w-auto lg:max-w-none" aria-label={`Comment thread ${threadIndex + 1}`}>
-                <div className="mb-4 flex items-center justify-between border-b border-border pb-3"><span className="text-xs font-bold">Comments</span><span className="text-[10px] text-muted-foreground">Thread {threadIndex + 1}</span></div>
-                <div className="space-y-4">
-                  {thread.map((comment) => (
-                    <article key={comment.name} className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-2">
-                      <span className="grid size-8 shrink-0 place-items-center rounded-full bg-accent/25 text-[9px] font-bold text-foreground" aria-hidden="true">{comment.initials}</span>
-                      <div className="min-w-0">
-                        <div className="rounded-xl rounded-tl-sm bg-muted/75 px-3 py-2.5">
-                          <h3 className="text-xs font-bold">{comment.name}</h3>
-                          <p className="mt-1 text-xs leading-5 text-foreground/85">{comment.copy}</p>
-                        </div>
-                        <p className="mt-1 flex flex-wrap items-center gap-x-2 px-2 text-[10px] font-semibold text-muted-foreground"><span>{comment.city}</span><span className="text-accent">Like</span><span>Reply</span><span>Sample</span></p>
-                        {"reply" in comment && comment.reply && (
-                          <div className="mt-2.5 grid grid-cols-[1.75rem_minmax(0,1fr)] items-start gap-2 pl-1">
-                            <span className="grid size-7 shrink-0 place-items-center rounded-full bg-primary text-[8px] font-bold text-primary-foreground" aria-hidden="true">L</span>
-                            <div className="min-w-0">
-                              <div className="rounded-xl rounded-tl-sm bg-secondary/70 px-3 py-2.5"><h4 className="text-[11px] font-bold">LIVOARA <span className="font-normal text-accent">Author</span></h4><p className="mt-1 text-[11px] leading-4 text-muted-foreground">{comment.reply}</p></div>
-                              <p className="mt-1 px-2 text-[10px] font-semibold text-muted-foreground">Like <span aria-hidden="true">·</span> Reply</p>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </article>
-                  ))}
-                </div>
-                <div className="mt-4 rounded-full border border-border px-3 py-2 text-[10px] text-muted-foreground">Write a comment…</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+</antml :parameter>
 
       <section className="border-b border-border">
         <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
