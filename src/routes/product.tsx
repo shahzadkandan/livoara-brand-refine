@@ -4,13 +4,17 @@ import {
   ChevronDown,
   CirclePlay,
   CreditCard,
+  House,
   IndianRupee,
+  LayoutGrid,
   LockKeyhole,
+  Luggage,
   MessageCircleMore,
   Minus,
   PackageCheck,
   Plus,
   RotateCcw,
+  SunMedium,
   Truck,
 } from "lucide-react";
 import { useEffect, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
@@ -18,6 +22,8 @@ import heroAsset from "@/assets/livoara-hero.png.asset.json";
 import referenceVanity from "@/assets/reference/livoara-reference-vanity.jpg.asset.json";
 import pinkVanity from "@/assets/reference/livoara-product-pink-stacked.jpg";
 import whiteVanity from "@/assets/reference/livoara-product-white-sunlight.jpg";
+import problemScattered from "@/assets/livoara-problem-scattered.jpg";
+import problemPouches from "@/assets/livoara-problem-pouches.jpg";
 import organiseVideo from "@/assets/livoara-correct-organise-v2.mp4.asset.json";
 import routineVideo from "@/assets/livoara-correct-routine-v2.mp4.asset.json";
 import travelVideo from "@/assets/livoara-correct-travel-v2.mp4.asset.json";
@@ -88,6 +94,13 @@ const featuredComments = [
 const commentThreads = Array.from({ length: 3 }, (_, columnIndex) =>
   featuredComments.filter((_, commentIndex) => commentIndex % 3 === columnIndex),
 );
+
+const comparisonRows = [
+  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror integrated in the case", generic: "Lighting rarely included" },
+  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated interior compartments", generic: "General-purpose storage" },
+  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case", generic: "Portability varies by design" },
+  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials together", generic: "Items often stored separately" },
+] as const;
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
@@ -205,7 +218,7 @@ function ProductPage() {
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">What India is saying</h2>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">Illustrative sample comments for layout preview. Verified customer feedback will replace these after collection.</p>
           </div>
-          <div className="-mx-6 mt-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-5 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0" role="feed" aria-label="Illustrative customer discussion">
+          <div className="-mx-6 mt-7 flex snap-x snap-mandatory items-start gap-4 overflow-x-auto px-6 pb-5 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0" role="feed" aria-label="Illustrative customer discussion">
             {commentThreads.map((thread, threadIndex) => (
               <div key={threadIndex} className="w-[86vw] max-w-[22rem] shrink-0 snap-start border border-border bg-background px-3 py-4 sm:w-[22rem] lg:w-auto lg:max-w-none" aria-label={`Comment thread ${threadIndex + 1}`}>
                 <div className="mb-4 flex items-center justify-between border-b border-border pb-3"><span className="text-xs font-bold">Comments</span><span className="text-[10px] text-muted-foreground">Thread {threadIndex + 1}</span></div>
@@ -248,15 +261,20 @@ function ProductPage() {
       <section className="mx-auto max-w-5xl px-6 py-11 sm:py-14">
         <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
         <div className="-mx-6 mt-7 overflow-x-auto px-6 pb-3 sm:mx-0 sm:px-0">
-          <table className="w-full min-w-[620px] border-collapse text-sm">
-            <thead><tr className="bg-muted/60"><th className="p-5 text-left font-medium">Feature</th><th className="bg-secondary p-5 text-center font-display text-xl">LIVOARA</th><th className="p-5 text-center font-medium">Typical alternative</th></tr></thead>
-            <tbody className="divide-y divide-border">
-              <CompareRow feature="Mirror lighting" livoara="Illuminated mirror integrated into the case" other="Often requires a separate mirror" />
-              <CompareRow feature="Organisation" livoara="Dedicated interior compartments" other="Usually general-purpose storage" />
-              <CompareRow feature="Travel format" livoara="Compact vanity case" other="Format and portability vary" />
-              <CompareRow feature="Everyday routine" livoara="Mirror and essentials kept together" other="Items may be stored separately" />
-            </tbody>
-          </table>
+          <div className="min-w-[620px] border border-border">
+            <div className="grid grid-cols-3 border-b border-border">
+              <div className="bg-muted/50 p-4 text-center"><div className="mx-auto aspect-square w-16 overflow-hidden border border-border sm:w-24"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-xs font-medium sm:text-sm">Loose on a vanity</p></div>
+              <div className="border-x-2 border-accent bg-secondary p-4 text-center"><div className="mx-auto aspect-square w-20 overflow-hidden border border-accent/50 bg-background sm:w-28"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 font-display text-lg sm:text-2xl">LIVOARA</p></div>
+              <div className="bg-muted/50 p-4 text-center"><div className="mx-auto aspect-square w-16 overflow-hidden border border-border sm:w-24"><img src={problemPouches} alt="Several separate travel pouches for beauty items" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-xs font-medium sm:text-sm">Separate pouches</p></div>
+            </div>
+            {comparisonRows.map((row) => (
+              <div key={row.livoara} className="grid grid-cols-3 divide-x divide-border border-b border-border last:border-b-0">
+                <div className="flex items-center gap-2.5 p-3.5 text-[11px] leading-5 text-muted-foreground sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground [&>svg]:size-3.5">{row.icon}</span>{row.loose}</div>
+                <div className="flex items-center gap-2.5 border-x-2 border-accent bg-secondary/70 p-3.5 text-[11px] font-medium leading-5 sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground"><Check className="size-3.5" /></span>{row.livoara}</div>
+                <div className="flex items-center gap-2.5 p-3.5 text-[11px] leading-5 text-muted-foreground sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground [&>svg]:size-3.5">{row.icon}</span>{row.generic}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -277,5 +295,3 @@ function Spec({ term, value }: { term: string; value: string }) { return <div><d
 function Trust({ icon, text }: { icon: ReactNode; text: string }) { return <div className="flex min-h-11 items-center gap-2 bg-muted/55 px-3"><span className="text-accent [&>svg]:size-4">{icon}</span><span>{text}</span></div>; }
 
 function ProductFilm({ src, poster, title, copy }: { src: string; poster: string; title: string; copy: string }) { return <article className="overflow-hidden border border-border bg-background"><video src={src} poster={poster} className="aspect-[4/5] w-full object-cover" autoPlay muted loop playsInline controls preload="metadata" aria-label={`${title} product film`} /><div className="p-4"><h3 className="font-display text-2xl">{title}</h3><p className="mt-1.5 text-xs leading-5 text-muted-foreground">{copy}</p></div></article>; }
-
-function CompareRow({ feature, livoara, other }: { feature: string; livoara: string; other: string }) { return <tr><th scope="row" className="p-5 text-left font-medium">{feature}</th><td className="bg-secondary/60 p-5 text-center"><Check className="mx-auto mb-2 size-4 text-accent" />{livoara}</td><td className="p-5 text-center text-muted-foreground">{other}</td></tr>; }
