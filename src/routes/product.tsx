@@ -369,35 +369,6 @@ function ProductPage() {
         </div>
       </section>
 
-      <section id="customer-stories" className="border-b border-border bg-background">
-        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
-          <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Real routines</p>
-            <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by Thousands of Customers</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Sample customer stories for layout preview. Verified names, photos and ratings will replace these after collection.</p>
-          </div>
-          <div className="relative mt-8">
-            <article key={customerIndex} className="mx-auto max-w-xl border border-border bg-secondary/40 px-6 py-8 text-center sm:px-10 sm:py-10">
-              <img src={activeCustomer.image} alt={`${activeCustomer.name} portrait`} className="mx-auto size-16 rounded-full border border-border object-cover" loading="lazy" />
-              <div className="mt-3 flex justify-center gap-0.5" aria-label="Rating placeholder — verified ratings added after collection">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-muted-foreground/20 text-muted-foreground/30" />)}
-              </div>
-              <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-foreground/85 sm:text-base sm:leading-7">“{activeCustomer.quote}”</p>
-              <h3 className="mt-4 text-sm font-bold">{activeCustomer.name}</h3>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">{activeCustomer.city}</p>
-              <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-accent">Sample feedback</p>
-            </article>
-            <Button variant="ghost" size="icon" aria-label="Previous customer review" onClick={() => setCustomerIndex((customerIndex + trustedCustomers.length - 1) % trustedCustomers.length)} className="absolute left-0 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border bg-background shadow-sm hover:bg-secondary sm:-left-2"><ChevronLeft className="size-5" /></Button>
-            <Button variant="ghost" size="icon" aria-label="Next customer review" onClick={() => setCustomerIndex((customerIndex + 1) % trustedCustomers.length)} className="absolute right-0 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border bg-background shadow-sm hover:bg-secondary sm:-right-2"><ChevronRight className="size-5" /></Button>
-          </div>
-          <div className="mt-5 flex justify-center gap-1.5" aria-hidden="true">
-            {trustedCustomers.map((customer, i) => <span key={customer.name} className={`size-1.5 rounded-full ${i === customerIndex ? "bg-accent" : "bg-border"}`} />)}
-          </div>
-        </div>
-      </section>
-
-
-
       <section id="reviews" className="border-b border-border bg-secondary/55">
         <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
