@@ -123,6 +123,17 @@ const commentThreads: FeaturedComment[][] = [[], [], []];
     commentThreads[threadIndex]?.push(comment);
   });
 
+const trustedCustomers = [
+  { image: reviewerAnanya, name: "Ananya S.", city: "Bengaluru", quote: "The illuminated mirror and organised sections make my everyday routine feel much simpler." },
+  { image: reviewerRiya, name: "Riya M.", city: "Pune", quote: "Finally one case that keeps makeup, brushes and small accessories together on my dresser." },
+  { image: reviewerNeha, name: "Neha B.", city: "Bhopal", quote: "Compact enough for travel and pretty enough to keep on the vanity. A thoughtful design." },
+  { image: reviewerMeher, name: "Meher T.", city: "Chennai", quote: "I appreciate how the mirror and storage are combined in one beautiful case." },
+  { image: reviewerKavya, name: "Kavya B.", city: "Kolkata", quote: "Great for anyone who wants a tidy getting-ready space without several pouches." },
+  { image: reviewerSana, name: "Sana P.", city: "Mumbai", quote: "The pink finish is elegant and the light is genuinely useful during early mornings." },
+  { image: reviewerIsha, name: "Isha C.", city: "Gurugram", quote: "It keeps my essentials organised and looks lovely on a compact dressing table." },
+  { image: reviewerAashi, name: "Aashi V.", city: "Hyderabad", quote: "A sensible gift idea for anyone who likes their beauty routine to feel calm and organised." },
+] as const;
+
 const comparisonRows = [
   { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Built-in illuminated mirror", pouches: "No built-in light at all" },
   { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated inner sections", pouches: "Items jumbled in one pouch" },
