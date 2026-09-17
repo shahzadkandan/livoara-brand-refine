@@ -111,7 +111,7 @@ const commentThreads: FeaturedComment[][] = [[], [], []];
 
 const comparisonRows = [
   { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Built-in illuminated mirror", pouches: "No built-in light at all" },
-  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated compartments", pouches: "Items jumbled in one pouch" },
+  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated inner sections", pouches: "Items jumbled in one pouch" },
   { icon: <Search />, loose: "Items move around and get misplaced", livoara: "A place for every essential", pouches: "Digging through one pouch" },
   { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials together", pouches: "No mirror, no organisation" },
   { icon: <Lightbulb />, loose: "Routine depends on room light", livoara: "Consistent light for routines", pouches: "Storage only, nothing more" },
