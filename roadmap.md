@@ -30,3 +30,4 @@
 - [x] Rebuild "Why choose LIVOARA?" to match the 3-column reference: 8 rows, rounded corners, centered images, hover on all columns
 - [x] Use existing AI-generated product films (organise / routine / travel) until user supplies final videos
 - [x] Balance comment threads by weight (snake draft, 8 each) so no empty gap remains; clean comparison row text wrapping on mobile
+- [x] Align product page to reference flow: headline above gallery with arrows, 2x2 benefit cards, timer card, shop promise card, routine timeline, films then comparison then comments

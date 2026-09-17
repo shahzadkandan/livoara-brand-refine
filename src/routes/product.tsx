@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   CirclePlay,
   CreditCard,
   House,
@@ -64,8 +66,9 @@ const productFilms = [
 
 const benefits = [
   "Illuminated mirror for your beauty ritual",
-  "Organized compartments for everyday essentials",
+  "Organised sections for everyday essentials",
   "Compact format designed for travel",
+  "Mirror, light and storage in one case",
 ] as const;
 
 const featuredComments = [
@@ -120,6 +123,12 @@ const comparisonRows = [
   { icon: <PackageCheck />, loose: "Many pieces carried separately", livoara: "Carried as a single case", pouches: "Several pouches to track" },
   { icon: <Sparkles />, loose: "Surface needs resetting after use", livoara: "Closes back into one case", pouches: "Gather and repack each time" },
 ];
+
+const routineSteps = [
+  { icon: <PackageCheck />, stage: "Day one", title: "Unbox and arrange", copy: "Open the case, place your everyday essentials into the organised sections, and set the mirror where you get ready." },
+  { icon: <SunMedium />, stage: "Every day", title: "Light where you need it", copy: "Use the illuminated mirror for your daily routine at your dresser, in a hostel room, or wherever the day starts." },
+  { icon: <Luggage />, stage: "On the go", title: "Pack one beautiful case", copy: "When you travel, the mirror and essentials stay together in a single compact case instead of several pouches." },
+] as const;
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
@@ -179,6 +188,12 @@ function ProductPage() {
         Home / The LIVOARA Travel Vanity
       </div>
 
+      <header className="mx-auto max-w-[1380px] px-4 pt-6 text-center sm:px-7 sm:pt-8 lg:px-10">
+        <p className="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">Beauty, light and order — in one beautiful case.</p>
+        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">The LIVOARA Travel Vanity</p>
+      </header>
+
+
       <section className="mx-auto grid max-w-[1380px] gap-7 px-4 py-5 sm:px-7 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-10 lg:px-10 lg:py-9">
         <div className="lg:sticky lg:top-24">
           <div className="relative">
@@ -192,6 +207,8 @@ function ProductPage() {
               {zoomPoint && selectedMedia.type === "image" && <span className="pointer-events-none absolute hidden size-32 -translate-x-1/2 -translate-y-1/2 border border-primary/50 bg-background/20 backdrop-brightness-110 lg:block" style={{ left: `${zoomPoint.x}%`, top: `${zoomPoint.y}%` }} aria-hidden="true" />}
             </div>
             {zoomPoint && selectedMedia.type === "image" && <div className="pointer-events-none absolute left-[calc(100%+1rem)] top-0 z-40 hidden aspect-square w-[min(42rem,48vw)] overflow-hidden border border-border bg-background shadow-2xl lg:block" aria-hidden="true"><img src={selectedMedia.src} alt="" className="h-full w-full scale-[2.35] object-cover object-center" style={{ transformOrigin: `${zoomPoint.x}% ${zoomPoint.y}%` }} /></div>}
+            <Button variant="ghost" size="icon" aria-label="Previous media" onClick={() => setSelected((selected + galleryMedia.length - 1) % galleryMedia.length)} className="absolute left-2 top-1/2 z-10 size-9 -translate-y-1/2 rounded-full bg-background/85 shadow-sm backdrop-blur hover:bg-background"><ChevronLeft className="size-5" /></Button>
+            <Button variant="ghost" size="icon" aria-label="Next media" onClick={() => setSelected((selected + 1) % galleryMedia.length)} className="absolute right-2 top-1/2 z-10 size-9 -translate-y-1/2 rounded-full bg-background/85 shadow-sm backdrop-blur hover:bg-background"><ChevronRight className="size-5" /></Button>
           </div>
           <div className="mt-2 grid grid-cols-5 gap-1.5 sm:gap-2">
             {galleryMedia.map((media, index) => <Button variant="ghost" key={media.src} onPointerEnter={(event) => { if (event.pointerType === "mouse") setSelected(index); }} onFocus={() => setSelected(index)} onClick={() => setSelected(index)} className={`relative aspect-square h-auto overflow-hidden border bg-secondary p-0 ${selected === index ? "border-accent ring-1 ring-accent" : "border-border opacity-70 hover:opacity-100"}`} aria-label={`View product ${media.type} ${index + 1}`} aria-pressed={selected === index}><img src={media.type === "video" ? media.poster : media.src} alt="" className={`h-full w-full ${media.thumb}`} />{media.type === "video" && <span className="absolute inset-0 grid place-items-center bg-primary/15"><CirclePlay className="size-6 fill-background/80 text-primary" /></span>}</Button>)}
@@ -214,12 +231,25 @@ function ProductPage() {
             <div className="mt-2 flex items-center gap-2 bg-muted/45 px-3 py-2 text-[11px]"><IndianRupee className="size-3.5 shrink-0 text-accent" /><span>Selected: <strong>{activeOffer.label} for {selectedPrice}</strong> · Inclusive of all taxes</span></div>
           </div>
 
-          <ul className="mt-4 grid gap-2">{benefits.map((benefit) => <li key={benefit} className="flex gap-3 text-sm"><span className="mt-0.5 grid size-5 shrink-0 place-items-center bg-secondary"><Check className="size-3 text-accent" /></span>{benefit}</li>)}</ul>
+          <ul className="mt-4 grid grid-cols-2 gap-2">{benefits.map((benefit) => <li key={benefit} className="flex items-start gap-2.5 border border-border bg-secondary/50 px-3 py-3 text-xs font-semibold leading-4 sm:text-sm sm:leading-5"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground"><Check className="size-3" /></span>{benefit}</li>)}</ul>
           <div className="mt-5 flex items-center justify-between gap-4"><span className="text-[11px] uppercase tracking-[0.16em]">Quantity</span><div className="grid grid-cols-3 border border-border"><Button variant="icon" size="icon" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus className="size-4" /></Button><span className="grid min-w-11 place-items-center text-sm" aria-live="polite">{quantity}</span><Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus className="size-4" /></Button></div></div>
-          <div className="mt-4 flex items-center justify-between gap-3 bg-primary px-3 py-2.5 text-primary-foreground" role="timer" aria-live="off" aria-label={`${timerHours} hours, ${timerMinutes} minutes, ${timerSeconds} seconds remaining`}><span className="text-[9px] font-bold uppercase tracking-[0.14em] text-primary-foreground/70">Current offer ends in</span><strong className="shrink-0 font-display text-xl tabular-nums">{String(timerHours).padStart(2, "0")} : {String(timerMinutes).padStart(2, "0")} : {String(timerSeconds).padStart(2, "0")}</strong></div>
+          <div className="mt-4 border border-border bg-muted/45 p-3.5" role="timer" aria-live="off" aria-label={`${timerHours} hours, ${timerMinutes} minutes, ${timerSeconds} seconds remaining`}>
+            <div className="flex items-center justify-between gap-3">
+              <div><p className="text-[10px] font-bold uppercase tracking-[0.16em] text-accent">Current offer</p><p className="mt-0.5 text-[11px] text-muted-foreground">Bundle pricing ends in</p></div>
+              <div className="flex shrink-0 gap-1">{[[timerHours, "hrs"], [timerMinutes, "min"], [timerSeconds, "sec"]].map(([value, label]) => <span key={label as string} className="grid min-w-11 place-items-center bg-primary px-1.5 py-1.5 text-primary-foreground"><strong className="font-display text-lg leading-none tabular-nums">{String(value as number).padStart(2, "0")}</strong><span className="mt-0.5 text-[8px] uppercase tracking-[0.1em] text-primary-foreground/70">{label as string}</span></span>)}</div>
+            </div>
+          </div>
           <Button id="main-add-to-cart" className="mt-2.5 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(cartQuantity)}>Add to Cart · {selectedPrice}</Button>
           <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(cartQuantity)}>Buy Now</Button>
-          <div className="mt-3 grid grid-cols-2 gap-px border border-border bg-border text-[11px] sm:grid-cols-4"><Trust icon={<Truck />} text="Timeline at checkout" /><Trust icon={<RotateCcw />} text="7-day requests" /><Trust icon={<CreditCard />} text="Secure payment" /><Trust icon={<PackageCheck />} text="Tracking available" /></div>
+          <div className="mt-3 bg-primary p-4 text-primary-foreground">
+            <p className="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground/70">LIVOARA shop promise</p>
+            <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-3.5">
+              <Promise icon={<Truck />} title="Fast Shipping" sub="Timeline shown at checkout" />
+              <Promise icon={<RotateCcw />} title="Easy Returns" sub="7-day request window" />
+              <Promise icon={<CreditCard />} title="Secure Payments" sub="Trusted payment options" />
+              <Promise icon={<PackageCheck />} title="Careful Delivery" sub="Tracking where available" />
+            </div>
+          </div>
           <p className="mt-2 flex items-center justify-center gap-2 text-center text-[10px] text-muted-foreground"><LockKeyhole className="size-3 shrink-0 text-accent" />UPI · RuPay · Visa · Mastercard · G Pay · PhonePe · Paytm · COD where available</p>
           <div className="mt-4 divide-y divide-border border-y border-border">
             <InfoRow title="Product Details" open><p>The LIVOARA Travel Vanity combines an illuminated mirror with organised compartments in a compact case designed to keep everyday beauty essentials together at home or while travelling. Product colour and finish may vary slightly because of screen settings, photography, manufacturing tolerances, or production batches.</p></InfoRow>
@@ -230,7 +260,59 @@ function ProductPage() {
           </div>
         </div>
       </section>
-      <section id="reviews" className="border-y border-border bg-secondary/55">
+
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+          <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">See it in your routine</p><h2 className="mt-2 font-display text-4xl sm:text-5xl">Designed to be used, beautifully.</h2></div><p className="max-w-md text-sm leading-6 text-muted-foreground">Three short LIVOARA films show organisation, light, and travel in one compact vanity format.</p></div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-3">{productFilms.map((film) => <ProductFilm key={film.title} {...film} />)}</div>
+        </div>
+      </section>
+      <section className="mx-auto max-w-5xl px-6 py-11 sm:py-14">
+        <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
+        <div className="mt-7 grid grid-cols-3 items-stretch gap-1.5 sm:gap-4">
+          <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
+            <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-2xl border border-border bg-muted/50 sm:w-28"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-[11px] font-semibold leading-4 sm:text-sm">Loose on a vanity</p></div>
+            {comparisonRows.map((row) => (
+              <div key={row.loose} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 hyphens-auto break-words">{row.loose}</span></div>
+            ))}
+          </div>
+          <div className="z-10 -my-2 flex flex-col overflow-hidden rounded-2xl border-2 border-accent bg-secondary shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+            <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-20 overflow-hidden rounded-2xl border border-accent/50 bg-background sm:w-32"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 font-display text-base sm:text-2xl">LIVOARA</p></div>
+            {comparisonRows.map((row) => (
+              <div key={row.livoara} className="flex flex-1 items-center gap-1.5 border-t border-accent/30 bg-secondary/70 px-2 py-2.5 text-[10px] font-medium leading-4 sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5"><Check /></span><span className="min-w-0 hyphens-auto break-words">{row.livoara}</span></div>
+            ))}
+          </div>
+          <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
+            <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-2xl border border-border bg-muted/50 sm:w-28"><img src={problemPouches} alt="Multiple separate travel pouches for beauty essentials" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-[11px] font-semibold leading-4 sm:text-sm">Separate pouches</p></div>
+            {comparisonRows.map((row) => (
+              <div key={row.pouches} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 hyphens-auto break-words">{row.pouches}</span></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      <section className="border-b border-border bg-secondary/55">
+        <div className="mx-auto max-w-4xl px-6 py-11 sm:px-10 sm:py-14">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Made for real routines</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">How LIVOARA fits your routine</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">One compact case, designed to stay useful from the first unboxing onwards.</p>
+          </div>
+          <ol className="mt-9 space-y-8 border-l-2 border-border pl-7 sm:pl-9">
+            {routineSteps.map((step) => (
+              <li key={step.title} className="relative">
+                <span className="absolute -left-[2.6rem] top-0 grid size-8 place-items-center rounded-full border-2 border-border bg-background text-accent sm:-left-[3.1rem] [&>svg]:size-4" aria-hidden="true">{step.icon}</span>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">{step.stage}</p>
+                <h3 className="mt-1 font-display text-2xl sm:text-3xl">{step.title}</h3>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">{step.copy}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section id="reviews" className="border-b border-border bg-secondary/55">
         <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs uppercase tracking-[0.2em] text-accent">Customer comments</p>
@@ -271,39 +353,11 @@ function ProductPage() {
         </div>
       </section>
 
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
-          <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">See it in your routine</p><h2 className="mt-2 font-display text-4xl sm:text-5xl">Designed to be used, beautifully.</h2></div><p className="max-w-md text-sm leading-6 text-muted-foreground">Three short LIVOARA films show organisation, light, and travel in one compact vanity format.</p></div>
-          <div className="mt-7 grid gap-4 sm:grid-cols-3">{productFilms.map((film) => <ProductFilm key={film.title} {...film} />)}</div>
-        </div>
-      </section>
-      <section className="mx-auto max-w-5xl px-6 py-11 sm:py-14">
-        <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
-        <div className="mt-7 grid grid-cols-3 items-stretch gap-1.5 sm:gap-4">
-          <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
-            <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-2xl border border-border bg-muted/50 sm:w-28"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-[11px] font-semibold leading-4 sm:text-sm">Loose on a vanity</p></div>
-            {comparisonRows.map((row) => (
-              <div key={row.loose} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 hyphens-auto break-words">{row.loose}</span></div>
-            ))}
-          </div>
-          <div className="z-10 -my-2 flex flex-col overflow-hidden rounded-2xl border-2 border-accent bg-secondary shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-            <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-20 overflow-hidden rounded-2xl border border-accent/50 bg-background sm:w-32"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 font-display text-base sm:text-2xl">LIVOARA</p></div>
-            {comparisonRows.map((row) => (
-              <div key={row.livoara} className="flex flex-1 items-center gap-1.5 border-t border-accent/30 bg-secondary/70 px-2 py-2.5 text-[10px] font-medium leading-4 sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5"><Check /></span><span className="min-w-0 hyphens-auto break-words">{row.livoara}</span></div>
-            ))}
-          </div>
-          <div className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
-            <div className="px-2 pb-3 pt-4 text-center sm:px-4 sm:pt-6"><div className="mx-auto aspect-square w-16 overflow-hidden rounded-2xl border border-border bg-muted/50 sm:w-28"><img src={problemPouches} alt="Multiple separate travel pouches for beauty essentials" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-[11px] font-semibold leading-4 sm:text-sm">Separate pouches</p></div>
-            {comparisonRows.map((row) => (
-              <div key={row.pouches} className="flex flex-1 items-center gap-1.5 border-t border-border px-2 py-2.5 text-[10px] leading-4 text-muted-foreground sm:gap-2.5 sm:px-3.5 sm:py-3.5 sm:text-xs sm:leading-5"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-muted text-muted-foreground sm:size-7 [&>svg]:size-2.5 sm:[&>svg]:size-3.5">{row.icon}</span><span className="min-w-0 hyphens-auto break-words">{row.pouches}</span></div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-        <Button className="w-full text-xs uppercase tracking-[0.12em]" onClick={() => add(cartQuantity)}>Add to Cart · {selectedPrice}</Button>
+        <div className="flex items-center gap-3">
+          <div className="min-w-0"><p className="truncate text-xs font-semibold">The LIVOARA Travel Vanity</p><p className="text-[11px] text-muted-foreground">{activeOffer.label} · {selectedPrice}</p></div>
+          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" onClick={() => add(cartQuantity)}>Add to Cart</Button>
+        </div>
       </div>
     </div>
   );
@@ -315,6 +369,6 @@ function InfoRow({ title, children, open = false }: { title: string; children: R
 
 function Spec({ term, value }: { term: string; value: string }) { return <div><dt className="font-medium text-foreground">{term}</dt><dd>{value}</dd></div>; }
 
-function Trust({ icon, text }: { icon: ReactNode; text: string }) { return <div className="flex min-h-11 items-center gap-2 bg-muted/55 px-3"><span className="text-accent [&>svg]:size-4">{icon}</span><span>{text}</span></div>; }
+function Promise({ icon, title, sub }: { icon: ReactNode; title: string; sub: string }) { return <div className="flex items-start gap-2.5"><span className="mt-0.5 shrink-0 text-primary-foreground/80 [&>svg]:size-5">{icon}</span><span className="min-w-0"><strong className="block text-xs font-bold leading-4">{title}</strong><span className="mt-0.5 block text-[10px] leading-3.5 text-primary-foreground/70">{sub}</span></span></div>; }
 
 function ProductFilm({ src, poster, title, copy }: { src: string; poster: string; title: string; copy: string }) { return <article className="overflow-hidden border border-border bg-background"><video src={src} poster={poster} className="aspect-[4/5] w-full object-cover" autoPlay muted loop playsInline controls preload="metadata" aria-label={`${title} product film`} /><div className="p-4"><h3 className="font-display text-2xl">{title}</h3><p className="mt-1.5 text-xs leading-5 text-muted-foreground">{copy}</p></div></article>; }
