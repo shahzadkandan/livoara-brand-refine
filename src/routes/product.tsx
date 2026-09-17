@@ -178,6 +178,8 @@ function ProductPage() {
   const [selectedOffer, setSelectedOffer] = useState<BundleOfferId>("single");
   const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
+  const [customerIndex, setCustomerIndex] = useState(0);
+  const activeCustomer = trustedCustomers[customerIndex] ?? trustedCustomers[0];
   const { add } = useCart();
   const selectedMedia = galleryMedia[selected] ?? galleryMedia[0];
   const activeOffer = bundleOffers.find((offer) => offer.id === selectedOffer) ?? singleOffer;
@@ -292,6 +294,30 @@ function ProductPage() {
         </div>
       </section>
 
+      <section id="customer-stories" className="border-b border-border bg-background">
+        <div className="mx-auto max-w-3xl px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Real routines</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by Thousands of Customers</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Sample customer stories for layout preview. Verified names, photos and ratings will replace these after collection.</p>
+          </div>
+          <div className="relative mt-8">
+            <article className="mx-auto max-w-xl border border-border bg-secondary/40 p-6 text-center sm:p-8" aria-live="polite">
+              <img src={activeCustomer.image} alt={`${activeCustomer.name} portrait`} className="mx-auto size-16 rounded-full object-cover" loading="lazy" />
+              <h3 className="mt-3 text-base font-bold">{activeCustomer.name}</h3>
+              <p className="text-xs text-muted-foreground">{activeCustomer.city}</p>
+              <div className="mt-3 flex justify-center gap-0.5" aria-label="Rating placeholder — verified ratings added after collection">
+                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3.5 fill-muted-foreground/20 text-muted-foreground/30" />)}
+              </div>
+              <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-foreground/85">{activeCustomer.quote}</p>
+              <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-accent">Sample feedback · {customerIndex + 1} / {trustedCustomers.length}</p>
+            </article>
+            <Button variant="ghost" size="icon" aria-label="Previous review" onClick={() => setCustomerIndex((customerIndex + trustedCustomers.length - 1) % trustedCustomers.length)} className="absolute left-0 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border bg-background shadow-sm hover:bg-secondary"><ChevronLeft className="size-5" /></Button>
+            <Button variant="ghost" size="icon" aria-label="Next review" onClick={() => setCustomerIndex((customerIndex + 1) % trustedCustomers.length)} className="absolute right-0 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border bg-background shadow-sm hover:bg-secondary"><ChevronRight className="size-5" /></Button>
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-border">
         <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">See it in your routine</p><h2 className="mt-2 font-display text-4xl sm:text-5xl">Designed to be used, beautifully.</h2></div><p className="max-w-md text-sm leading-6 text-muted-foreground">Three short LIVOARA films show organisation, light, and travel in one compact vanity format.</p></div>
@@ -340,34 +366,6 @@ function ProductPage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section id="customer-stories" className="border-b border-border bg-background">
-        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
-          <div className="text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Real routines</p>
-            <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by Thousands of Customers</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Sample customer stories for layout preview. Verified names, photos and ratings will replace these after collection.</p>
-          </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {trustedCustomers.map((customer) => (
-              <article key={customer.name} className="border border-border bg-secondary/40 p-4 transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
-                <div className="flex items-center gap-3">
-                  <img src={customer.image} alt={`${customer.name} portrait`} className="size-12 rounded-full object-cover" loading="lazy" />
-                  <div className="min-w-0">
-                    <h3 className="truncate text-sm font-bold">{customer.name}</h3>
-                    <p className="text-[11px] text-muted-foreground">{customer.city}</p>
-                  </div>
-                </div>
-                <div className="mt-2.5 flex gap-0.5" aria-label="Rating placeholder — verified ratings added after collection">
-                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-muted-foreground/20 text-muted-foreground/30" />)}
-                </div>
-                <p className="mt-3 text-xs leading-5 text-foreground/85">{customer.quote}</p>
-                <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-accent">Sample feedback</p>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 

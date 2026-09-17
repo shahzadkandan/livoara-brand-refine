@@ -32,3 +32,4 @@
 - [x] Balance comment threads by weight (snake draft, 8 each) so no empty gap remains; clean comparison row text wrapping on mobile
 - [x] Align product page to reference flow: headline above gallery with arrows, 2x2 benefit cards, timer card, shop promise card, routine timeline, films then comparison then comments
 - [x] Add "Trusted by Thousands of Customers" photo-led review grid with 8 sample stories and placeholder ratings
+- [x] Move review section above product films and convert to single-card carousel with prev/next arrows (verified: Ananya → Riya → back, overflowX 0, build OK)
