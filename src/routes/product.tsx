@@ -19,6 +19,7 @@ import {
   RotateCcw,
   Search,
   Sparkles,
+  Star,
   SunMedium,
   Truck,
 } from "lucide-react";
