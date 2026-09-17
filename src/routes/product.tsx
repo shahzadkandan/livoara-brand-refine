@@ -178,6 +178,8 @@ function ProductPage() {
   const [selectedOffer, setSelectedOffer] = useState<BundleOfferId>("single");
   const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
+  const [customerIndex, setCustomerIndex] = useState(0);
+  const activeCustomer = trustedCustomers[customerIndex] ?? trustedCustomers[0];
   const { add } = useCart();
   const selectedMedia = galleryMedia[selected] ?? galleryMedia[0];
   const activeOffer = bundleOffers.find((offer) => offer.id === selectedOffer) ?? singleOffer;
