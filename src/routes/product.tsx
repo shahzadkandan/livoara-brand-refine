@@ -19,6 +19,7 @@ import {
   RotateCcw,
   Search,
   Sparkles,
+  Star,
   SunMedium,
   Truck,
 } from "lucide-react";
@@ -33,6 +34,15 @@ import problemPouches from "@/assets/livoara-problem-pouches.jpg";
 import organiseVideo from "@/assets/livoara-correct-organise-v2.mp4.asset.json";
 import routineVideo from "@/assets/livoara-correct-routine-v2.mp4.asset.json";
 import travelVideo from "@/assets/livoara-correct-travel-v2.mp4.asset.json";
+import reviewerAnanya from "@/assets/reviewer-ananya.jpg";
+import reviewerIsha from "@/assets/reviewer-isha.jpg";
+import reviewerKavya from "@/assets/reviewer-kavya.jpg";
+import reviewerMeher from "@/assets/reviewer-meher.jpg";
+import reviewerNeha from "@/assets/reviewer-neha.jpg";
+import reviewerRiya from "@/assets/reviewer-riya.jpg";
+import reviewerSana from "@/assets/reviewer-sana.jpg";
+import reviewerAashi from "@/assets/reviewer-aashi.jpg";
+
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/site-shell";
 
@@ -112,6 +122,17 @@ const commentThreads: FeaturedComment[][] = [[], [], []];
     const threadIndex = [0, 1, 2, 2, 1, 0][index % 6] ?? 0;
     commentThreads[threadIndex]?.push(comment);
   });
+
+const trustedCustomers = [
+  { image: reviewerAnanya, name: "Ananya S.", city: "Bengaluru", quote: "The illuminated mirror and organised sections make my everyday routine feel much simpler." },
+  { image: reviewerRiya, name: "Riya M.", city: "Pune", quote: "Finally one case that keeps makeup, brushes and small accessories together on my dresser." },
+  { image: reviewerNeha, name: "Neha B.", city: "Bhopal", quote: "Compact enough for travel and pretty enough to keep on the vanity. A thoughtful design." },
+  { image: reviewerMeher, name: "Meher T.", city: "Chennai", quote: "I appreciate how the mirror and storage are combined in one beautiful case." },
+  { image: reviewerKavya, name: "Kavya B.", city: "Kolkata", quote: "Great for anyone who wants a tidy getting-ready space without several pouches." },
+  { image: reviewerSana, name: "Sana P.", city: "Mumbai", quote: "The pink finish is elegant and the light is genuinely useful during early mornings." },
+  { image: reviewerIsha, name: "Isha C.", city: "Gurugram", quote: "It keeps my essentials organised and looks lovely on a compact dressing table." },
+  { image: reviewerAashi, name: "Aashi V.", city: "Hyderabad", quote: "A sensible gift idea for anyone who likes their beauty routine to feel calm and organised." },
+] as const;
 
 const comparisonRows = [
   { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Built-in illuminated mirror", pouches: "No built-in light at all" },
@@ -309,6 +330,34 @@ function ProductPage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section id="customer-stories" className="border-b border-border bg-background">
+        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Real routines</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by Thousands of Customers</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Sample customer stories for layout preview. Verified names, photos and ratings will replace these after collection.</p>
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {trustedCustomers.map((customer) => (
+              <article key={customer.name} className="border border-border bg-secondary/40 p-4 transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
+                <div className="flex items-center gap-3">
+                  <img src={customer.image} alt={`${customer.name} portrait`} className="size-12 rounded-full object-cover" loading="lazy" />
+                  <div className="min-w-0">
+                    <h3 className="truncate text-sm font-bold">{customer.name}</h3>
+                    <p className="text-[11px] text-muted-foreground">{customer.city}</p>
+                  </div>
+                </div>
+                <div className="mt-2.5 flex gap-0.5" aria-label="Rating placeholder — verified ratings added after collection">
+                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-muted-foreground/20 text-muted-foreground/30" />)}
+                </div>
+                <p className="mt-3 text-xs leading-5 text-foreground/85">{customer.quote}</p>
+                <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-accent">Sample feedback</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
