@@ -25,3 +25,4 @@
 - [x] Refine homepage with two problem and two solution scenes, woman-led videos, product-box categories, a reference-style banner, and eight portrait reviews
 - [x] Correct homepage media to consistently show the single approved LIVOARA vanity, restore seven category photos, and compact reviewer portraits
 - [x] Make the product page compact and video-led using approved LIVOARA media and reference-inspired shopping patterns
+- [x] Fix comment thread empty space, rebuild "Why choose LIVOARA?" as three-column visual comparison, and stack the editorial banner safely on mobile
