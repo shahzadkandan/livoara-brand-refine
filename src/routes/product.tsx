@@ -23,7 +23,7 @@ import referenceVanity from "@/assets/reference/livoara-reference-vanity.jpg.ass
 import pinkVanity from "@/assets/reference/livoara-product-pink-stacked.jpg";
 import whiteVanity from "@/assets/reference/livoara-product-white-sunlight.jpg";
 import problemScattered from "@/assets/livoara-problem-scattered.jpg";
-import problemPouches from "@/assets/livoara-problem-pouches.jpg";
+
 import organiseVideo from "@/assets/livoara-correct-organise-v2.mp4.asset.json";
 import routineVideo from "@/assets/livoara-correct-routine-v2.mp4.asset.json";
 import travelVideo from "@/assets/livoara-correct-travel-v2.mp4.asset.json";
@@ -91,15 +91,28 @@ const featuredComments = [
   { initials: "RN", name: "Reema N.", city: "Nashik", copy: "A simple idea, but combining the mirror and organised interior could make daily routines much easier." },
 ] as const;
 
-const commentThreads = Array.from({ length: 3 }, (_, columnIndex) =>
-  featuredComments.filter((_, commentIndex) => commentIndex % 3 === columnIndex),
-);
+const commentWeight = (comment: (typeof featuredComments)[number]) =>
+  comment.copy.length + ("reply" in comment ? 130 : 0);
+
+const commentThreads = (() => {
+  const threads: { comments: Array<(typeof featuredComments)[number]>; weight: number }[] = [
+    { comments: [], weight: 0 },
+    { comments: [], weight: 0 },
+    { comments: [], weight: 0 },
+  ];
+  for (const comment of [...featuredComments].sort((a, b) => commentWeight(b) - commentWeight(a))) {
+    const lightest = threads.reduce((a, b) => (b.weight < a.weight ? b : a));
+    lightest.comments.push(comment);
+    lightest.weight += commentWeight(comment);
+  }
+  return threads.map((thread) => thread.comments);
+})();
 
 const comparisonRows = [
-  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror integrated in the case", generic: "Lighting rarely included" },
-  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated interior compartments", generic: "General-purpose storage" },
-  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case", generic: "Portability varies by design" },
-  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials together", generic: "Items often stored separately" },
+  { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Illuminated mirror integrated in the case" },
+  { icon: <LayoutGrid />, loose: "Essentials spread across surfaces", livoara: "Dedicated interior compartments" },
+  { icon: <Luggage />, loose: "Multiple pouches to pack", livoara: "One compact vanity case" },
+  { icon: <House />, loose: "Mirror and products kept apart", livoara: "Mirror and essentials kept together" },
 ] as const;
 
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
@@ -260,21 +273,17 @@ function ProductPage() {
       </section>
       <section className="mx-auto max-w-5xl px-6 py-11 sm:py-14">
         <div className="text-center"><p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">A clearer comparison</p><h2 className="mt-4 font-display text-4xl sm:text-5xl">Why choose LIVOARA?</h2><p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">A practical comparison of the product format and the everyday problem it is designed to solve.</p></div>
-        <div className="-mx-6 mt-7 overflow-x-auto px-6 pb-3 sm:mx-0 sm:px-0">
-          <div className="min-w-[620px] border border-border">
-            <div className="grid grid-cols-3 border-b border-border">
-              <div className="bg-muted/50 p-4 text-center"><div className="mx-auto aspect-square w-16 overflow-hidden border border-border sm:w-24"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-xs font-medium sm:text-sm">Loose on a vanity</p></div>
-              <div className="border-x-2 border-accent bg-secondary p-4 text-center"><div className="mx-auto aspect-square w-20 overflow-hidden border border-accent/50 bg-background sm:w-28"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 font-display text-lg sm:text-2xl">LIVOARA</p></div>
-              <div className="bg-muted/50 p-4 text-center"><div className="mx-auto aspect-square w-16 overflow-hidden border border-border sm:w-24"><img src={problemPouches} alt="Several separate travel pouches for beauty items" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-xs font-medium sm:text-sm">Separate pouches</p></div>
-            </div>
-            {comparisonRows.map((row) => (
-              <div key={row.livoara} className="grid grid-cols-3 divide-x divide-border border-b border-border last:border-b-0">
-                <div className="flex items-center gap-2.5 p-3.5 text-[11px] leading-5 text-muted-foreground sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground [&>svg]:size-3.5">{row.icon}</span>{row.loose}</div>
-                <div className="flex items-center gap-2.5 border-x-2 border-accent bg-secondary/70 p-3.5 text-[11px] font-medium leading-5 sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground"><Check className="size-3.5" /></span>{row.livoara}</div>
-                <div className="flex items-center gap-2.5 p-3.5 text-[11px] leading-5 text-muted-foreground sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground [&>svg]:size-3.5">{row.icon}</span>{row.generic}</div>
-              </div>
-            ))}
+        <div className="mt-7 border border-border">
+          <div className="grid grid-cols-2 border-b border-border">
+            <div className="bg-muted/50 p-4 text-center"><div className="mx-auto aspect-square w-20 overflow-hidden border border-border sm:w-24"><img src={problemScattered} alt="Makeup essentials scattered loosely across a vanity" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 text-sm font-medium">Loose on a vanity</p></div>
+            <div className="border-l-2 border-accent bg-secondary p-4 text-center"><div className="mx-auto aspect-square w-24 overflow-hidden border border-accent/50 bg-background sm:w-28"><img src={pinkVanity} alt="LIVOARA Travel Vanity open with illuminated mirror" className="h-full w-full object-cover" loading="lazy" /></div><p className="mt-2.5 font-display text-xl sm:text-2xl">LIVOARA</p></div>
           </div>
+          {comparisonRows.map((row) => (
+            <div key={row.livoara} className="grid grid-cols-2 border-b border-border last:border-b-0">
+              <div className="flex items-center gap-2.5 p-3.5 text-[11px] leading-5 text-muted-foreground sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full border border-border bg-muted/60 text-muted-foreground [&>svg]:size-3.5">{row.icon}</span>{row.loose}</div>
+              <div className="flex items-center gap-2.5 border-l-2 border-accent bg-secondary/70 p-3.5 text-[11px] font-medium leading-5 sm:p-4 sm:text-xs"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground"><Check className="size-3.5" /></span>{row.livoara}</div>
+            </div>
+          ))}
         </div>
       </section>
 
