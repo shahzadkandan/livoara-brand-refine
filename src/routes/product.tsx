@@ -151,6 +151,16 @@ const routineSteps = [
   { icon: <Luggage />, stage: "On the go", title: "Pack one beautiful case", copy: "When you travel, the mirror and essentials stay together in a single compact case instead of several pouches." },
 ] as const;
 
+const customerFaqs = [
+  { q: "What makes the LIVOARA Travel Vanity different?", a: "It combines an illuminated mirror with organised storage in one compact case, so your everyday essentials stay together at home or while travelling." },
+  { q: "Is the mirror light rechargeable?", a: "Please check the product label and the guide supplied in the box for power details and charging instructions." },
+  { q: "Can it hold a full makeup collection?", a: "The interior is designed for everyday beauty essentials. How much it holds depends on the size and shape of each item." },
+  { q: "Is this suitable for travel?", a: "The compact case format is designed to be travel-friendly. Always check the product label and current airline rules before flying." },
+  { q: "What is your return policy?", a: "Eligible return or exchange requests must be emailed to hello@livoara.in within 7 calendar days of delivery, with a clear continuous unboxing video." },
+  { q: "When will my order arrive?", a: "Delivery timelines and serviceability are shown at checkout once you enter your address." },
+] as const;
+
+
 const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
 
 const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
