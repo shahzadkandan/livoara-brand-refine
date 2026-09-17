@@ -333,6 +333,34 @@ function ProductPage() {
         </div>
       </section>
 
+      <section id="customer-stories" className="border-b border-border bg-background">
+        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Real routines</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by Thousands of Customers</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Sample customer stories for layout preview. Verified names, photos and ratings will replace these after collection.</p>
+          </div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {trustedCustomers.map((customer) => (
+              <article key={customer.name} className="border border-border bg-secondary/40 p-4 transition duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg">
+                <div className="flex items-center gap-3">
+                  <img src={customer.image} alt={`${customer.name} portrait`} className="size-12 rounded-full object-cover" loading="lazy" />
+                  <div className="min-w-0">
+                    <h3 className="truncate text-sm font-bold">{customer.name}</h3>
+                    <p className="text-[11px] text-muted-foreground">{customer.city}</p>
+                  </div>
+                </div>
+                <div className="mt-2.5 flex gap-0.5" aria-label="Rating placeholder — verified ratings added after collection">
+                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3 fill-muted-foreground/20 text-muted-foreground/30" />)}
+                </div>
+                <p className="mt-3 text-xs leading-5 text-foreground/85">{customer.quote}</p>
+                <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.1em] text-accent">Sample feedback</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="reviews" className="border-b border-border bg-secondary/55">
         <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
           <div className="mx-auto max-w-3xl text-center">
