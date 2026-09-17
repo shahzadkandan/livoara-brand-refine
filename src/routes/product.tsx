@@ -412,7 +412,25 @@ function ProductPage() {
         </div>
       </section>
 
+      <section id="customer-faqs" className="border-b border-border bg-background">
+        <div className="mx-auto max-w-3xl px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+          <div className="text-center">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Common questions</p>
+            <h2 className="mt-4 font-display text-4xl sm:text-5xl">What Customers Ask Most</h2>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-muted-foreground">Quick, honest answers about the LIVOARA Travel Vanity.</p>
+          </div>
+          <div className="mt-9 divide-y divide-border border-y border-border">
+            {customerFaqs.map((faq) => (
+              <InfoRow key={faq.q} title={faq.q}>
+                <p>{faq.a}</p>
+              </InfoRow>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
+
         <div className="flex items-center gap-3">
           <div className="min-w-0"><p className="truncate text-xs font-semibold">The LIVOARA Travel Vanity</p><p className="text-[11px] text-muted-foreground">{activeOffer.label} · {selectedPrice}</p></div>
           <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" onClick={() => add(cartQuantity)}>Add to Cart</Button>
