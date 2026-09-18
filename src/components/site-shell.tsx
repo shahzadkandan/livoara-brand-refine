@@ -132,8 +132,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 <div className="flex-1 overflow-y-auto pr-2 min-h-0">
                   <div className="space-y-4">
                     {items.map((item) => (
-                      <div key={item.variantId} className="flex gap-4 p-2">
-                        <div className="w-16 h-16 bg-secondary/20 rounded-md overflow-hidden flex-shrink-0">
+                      <div key={item.variantId} className="flex gap-4 border border-border bg-secondary/25 p-3">
+                        <div className="h-24 w-20 shrink-0 overflow-hidden border border-border bg-background">
                           {item.product.node?.images?.edges?.[0]?.node?.url && (
                             <img
                               src={item.product.node.images.edges[0].node.url}
@@ -142,36 +142,42 @@ export function SiteShell({ children }: { children: ReactNode }) {
                             />
                           )}
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium truncate">{item.product.node?.title}</h4>
-                          <p className="text-sm text-muted-foreground">{item.variantTitle}</p>
-                          <p className="font-semibold">{formatCartPrice(item.price.amount)}</p>
-                        </div>
-                        <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => removeItem(item.variantId)} aria-label={`Remove ${item.variantTitle}`}>
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                          <div className="flex items-center gap-1">
-                            <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => updateQuantity(item.variantId, item.quantity - 1)} aria-label="Decrease quantity">
-                              <Minus className="h-3 w-3" />
-                            </Button>
-                            <span className="w-8 text-center text-sm">{item.quantity}</span>
-                            <Button variant="outline" size="icon" className="h-6 w-6" onClick={() => updateQuantity(item.variantId, item.quantity + 1)} aria-label="Increase quantity">
-                              <Plus className="h-3 w-3" />
-                            </Button>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-sm font-semibold leading-5">{item.product.node?.title}</h4>
+                          <p className="mt-0.5 text-xs text-muted-foreground">{item.variantTitle}</p>
+                          <p className="mt-1 text-xs text-muted-foreground">Unit price {formatCartPrice(item.price.amount)}</p>
+                          <div className="mt-2 flex items-center justify-between gap-3">
+                            <div className="flex items-center border border-border">
+                              <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => updateQuantity(item.variantId, item.quantity - 1)} aria-label="Decrease quantity">
+                                <Minus className="h-3 w-3" />
+                              </Button>
+                              <span className="w-8 text-center text-sm">{item.quantity}</span>
+                              <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => updateQuantity(item.variantId, item.quantity + 1)} aria-label="Increase quantity">
+                                <Plus className="h-3 w-3" />
+                              </Button>
+                            </div>
+                            <span className="font-display text-lg">{formatCartPrice(String(parseFloat(item.price.amount) * item.quantity))}</span>
                           </div>
                         </div>
+                        <Button variant="ghost" size="icon" className="h-7 w-7 shrink-0" onClick={() => removeItem(item.variantId)} aria-label={`Remove ${item.variantTitle}`}>
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div className="flex-shrink-0 space-y-4 pt-4 border-t bg-background">
-                  <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold">Total</span>
-                    <span className="text-xl font-bold">{formatCartPrice(String(totalPrice))}</span>
+                <div className="flex-shrink-0 space-y-3 border-t bg-background pt-4">
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <span>Items</span>
+                    <span>{totalItems}</span>
                   </div>
-                  <Button onClick={handleCheckout} className="w-full" size="lg" disabled={items.length === 0 || isLoading || isSyncing}>
-                    {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Checkout with Shopify</>}
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-semibold">Subtotal</span>
+                    <span className="font-display text-2xl">{formatCartPrice(String(totalPrice))}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">Taxes included. Shipping and delivery timeline are confirmed at checkout.</p>
+                  <Button onClick={handleCheckout} className="w-full text-xs uppercase tracking-[0.12em]" size="lg" disabled={items.length === 0 || isLoading || isSyncing}>
+                    {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Secure checkout · {formatCartPrice(String(totalPrice))}</>}
                   </Button>
                 </div>
               </>

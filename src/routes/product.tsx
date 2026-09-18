@@ -44,8 +44,17 @@ import reviewerSana from "@/assets/reviewer-sana.jpg";
 import reviewerAashi from "@/assets/reviewer-aashi.jpg";
 
 import { Button } from "@/components/ui/button";
+import { DeliveryChecker } from "@/components/delivery-checker";
+import { ReviewWidget, type SampleReview } from "@/components/review-widget";
 import { getShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+
+const benefitImages = [
+  { src: pinkVanity, caption: "Illuminated mirror for an even, clear finish" },
+  { src: whiteVanity, caption: "Organised sections for everyday essentials" },
+  { src: referenceVanity.url, caption: "Everything visible the moment you open it" },
+  { src: heroAsset.url, caption: "One compact case from dresser to suitcase" },
+] as const;
 
 export const Route = createFileRoute("/product")({
   head: () => ({
@@ -126,16 +135,16 @@ const commentThreads: FeaturedComment[][] = [[], [], []];
     commentThreads[threadIndex]?.push(comment);
   });
 
-const trustedCustomers = [
-  { image: reviewerAnanya, name: "Ananya S.", city: "Bengaluru", quote: "The illuminated mirror and organised sections make my everyday routine feel much simpler." },
-  { image: reviewerRiya, name: "Riya M.", city: "Pune", quote: "Finally one case that keeps makeup, brushes and small accessories together on my dresser." },
-  { image: reviewerNeha, name: "Neha B.", city: "Bhopal", quote: "Compact enough for travel and pretty enough to keep on the vanity. A thoughtful design." },
-  { image: reviewerMeher, name: "Meher T.", city: "Chennai", quote: "I appreciate how the mirror and storage are combined in one beautiful case." },
-  { image: reviewerKavya, name: "Kavya B.", city: "Kolkata", quote: "Great for anyone who wants a tidy getting-ready space without several pouches." },
-  { image: reviewerSana, name: "Sana P.", city: "Mumbai", quote: "The pink finish is elegant and the light is genuinely useful during early mornings." },
-  { image: reviewerIsha, name: "Isha C.", city: "Gurugram", quote: "It keeps my essentials organised and looks lovely on a compact dressing table." },
-  { image: reviewerAashi, name: "Aashi V.", city: "Hyderabad", quote: "A sensible gift idea for anyone who likes their beauty routine to feel calm and organised." },
-] as const;
+const sampleReviews: readonly SampleReview[] = [
+  { image: reviewerAnanya, name: "Sample feedback · Ananya S.", city: "Bengaluru", quote: "The illuminated mirror and organised sections make my everyday routine feel much simpler." },
+  { image: reviewerRiya, name: "Sample feedback · Riya M.", city: "Pune", quote: "Finally one case that keeps makeup, brushes and small accessories together on my dresser." },
+  { image: reviewerNeha, name: "Sample feedback · Neha B.", city: "Bhopal", quote: "Compact enough for travel and pretty enough to keep on the vanity. A thoughtful design." },
+  { image: reviewerMeher, name: "Sample feedback · Meher T.", city: "Chennai", quote: "I appreciate how the mirror and storage are combined in one beautiful case." },
+  { image: reviewerKavya, name: "Sample feedback · Kavya B.", city: "Kolkata", quote: "Great for anyone who wants a tidy getting-ready space without several pouches." },
+  { image: reviewerSana, name: "Sample feedback · Sana P.", city: "Mumbai", quote: "The pink finish is elegant and the light is genuinely useful during early mornings." },
+  { image: reviewerIsha, name: "Sample feedback · Isha C.", city: "Gurugram", quote: "It keeps my essentials organised and looks lovely on a compact dressing table." },
+  { image: reviewerAashi, name: "Sample feedback · Aashi V.", city: "Hyderabad", quote: "A sensible gift idea for anyone who likes their beauty routine to feel calm and organised." },
+];
 
 const comparisonRows = [
   { icon: <SunMedium />, loose: "Separate mirror usually needed", livoara: "Built-in illuminated mirror", pouches: "No built-in light at all" },
@@ -180,8 +189,6 @@ function ProductPage() {
   const [zoomPoint, setZoomPoint] = useState<{ x: number; y: number } | null>(null);
   const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
-  const [customerIndex, setCustomerIndex] = useState(0);
-  const activeCustomer = trustedCustomers[customerIndex] ?? trustedCustomers[0];
 
   const addItem = useCartStore((state) => state.addItem);
   const openCart = useCartStore((state) => state.openCart);
@@ -303,10 +310,6 @@ function ProductPage() {
         Home / The LIVOARA Travel Vanity
       </div>
 
-      <header className="mx-auto max-w-[1380px] px-4 pt-6 text-center sm:px-7 sm:pt-8 lg:px-10">
-        <p className="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">Beauty, light and order — in one beautiful case.</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">{product.title}</p>
-      </header>
 
       <section className="mx-auto grid max-w-[1380px] gap-7 px-4 py-5 sm:px-7 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-10 lg:px-10 lg:py-9">
         <div className="lg:sticky lg:top-24">
@@ -397,8 +400,9 @@ function ProductPage() {
             </div>
           </div>
           <p className="mt-2 flex items-center justify-center gap-2 text-center text-[10px] text-muted-foreground"><LockKeyhole className="size-3 shrink-0 text-accent" />UPI · RuPay · Visa · Mastercard · G Pay · PhonePe · Paytm · COD where available</p>
+          <div className="mt-4"><DeliveryChecker /></div>
           <div className="mt-4 divide-y divide-border border-y border-border">
-            <InfoRow title="Product Details" open><p>{product.description || "The LIVOARA Travel Vanity combines an illuminated mirror with organised compartments in a compact case designed to keep everyday beauty essentials together at home or while travelling. Product colour and finish may vary slightly because of screen settings, photography, manufacturing tolerances, or production batches."}</p></InfoRow>
+            <InfoRow title="Product Details" open><div className="space-y-4"><p>{product.description || "The LIVOARA Travel Vanity combines an illuminated mirror with organised compartments in a compact case designed to keep everyday beauty essentials together at home or while travelling. Product colour and finish may vary slightly because of screen settings, photography, manufacturing tolerances, or production batches."}</p><div className="grid grid-cols-2 gap-2">{benefitImages.map((item) => <figure key={item.caption} className="overflow-hidden border border-border bg-background"><img src={item.src} alt={item.caption} className="aspect-[4/3] w-full object-cover" loading="lazy" /><figcaption className="px-2.5 py-2 text-[11px] leading-4 text-foreground">{item.caption}</figcaption></figure>)}</div></div></InfoRow>
             <InfoRow title="Specifications"><dl className="grid gap-4 sm:grid-cols-2"><Spec term="Format" value="Portable vanity case" /><Spec term="Storage" value="Organised interior compartments" /><Spec term="Mirror" value="Integrated illuminated mirror" /><Spec term="Care & operation" value="Follow the label and guide supplied with the product" /></dl></InfoRow>
             <InfoRow title="Shipping & Returns"><p>Delivery estimates, serviceability, and any shipping charge are shown at checkout. Eligible return, refund, or exchange requests must be emailed to hello@livoara.in within 7 calendar days of delivery. A clear, continuous unboxing video is mandatory.</p></InfoRow>
             <InfoRow title="What's Included"><p>The package contains the LIVOARA vanity and the components supplied for its included features. Please check the product, accessories, and enclosed instructions during your continuous unboxing recording.</p></InfoRow>
@@ -408,26 +412,13 @@ function ProductPage() {
       </section>
 
       <section id="customer-stories" className="border-b border-border bg-background">
-        <div className="mx-auto max-w-3xl px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
+        <div className="mx-auto max-w-[1380px] px-6 py-11 sm:px-10 sm:py-14 lg:px-12">
           <div className="text-center">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Real routines</p>
             <h2 className="mt-4 font-display text-4xl sm:text-5xl">Trusted by Thousands of Customers</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Sample customer stories for layout preview. Verified names, photos and ratings will replace these after collection.</p>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground">Write your own review below. Sample cards are shown for layout preview until verified customer reviews come in.</p>
           </div>
-          <div className="relative mt-8">
-            <article className="mx-auto max-w-xl border border-border bg-secondary/40 p-6 text-center sm:p-8" aria-live="polite">
-              <img src={activeCustomer.image} alt={`${activeCustomer.name} portrait`} className="mx-auto size-16 rounded-full object-cover" loading="lazy" />
-              <h3 className="mt-3 text-base font-bold">{activeCustomer.name}</h3>
-              <p className="text-xs text-muted-foreground">{activeCustomer.city}</p>
-              <div className="mt-3 flex justify-center gap-0.5" aria-label="Rating placeholder — verified ratings added after collection">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-3.5 fill-muted-foreground/20 text-muted-foreground/30" />)}
-              </div>
-              <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-foreground/85">{activeCustomer.quote}</p>
-              <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.1em] text-accent">Sample feedback · {customerIndex + 1} / {trustedCustomers.length}</p>
-            </article>
-            <Button variant="ghost" size="icon" aria-label="Previous review" onClick={() => setCustomerIndex((customerIndex + trustedCustomers.length - 1) % trustedCustomers.length)} className="absolute left-0 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border bg-background shadow-sm hover:bg-secondary"><ChevronLeft className="size-5" /></Button>
-            <Button variant="ghost" size="icon" aria-label="Next review" onClick={() => setCustomerIndex((customerIndex + 1) % trustedCustomers.length)} className="absolute right-0 top-1/2 z-10 size-10 -translate-y-1/2 rounded-full border border-border bg-background shadow-sm hover:bg-secondary"><ChevronRight className="size-5" /></Button>
-          </div>
+          <div className="mt-8"><ReviewWidget samples={sampleReviews} formId="product-review-form" /></div>
         </div>
       </section>
 
@@ -539,10 +530,16 @@ function ProductPage() {
         </div>
       </section>
 
-      <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-        <div className="flex items-center gap-3">
-          <div className="min-w-0"><p className="truncate text-xs font-semibold">{product.title}</p><p className="text-[11px] text-muted-foreground">{offerDetails.label} · {formatPrice(selectedVariant.price.amount)}</p></div>
-          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleAddToCart}>Add to Cart</Button>
+      <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
+        <div className="mx-auto flex max-w-[1380px] items-center gap-3 px-1 sm:px-6 lg:px-10">
+          <img src={pinkVanity} alt="" aria-hidden="true" className="hidden size-12 shrink-0 border border-border object-cover sm:block" />
+          <div className="min-w-0"><p className="truncate text-xs font-semibold sm:text-sm">{product.title}</p><p className="text-[11px] text-muted-foreground">{offerDetails.label} · {formatPrice(selectedVariant.price.amount)}</p></div>
+          <div className="ml-auto hidden grid-cols-3 border border-border sm:grid">
+            <Button variant="icon" size="icon" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus className="size-4" /></Button>
+            <span className="grid min-w-10 place-items-center text-sm">{quantity}</span>
+            <Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus className="size-4" /></Button>
+          </div>
+          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em] sm:ml-3" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       </div>
     </div>

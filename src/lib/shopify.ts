@@ -137,10 +137,10 @@ export async function storefrontApiRequest(query: string, variables: Record<stri
 
   const data = (await response.json()) as Record<string, unknown>;
 
-  if (data.errors) {
-    const messages = Array.isArray(data.errors)
-      ? data.errors.map((e: { message?: string }) => e.message).join(", ")
-      : String(data.errors);
+  if (data['errors']) {
+    const messages = Array.isArray(data['errors'])
+      ? data['errors'].map((e: { message?: string }) => e.message).join(", ")
+      : String(data['errors']);
     throw new Error(`Shopify error: ${messages}`);
   }
 
@@ -234,7 +234,7 @@ export async function createShopifyCart(
     input: { lines: [{ quantity: item.quantity, merchandiseId: item.variantId }] },
   });
 
-  const cartCreate = (data as Record<string, any>)?.data?.cartCreate;
+  const cartCreate = (data as Record<string, any>)?.['data']?.cartCreate;
   if (cartCreate?.userErrors?.length > 0) {
     console.error("Cart creation failed:", cartCreate.userErrors);
     return null;
@@ -258,14 +258,14 @@ export async function addLineToShopifyCart(
     lines: [{ quantity: item.quantity, merchandiseId: item.variantId }],
   });
 
-  const userErrors = (data as Record<string, any>)?.data?.cartLinesAdd?.userErrors || [];
+  const userErrors = (data as Record<string, any>)?.['data']?.cartLinesAdd?.userErrors || [];
   if (isCartNotFoundError(userErrors)) return { success: false, cartNotFound: true };
   if (userErrors.length > 0) {
     console.error("Add line failed:", userErrors);
     return { success: false };
   }
 
-  const lines = (data as Record<string, any>)?.data?.cartLinesAdd?.cart?.lines?.edges || [];
+  const lines = (data as Record<string, any>)?.['data']?.cartLinesAdd?.cart?.lines?.edges || [];
   const newLine = lines.find(
     (l: { node: { merchandise: { id: string } } }) => l.node.merchandise.id === item.variantId
   );
@@ -282,7 +282,7 @@ export async function updateShopifyCartLine(
     lines: [{ id: lineId, quantity }],
   });
 
-  const userErrors = (data as Record<string, any>)?.data?.cartLinesUpdate?.userErrors || [];
+  const userErrors = (data as Record<string, any>)?.['data']?.cartLinesUpdate?.userErrors || [];
   if (isCartNotFoundError(userErrors)) return { success: false, cartNotFound: true };
   if (userErrors.length > 0) {
     console.error("Update line failed:", userErrors);
@@ -297,7 +297,7 @@ export async function removeLineFromShopifyCart(
 ): Promise<{ success: boolean; cartNotFound?: boolean }> {
   const data = await storefrontApiRequest(CART_LINES_REMOVE_MUTATION, { cartId, lineIds: [lineId] });
 
-  const userErrors = (data as Record<string, any>)?.data?.cartLinesRemove?.userErrors || [];
+  const userErrors = (data as Record<string, any>)?.['data']?.cartLinesRemove?.userErrors || [];
   if (isCartNotFoundError(userErrors)) return { success: false, cartNotFound: true };
   if (userErrors.length > 0) {
     console.error("Remove line failed:", userErrors);
@@ -308,12 +308,12 @@ export async function removeLineFromShopifyCart(
 
 export async function queryCart(cartId: string): Promise<{ totalQuantity?: number } | null> {
   const data = await storefrontApiRequest(CART_QUERY, { id: cartId });
-  return (data as Record<string, any>)?.data?.cart ?? null;
+  return (data as Record<string, any>)?.['data']?.cart ?? null;
 }
 
 export const getShopifyProductByHandle = createServerFn({ method: "GET" })
   .inputValidator((data) => z.object({ handle: z.string() }).parse(data))
   .handler(async ({ data }) => {
     const result = await storefrontApiRequest(PRODUCT_QUERY, { handle: data.handle });
-    return (result as Record<string, any>)?.data?.product ?? null;
+    return (result as Record<string, any>)?.['data']?.product ?? null;
   });
