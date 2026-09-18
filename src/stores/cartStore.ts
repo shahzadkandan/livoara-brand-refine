@@ -137,6 +137,9 @@ export const useCartStore = create<CartStore>()(
 
       clearCart: () => set({ items: [], cartId: null, checkoutUrl: null }),
       getCheckoutUrl: () => get().checkoutUrl,
+      openCart: () => set({ cartOpen: true }),
+      closeCart: () => set({ cartOpen: false }),
+      setCartOpen: (open) => set({ cartOpen: open }),
 
       syncCart: async () => {
         const { cartId, isSyncing, clearCart } = get();
