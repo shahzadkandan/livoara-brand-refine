@@ -23,7 +23,6 @@ const announcements = [
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const hydrated = useHydrated();
 
@@ -34,6 +33,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const removeItem = useCartStore((state) => state.removeItem);
   const getCheckoutUrl = useCartStore((state) => state.getCheckoutUrl);
   const syncCart = useCartStore((state) => state.syncCart);
+  const cartOpen = useCartStore((state) => state.cartOpen);
+  const setCartOpen = useCartStore((state) => state.setCartOpen);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce(
