@@ -145,7 +145,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                         <div className="flex-1 min-w-0">
                           <h4 className="font-medium truncate">{item.product.node?.title}</h4>
                           <p className="text-sm text-muted-foreground">{item.variantTitle}</p>
-                          <p className="font-semibold">{item.price.currencyCode} {parseFloat(item.price.amount).toFixed(2)}</p>
+                          <p className="font-semibold">{formatCartPrice(item.price.amount)}</p>
                         </div>
                         <div className="flex flex-col items-end gap-2 flex-shrink-0">
                           <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => removeItem(item.variantId)} aria-label={`Remove ${item.variantTitle}`}>
