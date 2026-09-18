@@ -303,10 +303,6 @@ function ProductPage() {
         Home / The LIVOARA Travel Vanity
       </div>
 
-      <header className="mx-auto max-w-[1380px] px-4 pt-6 text-center sm:px-7 sm:pt-8 lg:px-10">
-        <p className="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">Beauty, light and order — in one beautiful case.</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">{product.title}</p>
-      </header>
 
       <section className="mx-auto grid max-w-[1380px] gap-7 px-4 py-5 sm:px-7 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-10 lg:px-10 lg:py-9">
         <div className="lg:sticky lg:top-24">
