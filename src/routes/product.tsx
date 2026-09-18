@@ -189,8 +189,6 @@ function ProductPage() {
   const [zoomPoint, setZoomPoint] = useState<{ x: number; y: number } | null>(null);
   const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
-  const [customerIndex, setCustomerIndex] = useState(0);
-  const activeCustomer = trustedCustomers[customerIndex] ?? trustedCustomers[0];
 
   const addItem = useCartStore((state) => state.addItem);
   const openCart = useCartStore((state) => state.openCart);
