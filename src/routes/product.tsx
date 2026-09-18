@@ -7,7 +7,6 @@ import {
   CirclePlay,
   CreditCard,
   House,
-  IndianRupee,
   LayoutGrid,
   Lightbulb,
   LockKeyhole,
@@ -23,7 +22,8 @@ import {
   SunMedium,
   Truck,
 } from "lucide-react";
-import { useEffect, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import { toast } from "sonner";
 import heroAsset from "@/assets/livoara-hero.png.asset.json";
 import referenceVanity from "@/assets/reference/livoara-reference-vanity.jpg.asset.json";
 import pinkVanity from "@/assets/reference/livoara-product-pink-stacked.jpg";
@@ -44,7 +44,8 @@ import reviewerSana from "@/assets/reviewer-sana.jpg";
 import reviewerAashi from "@/assets/reviewer-aashi.jpg";
 
 import { Button } from "@/components/ui/button";
-import { useCart } from "@/components/site-shell";
+import { getShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
 
 export const Route = createFileRoute("/product")({
   head: () => ({
@@ -57,15 +58,19 @@ export const Route = createFileRoute("/product")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: async () => {
+    const product = await getShopifyProductByHandle({ data: { handle: "livoara-makeup-led-box" } });
+    return product as ShopifyProduct["node"] | null;
+  },
   component: ProductPage,
 });
 
 const galleryMedia = [
-  { type: "video", src: organiseVideo.url, poster: pinkVanity, alt: "LIVOARA Travel Vanity shown in an everyday organising routine", className: "object-cover object-center", thumb: "object-cover object-center" },
-  { type: "image", src: referenceVanity.url, alt: "Pink illuminated travel vanity open with makeup essentials", className: "object-cover object-center", thumb: "object-cover object-center" },
-  { type: "image", src: heroAsset.url, alt: "LIVOARA Travel Vanity displayed beside beauty essentials", className: "scale-[1.6] object-cover object-[68%_52%]", thumb: "scale-[2.2] object-cover object-[68%_52%]" },
-  { type: "image", src: pinkVanity, alt: "Pink LIVOARA Travel Vanity open with illuminated mirror and organized compartments", className: "object-contain object-center", thumb: "object-cover object-center" },
-  { type: "image", src: whiteVanity, alt: "White LIVOARA Travel Vanity open in natural sunlight", className: "object-contain object-center", thumb: "object-cover object-center" },
+  { type: "video" as const, src: organiseVideo.url, poster: pinkVanity, alt: "LIVOARA Travel Vanity shown in an everyday organising routine", className: "object-cover object-center", thumb: "object-cover object-center" },
+  { type: "image" as const, src: referenceVanity.url, alt: "Pink illuminated travel vanity open with makeup essentials", className: "object-cover object-center", thumb: "object-cover object-center" },
+  { type: "image" as const, src: heroAsset.url, alt: "LIVOARA Travel Vanity displayed beside beauty essentials", className: "scale-[1.6] object-cover object-[68%_52%]", thumb: "scale-[2.2] object-cover object-[68%_52%]" },
+  { type: "image" as const, src: pinkVanity, alt: "Pink LIVOARA Travel Vanity open with illuminated mirror and organized compartments", className: "object-contain object-center", thumb: "object-cover object-center" },
+  { type: "image" as const, src: whiteVanity, alt: "White LIVOARA Travel Vanity open in natural sunlight", className: "object-contain object-center", thumb: "object-cover object-center" },
 ] as const;
 
 const productFilms = [
@@ -113,8 +118,6 @@ type FeaturedComment = (typeof featuredComments)[number];
 const commentWeight = (comment: FeaturedComment) =>
   comment.copy.length + ("reply" in comment && comment.reply ? comment.reply.length + 80 : 0);
 
-// Snake-draft by weight keeps exactly 8 comments per thread with balanced heights,
-// so no thread card leaves a large empty gap inside the swipe area.
 const commentThreads: FeaturedComment[][] = [[], [], []];
 [...featuredComments]
   .sort((a, b) => commentWeight(b) - commentWeight(a))
@@ -160,31 +163,67 @@ const customerFaqs = [
   { q: "When will my order arrive?", a: "Delivery timelines and serviceability are shown at checkout once you enter your address." },
 ] as const;
 
+function formatPrice(amount: string) {
+  const value = parseFloat(amount);
+  return `₹${value.toLocaleString("en-IN")}`;
+}
 
-const singleOffer = { id: "single" as const, label: "1 piece", detail: "Single vanity", price: "₹1,499", pieces: 1 };
-
-const bundleOffers: ReadonlyArray<{ id: "single" | "double" | "triple"; label: string; detail: string; price: string; pieces: number; badge?: string }> = [
-  singleOffer,
-  { id: "double", label: "2 pieces", detail: "Save ₹299", price: "₹2,699", pieces: 2, badge: "Popular" },
-  { id: "triple", label: "3 pieces", detail: "Save ₹698", price: "₹3,799", pieces: 3, badge: "Best value" },
-] as const;
-
-type BundleOfferId = (typeof bundleOffers)[number]["id"];
+function parsePieces(title: string) {
+  const match = /^\d+/.exec(title);
+  return match ? parseInt(match[0], 10) : 1;
+}
 
 function ProductPage() {
+  const product = Route.useLoaderData() as ShopifyProduct["node"] | null;
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
   const [zoomPoint, setZoomPoint] = useState<{ x: number; y: number } | null>(null);
-  const [selectedOffer, setSelectedOffer] = useState<BundleOfferId>("single");
   const [offerSeconds, setOfferSeconds] = useState((2 * 60 * 60) + (50 * 60) + 18);
   const [showSticky, setShowSticky] = useState(false);
   const [customerIndex, setCustomerIndex] = useState(0);
   const activeCustomer = trustedCustomers[customerIndex] ?? trustedCustomers[0];
-  const { add } = useCart();
+
+  const addItem = useCartStore((state) => state.addItem);
+  const openCart = useCartStore((state) => state.openCart);
+  const getCheckoutUrl = useCartStore((state) => state.getCheckoutUrl);
+  const isLoading = useCartStore((state) => state.isLoading);
+
+  const variants = useMemo(() => {
+    const list = product?.variants?.edges?.map((edge) => edge.node) ?? [];
+    return list.sort((a, b) => parsePieces(a.title) - parsePieces(b.title));
+  }, [product]);
+
+  const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id ?? "");
+
+  const selectedVariant = useMemo(
+    () => variants.find((v) => v.id === selectedVariantId) ?? variants[0],
+    [variants, selectedVariantId]
+  );
+
+  useEffect(() => {
+    if (variants.length > 0 && !selectedVariantId) {
+      setSelectedVariantId(variants[0]?.id ?? "");
+    }
+  }, [variants, selectedVariantId]);
+
+  const unitPriceAmount = useMemo(() => {
+    const unitVariant = variants.find((v) => parsePieces(v.title) === 1);
+    return parseFloat(unitVariant?.price.amount ?? selectedVariant?.price.amount ?? "0");
+  }, [variants, selectedVariant]);
+
+  const offerDetails = useMemo(() => {
+    if (!selectedVariant) return null;
+    const pieces = parsePieces(selectedVariant.title);
+    const price = parseFloat(selectedVariant.price.amount);
+    const saving = pieces * unitPriceAmount - price;
+    const badge = pieces === 2 ? "Popular" : pieces === 3 ? "Best value" : undefined;
+    const detail = saving > 0 ? `Save ₹${saving.toLocaleString("en-IN")}` : "Single vanity";
+    const label = pieces === 1 ? "1 piece" : `${pieces} pieces`;
+    return { pieces, price, saving, badge, detail, label };
+  }, [selectedVariant, unitPriceAmount]);
+
   const selectedMedia = galleryMedia[selected] ?? galleryMedia[0];
-  const activeOffer = bundleOffers.find((offer) => offer.id === selectedOffer) ?? singleOffer;
-  const selectedPrice = activeOffer.price;
-  const cartQuantity = activeOffer.pieces * quantity;
+
   const timerHours = Math.floor(offerSeconds / 3600);
   const timerMinutes = Math.floor((offerSeconds % 3600) / 60);
   const timerSeconds = offerSeconds % 60;
@@ -215,6 +254,49 @@ function ProductPage() {
     return () => window.clearInterval(timer);
   }, []);
 
+  const handleAddToCart = async () => {
+    if (!product || !selectedVariant) return;
+    await addItem({
+      product: { node: product },
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity,
+      selectedOptions: selectedVariant.selectedOptions,
+    });
+    toast.success("Added to bag");
+    openCart();
+  };
+
+  const handleBuyNow = async () => {
+    if (!product || !selectedVariant) return;
+    await addItem({
+      product: { node: product },
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity,
+      selectedOptions: selectedVariant.selectedOptions,
+    });
+    const checkoutUrl = getCheckoutUrl();
+    if (checkoutUrl) {
+      window.open(checkoutUrl, "_blank");
+    } else {
+      toast.error("Checkout link is not ready yet.");
+    }
+  };
+
+  if (!product || !selectedVariant || !offerDetails) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center px-4 text-center">
+        <div>
+          <p className="font-display text-2xl">Product details are loading…</p>
+          <p className="mt-2 text-sm text-muted-foreground">Please refresh if this takes too long.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page-reveal max-w-full overflow-x-clip pb-20 lg:pb-0">
       <div className="border-b border-border bg-muted/45 px-5 py-3 text-center text-[10px] uppercase tracking-[0.18em] text-muted-foreground sm:text-xs">
@@ -223,9 +305,8 @@ function ProductPage() {
 
       <header className="mx-auto max-w-[1380px] px-4 pt-6 text-center sm:px-7 sm:pt-8 lg:px-10">
         <p className="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">Beauty, light and order — in one beautiful case.</p>
-        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">The LIVOARA Travel Vanity</p>
+        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground sm:text-sm">{product.title}</p>
       </header>
-
 
       <section className="mx-auto grid max-w-[1380px] gap-7 px-4 py-5 sm:px-7 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-10 lg:px-10 lg:py-9">
         <div className="lg:sticky lg:top-24">
@@ -252,16 +333,43 @@ function ProductPage() {
         <div>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-border pb-3 text-xs"><MessageCircleMore className="size-4 text-accent" aria-hidden="true" /><a href="#reviews" className="font-semibold underline decoration-border underline-offset-4">24 illustrative customer conversations</a><span className="text-muted-foreground">Sample feedback · verified reviews added after collection</span></div>
           <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">LIVOARA signature beauty companion</p>
-          <h1 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">The LIVOARA Travel Vanity</h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">A luminous vanity, thoughtful organizer, and travel companion—beautifully designed as one.</p>
+          <h1 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">{product.title}</h1>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">{product.description || "A luminous vanity, thoughtful organizer, and travel companion—beautifully designed as one."}</p>
 
           <div className="mt-4 border border-accent bg-secondary/45 p-3.5 sm:p-4">
             <div className="mb-3 flex items-start justify-between gap-3 border-b border-accent/35 pb-3"><div><p className="text-[10px] font-bold uppercase tracking-[0.18em] text-accent">Current bundle offer</p><p className="mt-1 font-display text-2xl">Save more when you bundle.</p></div><span className="shrink-0 bg-accent px-2.5 py-2 text-[9px] font-bold uppercase tracking-[0.1em] text-accent-foreground">Save up to ₹698</span></div>
             <div className="mb-2 flex items-center justify-between gap-3"><p className="text-[10px] font-medium uppercase tracking-[0.14em]">Choose your offer</p><span className="bg-background px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.1em] text-accent">Bundle pricing</span></div>
             <div className="grid gap-2" role="group" aria-label="Choose product offer">
-              {bundleOffers.map((offer) => { const isSelected = selectedOffer === offer.id; return <Button key={offer.id} type="button" variant="ghost" aria-pressed={isSelected} onClick={() => setSelectedOffer(offer.id)} className={`h-auto min-h-16 w-full justify-between border px-3 py-3 text-left sm:px-4 ${isSelected ? "border-accent bg-background ring-1 ring-accent" : "border-border bg-background/75 hover:bg-background"}`}><span className="flex min-w-0 items-center gap-3"><span className={`grid size-5 shrink-0 place-items-center rounded-full border ${isSelected ? "border-accent" : "border-border"}`} aria-hidden="true">{isSelected && <span className="size-2.5 rounded-full bg-accent" />}</span><span><span className="flex flex-wrap items-center gap-2"><strong className="text-sm">{offer.label}</strong>{offer.badge && <span className="bg-accent px-2 py-1 text-[9px] font-bold uppercase tracking-[0.08em] text-accent-foreground">{offer.badge}</span>}</span><span className="mt-0.5 block text-[11px] font-normal text-muted-foreground">{offer.detail}</span></span></span><strong className="shrink-0 font-display text-xl">{offer.price}</strong></Button>; })}
+              {variants.map((variant) => {
+                const pieces = parsePieces(variant.title);
+                const saving = pieces * unitPriceAmount - parseFloat(variant.price.amount);
+                const badge = pieces === 2 ? "Popular" : pieces === 3 ? "Best value" : undefined;
+                const detail = saving > 0 ? `Save ₹${saving.toLocaleString("en-IN")}` : "Single vanity";
+                const label = pieces === 1 ? "1 piece" : `${pieces} pieces`;
+                const isSelected = selectedVariant.id === variant.id;
+                return (
+                  <Button
+                    key={variant.id}
+                    type="button"
+                    variant="ghost"
+                    aria-pressed={isSelected}
+                    disabled={!variant.availableForSale}
+                    onClick={() => setSelectedVariantId(variant.id)}
+                    className={`h-auto min-h-16 w-full justify-between border px-3 py-3 text-left sm:px-4 ${isSelected ? "border-accent bg-background ring-1 ring-accent" : "border-border bg-background/75 hover:bg-background"}`}
+                  >
+                    <span className="flex min-w-0 items-center gap-3">
+                      <span className={`grid size-5 shrink-0 place-items-center rounded-full border ${isSelected ? "border-accent" : "border-border"}`} aria-hidden="true">{isSelected && <span className="size-2.5 rounded-full bg-accent" />}</span>
+                      <span>
+                        <span className="flex flex-wrap items-center gap-2"><strong className="text-sm">{label}</strong>{badge && <span className="bg-accent px-2 py-1 text-[9px] font-bold uppercase tracking-[0.08em] text-accent-foreground">{badge}</span>}</span>
+                        <span className="mt-0.5 block text-[11px] font-normal text-muted-foreground">{detail}</span>
+                      </span>
+                    </span>
+                    <strong className="shrink-0 font-display text-xl">{formatPrice(variant.price.amount)}</strong>
+                  </Button>
+                );
+              })}
             </div>
-            <div className="mt-2 flex items-center gap-2 bg-muted/45 px-3 py-2 text-[11px]"><IndianRupee className="size-3.5 shrink-0 text-accent" /><span>Selected: <strong>{activeOffer.label} for {selectedPrice}</strong> · Inclusive of all taxes</span></div>
+            <div className="mt-2 flex items-center gap-2 bg-muted/45 px-3 py-2 text-[11px]"><span className="shrink-0 text-accent">₹</span><span>Selected: <strong>{offerDetails.label} for {formatPrice(selectedVariant.price.amount)}</strong> · Inclusive of all taxes</span></div>
           </div>
 
           <ul className="mt-4 grid grid-cols-2 gap-2">{benefits.map((benefit) => <li key={benefit} className="flex items-start gap-2.5 border border-border bg-secondary/50 px-3 py-3 text-xs font-semibold leading-4 sm:text-sm sm:leading-5"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground"><Check className="size-3" /></span>{benefit}</li>)}</ul>
@@ -272,8 +380,8 @@ function ProductPage() {
               <div className="flex shrink-0 gap-1">{[[timerHours, "hrs"], [timerMinutes, "min"], [timerSeconds, "sec"]].map(([value, label]) => <span key={label as string} className="grid min-w-11 place-items-center bg-primary px-1.5 py-1.5 text-primary-foreground"><strong className="font-display text-lg leading-none tabular-nums">{String(value as number).padStart(2, "0")}</strong><span className="mt-0.5 text-[8px] uppercase tracking-[0.1em] text-primary-foreground/70">{label as string}</span></span>)}</div>
             </div>
           </div>
-          <Button id="main-add-to-cart" className="mt-2.5 w-full text-xs uppercase tracking-[0.12em]" size="lg" onClick={() => add(cartQuantity)}>Add to Cart · {selectedPrice}</Button>
-          <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" onClick={() => add(cartQuantity)}>Buy Now</Button>
+          <Button id="main-add-to-cart" className="mt-2.5 w-full text-xs uppercase tracking-[0.12em]" size="lg" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleAddToCart}>Add to Cart · {formatPrice(selectedVariant.price.amount)}</Button>
+          <Button className="mt-2 w-full text-xs uppercase tracking-[0.12em]" size="lg" variant="outline" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleBuyNow}>Buy Now</Button>
           <div className="mt-3 bg-primary p-4 text-primary-foreground">
             <p className="text-center text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground/70">LIVOARA shop promise</p>
             <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-3.5">
@@ -285,7 +393,7 @@ function ProductPage() {
           </div>
           <p className="mt-2 flex items-center justify-center gap-2 text-center text-[10px] text-muted-foreground"><LockKeyhole className="size-3 shrink-0 text-accent" />UPI · RuPay · Visa · Mastercard · G Pay · PhonePe · Paytm · COD where available</p>
           <div className="mt-4 divide-y divide-border border-y border-border">
-            <InfoRow title="Product Details" open><p>The LIVOARA Travel Vanity combines an illuminated mirror with organised compartments in a compact case designed to keep everyday beauty essentials together at home or while travelling. Product colour and finish may vary slightly because of screen settings, photography, manufacturing tolerances, or production batches.</p></InfoRow>
+            <InfoRow title="Product Details" open><p>{product.description || "The LIVOARA Travel Vanity combines an illuminated mirror with organised compartments in a compact case designed to keep everyday beauty essentials together at home or while travelling. Product colour and finish may vary slightly because of screen settings, photography, manufacturing tolerances, or production batches."}</p></InfoRow>
             <InfoRow title="Specifications"><dl className="grid gap-4 sm:grid-cols-2"><Spec term="Format" value="Portable vanity case" /><Spec term="Storage" value="Organised interior compartments" /><Spec term="Mirror" value="Integrated illuminated mirror" /><Spec term="Care & operation" value="Follow the label and guide supplied with the product" /></dl></InfoRow>
             <InfoRow title="Shipping & Returns"><p>Delivery estimates, serviceability, and any shipping charge are shown at checkout. Eligible return, refund, or exchange requests must be emailed to hello@livoara.in within 7 calendar days of delivery. A clear, continuous unboxing video is mandatory.</p></InfoRow>
             <InfoRow title="What's Included"><p>The package contains the LIVOARA vanity and the components supplied for its included features. Please check the product, accessories, and enclosed instructions during your continuous unboxing recording.</p></InfoRow>
@@ -347,7 +455,6 @@ function ProductPage() {
           </div>
         </div>
       </section>
-
 
       <section className="border-b border-border bg-secondary/55">
         <div className="mx-auto max-w-4xl px-6 py-11 sm:px-10 sm:py-14">
@@ -428,10 +535,9 @@ function ProductPage() {
       </section>
 
       <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-
         <div className="flex items-center gap-3">
-          <div className="min-w-0"><p className="truncate text-xs font-semibold">The LIVOARA Travel Vanity</p><p className="text-[11px] text-muted-foreground">{activeOffer.label} · {selectedPrice}</p></div>
-          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" onClick={() => add(cartQuantity)}>Add to Cart</Button>
+          <div className="min-w-0"><p className="truncate text-xs font-semibold">{product.title}</p><p className="text-[11px] text-muted-foreground">{offerDetails.label} · {formatPrice(selectedVariant.price.amount)}</p></div>
+          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       </div>
     </div>
