@@ -37,3 +37,4 @@
 - [x] Implement Shopify Storefront cart/create/update/remove functions and Zustand cart store with localStorage persistence
 - [x] Wire product page to live Shopify data, variant selection, Add to Cart, and Buy Now checkout flow
 - [x] Verify bundle variant checkout URL includes `channel=online_store`, cart drawer shows ₹ formatting, and mobile overflow is 0
+- [x] Client doc pass: linked category tiles to /product, customer-submittable review widget (Cloud `product_reviews`, approved-only public), product page cleanup, richer cart drawer with subtotal + secure checkout, benefit image row, desktop+mobile sticky add-to-cart bar, pincode delivery checker
