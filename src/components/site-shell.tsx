@@ -168,7 +168,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 <div className="flex-shrink-0 space-y-4 pt-4 border-t bg-background">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold">Total</span>
-                    <span className="text-xl font-bold">{currencyCode} {totalPrice.toFixed(2)}</span>
+                    <span className="text-xl font-bold">{formatCartPrice(String(totalPrice))}</span>
                   </div>
                   <Button onClick={handleCheckout} className="w-full" size="lg" disabled={items.length === 0 || isLoading || isSyncing}>
                     {isLoading || isSyncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ExternalLink className="w-4 h-4 mr-2" />Checkout with Shopify</>}
