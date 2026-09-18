@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check, CirclePlay, Gem, Headphones, LayoutGrid, Luggage, RotateCcw, ShieldCheck, Star, SunMedium, Truck } from "lucide-react";
+import { ArrowRight, Check, CirclePlay, Gem, Headphones, LayoutGrid, Luggage, RotateCcw, ShieldCheck, SunMedium, Truck } from "lucide-react";
 import type { ReactNode } from "react";
 import heroAsset from "@/assets/livoara-hero.png.asset.json";
 import whiteSunlight from "@/assets/reference/livoara-product-white-sunlight.jpg";
