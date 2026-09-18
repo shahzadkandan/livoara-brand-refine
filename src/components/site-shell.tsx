@@ -41,7 +41,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
     (sum, item) => sum + parseFloat(item.price.amount) * item.quantity,
     0
   );
-  const currencyCode = items[0]?.price.currencyCode ?? "";
+  const formatCartPrice = (amount: string) => `₹${parseFloat(amount).toLocaleString("en-IN", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 
   useEffect(() => {
     if (cartOpen) syncCart();
