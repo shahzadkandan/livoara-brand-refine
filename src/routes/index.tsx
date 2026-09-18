@@ -31,6 +31,18 @@ import reviewerNeha from "@/assets/reviewer-neha.jpg";
 import reviewerSana from "@/assets/reviewer-sana.jpg";
 import reviewerAashi from "@/assets/reviewer-aashi.jpg";
 import { Button } from "@/components/ui/button";
+import { ReviewWidget, type SampleReview } from "@/components/review-widget";
+
+const sampleReviews: readonly SampleReview[] = [
+  { image: reviewerAnanya, name: "Sample feedback · Ananya", city: "Bengaluru", quote: "The kind of organised setup I would want beside me every morning." },
+  { image: reviewerRiya, name: "Sample feedback · Riya", city: "Pune", quote: "Mirror and storage together feels simpler than carrying separate pieces." },
+  { image: reviewerMeher, name: "Sample feedback · Meher", city: "Chennai", quote: "It looks considered enough to keep out and compact enough to pack." },
+  { image: reviewerKavya, name: "Sample feedback · Kavya", city: "Kolkata", quote: "Seeing everything in one place would make busy mornings feel easier." },
+  { image: reviewerIsha, name: "Sample feedback · Isha", city: "Gurugram", quote: "The illuminated mirror is the detail I would use every single day." },
+  { image: reviewerNeha, name: "Sample feedback · Neha", city: "Bhopal", quote: "A neat case like this would keep my dressing area much calmer." },
+  { image: reviewerSana, name: "Sample feedback · Sana", city: "Mumbai", quote: "One compact vanity makes much more sense for weekend travel." },
+  { image: reviewerAashi, name: "Sample feedback · Aashi", city: "Hyderabad", quote: "The structured format feels polished without making the routine complicated." },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
