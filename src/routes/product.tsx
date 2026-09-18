@@ -530,10 +530,16 @@ function ProductPage() {
         </div>
       </section>
 
-      <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 lg:hidden ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
-        <div className="flex items-center gap-3">
-          <div className="min-w-0"><p className="truncate text-xs font-semibold">{product.title}</p><p className="text-[11px] text-muted-foreground">{offerDetails.label} · {formatPrice(selectedVariant.price.amount)}</p></div>
-          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em]" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleAddToCart}>Add to Cart</Button>
+      <div className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur transition-transform duration-300 ${showSticky ? "translate-y-0" : "translate-y-full"}`}>
+        <div className="mx-auto flex max-w-[1380px] items-center gap-3 px-1 sm:px-6 lg:px-10">
+          <img src={pinkVanity} alt="" aria-hidden="true" className="hidden size-12 shrink-0 border border-border object-cover sm:block" />
+          <div className="min-w-0"><p className="truncate text-xs font-semibold sm:text-sm">{product.title}</p><p className="text-[11px] text-muted-foreground">{offerDetails.label} · {formatPrice(selectedVariant.price.amount)}</p></div>
+          <div className="ml-auto hidden grid-cols-3 border border-border sm:grid">
+            <Button variant="icon" size="icon" aria-label="Decrease quantity" onClick={() => setQuantity(Math.max(1, quantity - 1))}><Minus className="size-4" /></Button>
+            <span className="grid min-w-10 place-items-center text-sm">{quantity}</span>
+            <Button variant="icon" size="icon" aria-label="Increase quantity" onClick={() => setQuantity(quantity + 1)}><Plus className="size-4" /></Button>
+          </div>
+          <Button className="ml-auto shrink-0 text-[11px] uppercase tracking-[0.12em] sm:ml-3" disabled={!selectedVariant.availableForSale || isLoading} onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       </div>
     </div>
