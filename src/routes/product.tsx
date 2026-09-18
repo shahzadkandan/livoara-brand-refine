@@ -364,7 +364,12 @@ function ProductPage() {
                         <span className="mt-0.5 block text-[11px] font-normal text-muted-foreground">{detail}</span>
                       </span>
                     </span>
-                    <strong className="shrink-0 font-display text-xl">{formatPrice(variant.price.amount)}</strong>
+                    <span className="shrink-0 text-right">
+                      {variant.compareAtPrice?.amount && parseFloat(variant.compareAtPrice.amount) > parseFloat(variant.price.amount) && (
+                        <span className="mr-2 text-xs text-muted-foreground line-through">{formatPrice(variant.compareAtPrice.amount)}</span>
+                      )}
+                      <strong className="font-display text-xl">{formatPrice(variant.price.amount)}</strong>
+                    </span>
                   </Button>
                 );
               })}

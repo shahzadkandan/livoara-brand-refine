@@ -33,3 +33,7 @@
 - [x] Align product page to reference flow: headline above gallery with arrows, 2x2 benefit cards, timer card, shop promise card, routine timeline, films then comparison then comments
 - [x] Add "Trusted by Thousands of Customers" photo-led review grid with 8 sample stories and placeholder ratings
 - [x] Move review section above product films and convert to single-card carousel with prev/next arrows (verified: Ananya → Riya → back, overflowX 0, build OK)
+- [x] Enable Shopify, claim the store, and create the single LIVOARA product with 1/2/3 pc bundle variants
+- [x] Implement Shopify Storefront cart/create/update/remove functions and Zustand cart store with localStorage persistence
+- [x] Wire product page to live Shopify data, variant selection, Add to Cart, and Buy Now checkout flow
+- [x] Verify bundle variant checkout URL includes `channel=online_store`, cart drawer shows ₹ formatting, and mobile overflow is 0
