@@ -44,8 +44,17 @@ import reviewerSana from "@/assets/reviewer-sana.jpg";
 import reviewerAashi from "@/assets/reviewer-aashi.jpg";
 
 import { Button } from "@/components/ui/button";
+import { DeliveryChecker } from "@/components/delivery-checker";
+import { ReviewWidget, type SampleReview } from "@/components/review-widget";
 import { getShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
+
+const benefitImages = [
+  { src: pinkVanity, caption: "Illuminated mirror for an even, clear finish" },
+  { src: whiteVanity, caption: "Organised sections for everyday essentials" },
+  { src: referenceVanity.url, caption: "Everything visible the moment you open it" },
+  { src: heroAsset.url, caption: "One compact case from dresser to suitcase" },
+] as const;
 
 export const Route = createFileRoute("/product")({
   head: () => ({
