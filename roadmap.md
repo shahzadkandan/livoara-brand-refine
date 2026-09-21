@@ -38,3 +38,4 @@
 - [x] Wire product page to live Shopify data, variant selection, Add to Cart, and Buy Now checkout flow
 - [x] Verify bundle variant checkout URL includes `channel=online_store`, cart drawer shows ₹ formatting, and mobile overflow is 0
 - [x] Client doc pass: linked category tiles to /product, customer-submittable review widget (Cloud `product_reviews`, approved-only public), product page cleanup, richer cart drawer with subtotal + secure checkout, benefit image row, desktop+mobile sticky add-to-cart bar, pincode delivery checker
+- [x] Recreate and claim a fresh Shopify store on user request, reconnect the app, add LIVOARA Makeup LED Box with 1/2/3 pc bundle variants, and verify end-to-end Add to Cart → Secure Checkout
