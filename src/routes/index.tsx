@@ -14,13 +14,13 @@ import categoryAccessories from "@/assets/reference/livoara-category-accessories
 import categoryPod from "@/assets/reference/livoara-category-pod.jpg";
 import problemScattered from "@/assets/livoara-problem-scattered.jpg";
 import problemHidden from "@/assets/livoara-problem-hidden.jpg";
-import routineVideo from "@/assets/livoara-use-routine.mp4.asset.json";
+import routineVideo from "@/assets/livoara-uploaded-routine.mp4.asset.json";
 import womanOrganise from "@/assets/livoara-woman-organise-correct.jpg";
 import womanRoutine from "@/assets/livoara-woman-routine-correct.jpg";
 import womanTravel from "@/assets/livoara-woman-travel-correct.jpg";
-import womanOrganiseVideo from "@/assets/livoara-correct-organise-v2.mp4.asset.json";
-import womanRoutineVideo from "@/assets/livoara-correct-routine-v2.mp4.asset.json";
-import womanTravelVideo from "@/assets/livoara-correct-travel-v2.mp4.asset.json";
+import womanOrganiseVideo from "@/assets/livoara-uploaded-organise.mp4.asset.json";
+import womanRoutineVideo from "@/assets/livoara-uploaded-routine.mp4.asset.json";
+import womanTravelVideo from "@/assets/livoara-uploaded-travel.mp4.asset.json";
 import editorialBanner from "@/assets/livoara-editorial-banner-correct.jpg";
 import reviewerAnanya from "@/assets/reviewer-ananya.jpg";
 import reviewerRiya from "@/assets/reviewer-riya.jpg";

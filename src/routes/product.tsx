@@ -31,9 +31,9 @@ import whiteVanity from "@/assets/reference/livoara-product-white-sunlight.jpg";
 import problemScattered from "@/assets/livoara-problem-scattered.jpg";
 import problemPouches from "@/assets/livoara-problem-pouches.jpg";
 
-import organiseVideo from "@/assets/livoara-correct-organise-v2.mp4.asset.json";
-import routineVideo from "@/assets/livoara-correct-routine-v2.mp4.asset.json";
-import travelVideo from "@/assets/livoara-correct-travel-v2.mp4.asset.json";
+import organiseVideo from "@/assets/livoara-uploaded-organise.mp4.asset.json";
+import routineVideo from "@/assets/livoara-uploaded-routine.mp4.asset.json";
+import travelVideo from "@/assets/livoara-uploaded-travel.mp4.asset.json";
 import reviewerAnanya from "@/assets/reviewer-ananya.jpg";
 import reviewerIsha from "@/assets/reviewer-isha.jpg";
 import reviewerKavya from "@/assets/reviewer-kavya.jpg";
