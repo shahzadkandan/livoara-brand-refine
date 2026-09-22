@@ -1,8 +1,8 @@
 <footer class="footer">
   <div class="footer-inner">
     <div><a href="{{ routes.root_url }}" class="brand">LIVOARA</a><p style="margin-top:1.25rem;max-width:24rem;line-height:1.7">A thoughtful vanity made to hold the little things that make every moment yours.</p></div>
-    <div><h2>Explore</h2><div class="footer-links">{% for link in section.settings.explore_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</div></div>
-    <div><h2>Policies & Customer Care</h2><div class="footer-links">{% for link in section.settings.policy_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}<a href="mailto:hello@livoara.in">hello@livoara.in</a></div></div>
+    <div><h2>Explore</h2><div class="footer-links">{% if section.settings.explore_menu.links != blank %}{% for link in section.settings.explore_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}<a href="/collections/all">Shop the Vanity</a><a href="/pages/about">Our Story</a><a href="/pages/contact">Contact Us</a>{% endif %}</div></div>
+    <div><h2>Policies &amp; Customer Care</h2><div class="footer-links">{% if section.settings.policy_menu.links != blank %}{% for link in section.settings.policy_menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}<a href="/pages/contact">Contact Us</a><a href="/pages/shipping-returns">Shipping &amp; Returns</a><a href="/pages/privacy">Privacy Policy</a><a href="/pages/terms">Terms of Service</a>{% endif %}<a href="mailto:hello@livoara.in">hello@livoara.in</a></div></div>
   </div>
   <div class="footer-bottom">© {{ 'now' | date: '%Y' }} LIVOARA · A brand of ARINJJOY VENTURES · GSTIN 21ACMFA2803PIZE · All rights reserved</div>
 </footer>
