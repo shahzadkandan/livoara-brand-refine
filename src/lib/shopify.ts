@@ -231,7 +231,10 @@ export async function createShopifyCart(
   item: Omit<CartItem, "lineId">
 ): Promise<{ cartId: string; checkoutUrl: string; lineId: string } | null> {
   const data = await storefrontApiRequest(CART_CREATE_MUTATION, {
-    input: { lines: [{ quantity: item.quantity, merchandiseId: item.variantId }] },
+    input: {
+      buyerIdentity: { countryCode: "IN" },
+      lines: [{ quantity: item.quantity, merchandiseId: item.variantId }],
+    },
   });
 
   const cartCreate = (data as Record<string, any>)?.['data']?.cartCreate;
