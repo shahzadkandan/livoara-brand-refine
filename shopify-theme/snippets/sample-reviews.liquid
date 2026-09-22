@@ -1,4 +1,37 @@
-<div class="review-strip" style="margin-top:1.5rem">
-{% assign names = 'Sample feedback · Ananya S.|Bengaluru|The illuminated mirror and organised sections make my everyday routine feel much simpler.|reviewer-ananya.jpg,Sample feedback · Riya M.|Pune|Finally one case that keeps makeup, brushes and small accessories together on my dresser.|reviewer-riya.jpg,Sample feedback · Neha B.|Bhopal|Compact enough for travel and pretty enough to keep on the vanity. A thoughtful design.|reviewer-neha.jpg,Sample feedback · Meher T.|Chennai|I appreciate how the mirror and storage are combined in one beautiful case.|reviewer-meher.jpg,Sample feedback · Kavya B.|Kolkata|Great for anyone who wants a tidy getting-ready space without several pouches.|reviewer-kavya.jpg,Sample feedback · Sana P.|Mumbai|The pink finish is elegant and the light is genuinely useful during early mornings.|reviewer-sana.jpg,Sample feedback · Isha C.|Gurugram|It keeps my essentials organised and looks lovely on a compact dressing table.|reviewer-isha.jpg,Sample feedback · Aashi V.|Hyderabad|A sensible gift idea for anyone who likes their beauty routine to feel calm and organised.|reviewer-aashi.jpg' | split: ',' %}
-{% for item in names %}{% assign p = item | split: '|' %}<article class="review-card"><img src="{{ p[3] | asset_url }}" alt="{{ p[0] }}"><div class="card-pad"><p class="stars" aria-label="Placeholder rating">☆ ☆ ☆ ☆ ☆</p><h3>{{ p[0] }}</h3><p class="muted" style="font-size:.75rem">{{ p[1] }}</p><p class="copy" style="margin-top:.6rem">“{{ p[2] }}”</p><p class="tag" style="margin-top:.8rem">Sample card</p></div></article>{% endfor %}
+<div class="review-widget" data-review-widget style="margin-top:1.5rem">
+  <div class="review-widget-head">
+    <div class="review-summary">
+      <span class="stars small" aria-label="Rating pending verification">☆ ☆ ☆ ☆ ☆</span>
+      <span>Verified ratings added after collection</span>
+    </div>
+    <div class="review-actions">
+      <button class="button secondary small" type="button" data-toggle-review>Write a review</button>
+      <button class="button icon circle" type="button" aria-label="Scroll reviews left" data-review-left>‹</button>
+      <button class="button icon circle" type="button" aria-label="Scroll reviews right" data-review-right>›</button>
+    </div>
+  </div>
+  <form class="review-form" data-review-form hidden>
+    <p class="eyebrow">Share your experience</p>
+    <div class="review-form-grid">
+      <label class="field"><span>Your name</span><input name="contact[name]" required maxlength="60" placeholder="e.g. Ananya S."></label>
+      <label class="field"><span>City (optional)</span><input name="contact[city]" maxlength="60" placeholder="e.g. Pune"></label>
+    </div>
+    <label class="field" style="margin-top:.75rem"><span>Your rating</span><select name="contact[rating]"><option>5 stars</option><option>4 stars</option><option>3 stars</option><option>2 stars</option><option>1 star</option></select></label>
+    <label class="field" style="margin-top:.75rem"><span>Your review</span><textarea name="contact[body]" rows="4" minlength="10" maxlength="1200" placeholder="Tell other customers how you use your LIVOARA vanity."></textarea></label>
+    <p class="copy" style="font-size:.72rem;margin-top:.75rem">Connect this form to your preferred Shopify review app, or replace sample cards with approved customer reviews.</p>
+  </form>
+  <div class="review-scroller" data-review-scroller>
+  {% assign names = 'Sample feedback · Ananya S.|Bengaluru|The illuminated mirror and organised sections make my everyday routine feel much simpler.|reviewer-ananya.jpg,Sample feedback · Riya M.|Pune|Finally one case that keeps makeup, brushes and small accessories together on my dresser.|reviewer-riya.jpg,Sample feedback · Neha B.|Bhopal|Compact enough for travel and pretty enough to keep on the vanity. A thoughtful design.|reviewer-neha.jpg,Sample feedback · Meher T.|Chennai|I appreciate how the mirror and storage are combined in one beautiful case.|reviewer-meher.jpg,Sample feedback · Kavya B.|Kolkata|Great for anyone who wants a tidy getting-ready space without several pouches.|reviewer-kavya.jpg,Sample feedback · Sana P.|Mumbai|The pink finish is elegant and the light is genuinely useful during early mornings.|reviewer-sana.jpg,Sample feedback · Isha C.|Gurugram|It keeps my essentials organised and looks lovely on a compact dressing table.|reviewer-isha.jpg,Sample feedback · Aashi V.|Hyderabad|A sensible gift idea for anyone who likes their beauty routine to feel calm and organised.|reviewer-aashi.jpg' | split: ',' %}
+  {% for item in names %}{% assign p = item | split: '|' %}
+    <article class="review-card compact">
+      <div class="review-person">
+        <img src="{{ p[3] | asset_url }}" alt="Illustrative customer portrait" loading="lazy">
+        <div><h3>{{ p[0] }}</h3><p class="muted">{{ p[1] }}</p></div>
+      </div>
+      <p class="stars" aria-label="Rating pending verification">☆ ☆ ☆ ☆ ☆</p>
+      <p class="review-quote">“{{ p[2] }}”</p>
+      <p class="review-note">Sample feedback · rating pending verification</p>
+    </article>
+  {% endfor %}
+  </div>
 </div>
