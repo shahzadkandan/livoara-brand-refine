@@ -2,9 +2,9 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 export const SHOPIFY_API_VERSION = "2025-07";
-export const SHOPIFY_STORE_PERMANENT_DOMAIN = "livoara-brand-refine-4jsg1-x1pfavur.myshopify.com";
+export const SHOPIFY_STORE_PERMANENT_DOMAIN = "livoara-in-wqpgg-xht8d56j.myshopify.com";
 export const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-export const SHOPIFY_STOREFRONT_TOKEN = "7986f156215e9a1741dfebd6c3428861";
+export const SHOPIFY_STOREFRONT_TOKEN = "6f85d25b862b8775210e7c5ea325b893";
 
 export interface ShopifyProduct {
   node?: {
