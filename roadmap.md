@@ -45,4 +45,4 @@
 - [ ] Set store location/country to India and currency to INR in Shopify admin for the new store (user action in Shopify admin)
 - [x] Convert existing LIVOARA Lovable design into an upload-ready Shopify Liquid theme package
 - [x] Tighten the Shopify Liquid theme so it matches the current LIVOARA Lovable design more closely
-- [ ] Correct Shopify theme header/footer parity, remove RADA-watermarked videos, validate, and repackage the exact-match ZIP
+- [x] Correct Shopify theme header/footer parity, remove RADA-watermarked videos, validate, and repackage the exact-match ZIP
