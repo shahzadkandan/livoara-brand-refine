@@ -40,5 +40,5 @@
 - [x] Client doc pass: linked category tiles to /product, customer-submittable review widget (Cloud `product_reviews`, approved-only public), product page cleanup, richer cart drawer with subtotal + secure checkout, benefit image row, desktop+mobile sticky add-to-cart bar, pincode delivery checker
 - [x] Recreate and claim a fresh Shopify store on user request, reconnect the app, add LIVOARA Makeup LED Box with 1/2/3 pc bundle variants, and verify end-to-end Add to Cart → Secure Checkout
 - [x] Create a new Shopify store on arinjjoy.ojaswita@gmail.com ownership, reconnect app, and let user claim it
-- [ ] Disconnect old store and connect the user's new uicixr-w0.myshopify.com store, then update app config and verify checkout
-- [ ] Set store location/country to India and currency to INR in Shopify admin for the new store
+- [x] Disconnect old store and connect the user's new uicixr-w0.myshopify.com store, then update app config and verify checkout
+- [ ] Set store location/country to India and currency to INR in Shopify admin for the new store (user action in Shopify admin)
