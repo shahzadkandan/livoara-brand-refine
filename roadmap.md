@@ -41,4 +41,5 @@
 - [x] Recreate and claim a fresh Shopify store on user request, reconnect the app, add LIVOARA Makeup LED Box with 1/2/3 pc bundle variants, and verify end-to-end Add to Cart → Secure Checkout
 - [x] Create a new Shopify store on arinjjoy.ojaswita@gmail.com ownership, reconnect app, and let user claim it
 - [x] Disconnect old store and connect the user's new uicixr-w0.myshopify.com store, then update app config and verify checkout
+- [x] Create a fresh Shopify store livoara-in-2syad-gqruvcje.myshopify.com, reconnect the app, create LIVOARA Makeup LED Box with 1/2/3 pc bundles, and verify Add to Cart → Secure Checkout
 - [ ] Set store location/country to India and currency to INR in Shopify admin for the new store (user action in Shopify admin)
