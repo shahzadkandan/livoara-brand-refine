@@ -148,7 +148,8 @@ export const useCartStore = create<CartStore>()(
         set({ isSyncing: true });
         try {
           const cart = await queryCart(cartId);
-          if (!cart || (cart.totalQuantity ?? 0) === 0) clearCart();
+          // Only clear when Shopify no longer knows this cart (expired or checked out).
+          if (!cart) clearCart();
         } catch (error) {
           console.error("Failed to sync cart with Shopify:", error);
         } finally {
