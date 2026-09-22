@@ -1,0 +1,10 @@
+{% if section.settings.show_bar %}
+  <div class="announcement" aria-label="Store announcements">
+    <div class="announcement-track">
+      {% for i in (1..2) %}<div class="announcement-group" {% if i == 2 %}aria-hidden="true"{% endif %}>
+        <span>{{ section.settings.message_1 }}<b>★</b></span><span>{{ section.settings.message_2 }}<b>★</b></span><span>{{ section.settings.message_3 }}<b>★</b></span><span>{{ section.settings.message_4 }}<b>★</b></span>
+      </div>{% endfor %}
+    </div>
+  </div>
+{% endif %}
+{% schema %}{"name":"Announcement bar","settings":[{"type":"checkbox","id":"show_bar","label":"Show announcement bar","default":true},{"type":"text","id":"message_1","label":"Message 1","default":"7-day return request window"},{"type":"text","id":"message_2","label":"Message 2","default":"Organise · Simplify · Elevate"},{"type":"text","id":"message_3","label":"Message 3","default":"Thoughtful products for everyday living"},{"type":"text","id":"message_4","label":"Message 4","default":"Customer care · hello@livoara.in"}]}{% endschema %}

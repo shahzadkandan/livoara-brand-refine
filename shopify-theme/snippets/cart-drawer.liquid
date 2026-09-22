@@ -1,0 +1,10 @@
+<div class="drawer-backdrop" data-cart-backdrop data-close-cart></div>
+<aside class="cart-drawer" data-cart-drawer aria-label="Shopping cart">
+  <div class="drawer-head"><div><h2 class="title-md">Your bag</h2><p class="copy"><span data-cart-count>{{ cart.item_count }}</span> item{% if cart.item_count != 1 %}s{% endif %} in your bag</p></div><button class="button icon" data-close-cart aria-label="Close cart">×</button></div>
+  <div class="drawer-body" data-cart-body>
+    {% if cart.item_count == 0 %}<div class="empty-state"><p class="title-md">Your bag is waiting</p></div>{% else %}
+      {% for item in cart.items %}<div class="cart-line"><img src="{{ item.image | image_url: width: 220 }}" alt="{{ item.image.alt | escape }}"><div><h4>{{ item.product.title }}</h4><p class="muted">{{ item.variant.title }}</p><p>{{ item.final_line_price | money }}</p><div class="cart-line-actions"><div class="qty"><button data-change="{{ item.key }}" data-qty="{{ item.quantity | minus: 1 }}">−</button><input value="{{ item.quantity }}" readonly><button data-change="{{ item.key }}" data-qty="{{ item.quantity | plus: 1 }}">+</button></div></div></div><button class="button icon" data-change="{{ item.key }}" data-qty="0" aria-label="Remove {{ item.product.title }}">×</button></div>{% endfor %}
+    {% endif %}
+  </div>
+  <div class="drawer-foot"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem"><span>Subtotal</span><strong class="price" data-cart-total>{{ cart.total_price | money }}</strong></div><p class="copy" style="font-size:.72rem;margin-bottom:1rem">Taxes included. Shipping and delivery timeline are confirmed at checkout.</p><form action="{{ routes.cart_url }}" method="post"><button class="button full" name="checkout" {% if cart.item_count == 0 %}disabled{% endif %}>Secure checkout</button></form><a class="button secondary full" style="margin-top:.65rem" href="{{ routes.all_products_collection_url }}">Continue browsing</a></div>
+</aside>

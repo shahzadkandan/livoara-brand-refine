@@ -43,3 +43,4 @@
 - [x] Disconnect old store and connect the user's new uicixr-w0.myshopify.com store, then update app config and verify checkout
 - [x] Create a fresh Shopify store livoara-in-2syad-gqruvcje.myshopify.com, reconnect the app, create LIVOARA Makeup LED Box with 1/2/3 pc bundles, and verify Add to Cart → Secure Checkout
 - [ ] Set store location/country to India and currency to INR in Shopify admin for the new store (user action in Shopify admin)
+- [x] Convert existing LIVOARA Lovable design into an upload-ready Shopify Liquid theme package
