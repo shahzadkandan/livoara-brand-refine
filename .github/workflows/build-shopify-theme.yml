@@ -1,0 +1,34 @@
+name: Build Shopify Theme ZIP
+
+on:
+  push:
+    branches:
+      - shopify-liquid-theme-final
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Shopify theme structure
+        run: |
+          test -f shopify-theme/layout/theme.liquid
+          test -f shopify-theme/config/settings_schema.json
+          test -f shopify-theme/templates/index.json
+          test -f shopify-theme/templates/product.json
+          test -f shopify-theme/templates/collection.json
+          test -f shopify-theme/templates/cart.json
+          test -f shopify-theme/templates/search.json
+          test -f shopify-theme/templates/page.json
+          test -f shopify-theme/templates/404.json
+      - name: Package theme
+        run: |
+          cd shopify-theme
+          zip -r ../livoara-shopify-theme-final.zip . -x "*.DS_Store"
+      - name: Upload theme ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: livoara-shopify-theme-final
+          path: livoara-shopify-theme-final.zip
+          if-no-files-found: error
