@@ -2,26 +2,35 @@
   {
     "name": "theme_info",
     "theme_name": "LIVOARA Liquid",
-    "theme_version": "1.0.0",
-    "theme_author": "LIVOARA",
-    "theme_documentation_url": "https://www.shopify.com/partners/blog/shopify-theme-development",
-    "theme_support_url": "mailto:hello@livoara.in"
+    "theme_version": "1.1.0",
+    "theme_author": "LIVOARA"
   },
   {
     "name": "Brand",
     "settings": [
-      {
-        "type": "color",
-        "id": "accent_color",
-        "label": "Accent color",
-        "default": "#b28755"
-      },
-      {
-        "type": "text",
-        "id": "support_email",
-        "label": "Support email",
-        "default": "hello@livoara.in"
-      }
+      {"type":"image_picker","id":"logo","label":"Logo"},
+      {"type":"color","id":"accent_color","label":"Accent color","default":"#b28755"},
+      {"type":"color","id":"primary_color","label":"Primary color","default":"#4c4038"},
+      {"type":"color","id":"background_color","label":"Background color","default":"#faf7f2"},
+      {"type":"color","id":"secondary_color","label":"Secondary background","default":"#efe3d7"},
+      {"type":"text","id":"support_email","label":"Support email","default":"hello@livoara.in"},
+      {"type":"text","id":"footer_brand_text","label":"Footer brand text","default":"A thoughtful vanity made to hold the little things that make every moment yours."},
+      {"type":"text","id":"copyright_text","label":"Copyright text","default":"LIVOARA · A brand of ARINJJOY VENTURES"}
+    ]
+  },
+  {
+    "name": "Navigation",
+    "settings": [
+      {"type":"link_list","id":"main_menu","label":"Main menu","default":"main-menu"},
+      {"type":"link_list","id":"footer_menu","label":"Footer menu","default":"footer"},
+      {"type":"link_list","id":"policy_menu","label":"Policy & customer care menu","default":"footer"}
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {"type":"checkbox","id":"enable_cart_drawer","label":"Enable cart drawer","default":true},
+      {"type":"checkbox","id":"show_cart_count","label":"Show cart item count","default":true}
     ]
   }
 ]
