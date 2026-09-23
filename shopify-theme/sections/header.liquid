@@ -1,19 +1,40 @@
 <header class="site-header">
   <div class="header-inner">
     <button class="button icon menu-trigger" type="button" aria-label="Open menu" data-open-menu>{% render 'icon-menu' %}</button>
-    <a href="{{ routes.root_url }}" class="brand" aria-label="{{ shop.name }} home">{% if section.settings.logo != blank %}<img src="{{ section.settings.logo | image_url: width: 220 }}" alt="{{ shop.name }}" width="110" loading="eager">{% else %}LIVOARA{% endif %}</a>
+    <a href="{{ routes.root_url }}" class="brand" aria-label="{{ shop.name }} home">
+      {% assign header_logo = section.settings.logo | default: settings.logo %}
+      {% if header_logo != blank %}<img src="{{ header_logo | image_url: width: 220 }}" alt="{{ shop.name }}" width="110" loading="eager">{% else %}{{ shop.name | default: 'LIVOARA' }}{% endif %}
+    </a>
     <nav class="nav" aria-label="Main navigation">
-      <a href="/collections/all">Shop</a><a href="/pages/about">Our Story</a><a href="/pages/shipping-returns">Shipping &amp; Returns</a><a href="/pages/contact">Contact</a>
+      {% assign main_menu = section.settings.menu | default: settings.main_menu %}
+      {% for link in linklists[main_menu].links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
     </nav>
     <div class="header-actions">
-      <button class="button icon" type="button" aria-label="Open cart" data-open-cart style="position:relative">{% render 'icon-bag' %}<span class="cart-count" data-cart-count>{{ cart.item_count }}</span></button>
+      <a class="button icon" href="{{ routes.search_url }}" aria-label="Search">{% render 'icon-search' %}</a>
+      <a class="button icon" href="{{ routes.account_url }}" aria-label="Account">{% render 'icon-user' %}</a>
+      <button class="button icon" type="button" aria-label="Open cart" data-open-cart style="position:relative">
+        {% render 'icon-bag' %}{% if settings.show_cart_count %}<span class="cart-count" data-cart-count>{{ cart.item_count }}</span>{% endif %}
+      </button>
     </div>
   </div>
 </header>
 <div class="mobile-menu" data-mobile-menu>
   <aside class="mobile-panel">
-    <div class="mobile-panel-head"><span class="brand">LIVOARA</span><button class="button icon" data-close-menu aria-label="Close menu">×</button></div>
-    <nav><a href="{{ routes.root_url }}">Home</a><a href="/collections/all">Shop</a><a href="/pages/about">Our Story</a><a href="/pages/shipping-returns">Shipping &amp; Returns</a><a href="/pages/contact">Contact</a></nav>
+    <div class="mobile-panel-head">
+      <span class="brand">{{ shop.name | default: 'LIVOARA' }}</span>
+      <button class="button icon" data-close-menu aria-label="Close menu">×</button>
+    </div>
+    <nav>
+      <a href="{{ routes.root_url }}">Home</a>
+      {% assign mobile_menu = section.settings.menu | default: settings.main_menu %}
+      {% for link in linklists[mobile_menu].links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
   </aside>
 </div>
-{% schema %}{"name":"Header","settings":[{"type":"image_picker","id":"logo","label":"Logo"}]}{% endschema %}
+{% schema %}
+{"name":"Header","settings":[{"type":"image_picker","id":"logo","label":"Logo","info":"Overrides the global logo for this header."},{"type":"link_list","id":"menu","label":"Menu","default":"main-menu"}]}
+{% endschema %}

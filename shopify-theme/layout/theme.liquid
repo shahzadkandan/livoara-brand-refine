@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#4c4038">
+    <meta name="theme-color" content="{{ settings.primary_color | default: '#4c4038' }}">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +20,14 @@
     <meta name="twitter:title" content="{{ page_title | default: shop.name | escape }}">
     {% if page_description %}<meta name="twitter:description" content="{{ page_description | escape }}">{% endif %}
     {{ content_for_header }}
+    <style>
+      :root {
+        --accent: {{ settings.accent_color | default: '#b28755' }};
+        --primary: {{ settings.primary_color | default: '#4c4038' }};
+        --background: {{ settings.background_color | default: '#faf7f2' }};
+        --secondary: {{ settings.secondary_color | default: '#efe3d7' }};
+      }
+    </style>
     {{ 'theme.css' | asset_url | stylesheet_tag }}
   </head>
   <body>
@@ -28,7 +36,7 @@
     {% section 'header' %}
     <main id="MainContent" tabindex="-1">{{ content_for_layout }}</main>
     {% section 'footer' %}
-    {% render 'cart-drawer' %}
+    {% if settings.enable_cart_drawer %}{% render 'cart-drawer' %}{% endif %}
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
   </body>
 </html>
